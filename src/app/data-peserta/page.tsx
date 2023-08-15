@@ -1,9 +1,12 @@
+"use client";
 import ButtonBack from "@/components/ButtonBack";
-import React from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 import ButtonOutlined from "@/components/ButtonOutlined";
 import { DataPeserta } from "@/type";
 import PesertaTable from "@/components/PesertaTable";
+import Backdrop from "@/components/Backdrop";
+import FilterDataPeserta from "@/components/FilterDataPeserta";
 
 const dataPeserta: DataPeserta[] = [
   {
@@ -57,6 +60,12 @@ const dataPeserta: DataPeserta[] = [
 ];
 
 function DataPeserta() {
+  const [showFilterDataPeserta, setShowDataPeserta] = useState(false);
+
+  const filterDataClick = () => {
+    setShowDataPeserta(true);
+  };
+
   return (
     <main className="flex flex-col gap-8">
       <div className="px-4">
@@ -100,12 +109,14 @@ function DataPeserta() {
               />
             </div>
 
-            <Image
-              src="/funnel.svg"
-              alt=""
-              width={16}
-              height={16}
-            />
+            <button onClick={filterDataClick}>
+              <Image
+                src="/funnel.svg"
+                alt=""
+                width={16}
+                height={16}
+              />
+            </button>
           </header>
 
           <div
@@ -136,6 +147,9 @@ function DataPeserta() {
           })}
         </div>
       </div>
+      {showFilterDataPeserta ? (
+        <FilterDataPeserta setState={setShowDataPeserta} />
+      ) : null}
     </main>
   );
 }
