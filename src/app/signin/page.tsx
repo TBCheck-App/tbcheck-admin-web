@@ -1,11 +1,53 @@
 "use client";
 import ButtonBlue from "@/components/buttons/ButtonBlue";
+import apiEndpoints from "@/config/apiEndpoints";
+import { storeToken } from "@/utils/auth";
 import Image from "next/image";
-import React from "react";
+import { useRouter } from "next/navigation";
+import React, { ChangeEvent, useState } from "react";
 
 function SignIn() {
-  const handleSignIn = () => {
-    console.log("Sign in");
+  // states
+  const [username, setUsername] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  // router
+  const router = useRouter();
+
+  const handleClickSignIn = () => {
+    const body = {
+      username,
+      password,
+    };
+    const options: RequestInit = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(body),
+    };
+
+    fetch(
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}${apiEndpoints.login}`,
+      options
+    )
+      .then((res) => res.json())
+      .then((resJson) => {
+        if (resJson.responseCode == 200) {
+          if (storeToken({ token: resJson.access_token })) {
+            router.push("/");
+          } else {
+            alert("Cannot store token.");
+          }
+        }
+      });
+  };
+
+  const handleChangeUsername = (event: ChangeEvent<HTMLInputElement>) => {
+    setUsername(event.target.value);
+  };
+
+  const handleChangePassword = (event: ChangeEvent<HTMLInputElement>) => {
+    setPassword(event.target.value);
   };
 
   return (
@@ -17,7 +59,7 @@ function SignIn() {
       <div className="flex flex-col gap-7">
         <div className="flex flex-col gap-2">
           <h2 className="font-bold text-base">
-            Email/Username<span className="text-[#F63564]">*</span>
+            Username<span className="text-[#F63564]">*</span>
           </h2>
 
           <div className="border border-[#EEF0F2] rounded-md flex flex-row w-full p-3 gap-3">
@@ -30,6 +72,7 @@ function SignIn() {
             <input
               type="text"
               className="focus:outline-none w-full text-sm"
+              onChange={handleChangeUsername}
             />
           </div>
         </div>
@@ -48,6 +91,7 @@ function SignIn() {
             <input
               type="password"
               className="focus:outline-none w-full text-sm"
+              onChange={handleChangePassword}
             />
           </div>
         </div>
@@ -55,7 +99,7 @@ function SignIn() {
 
       <ButtonBlue
         buttonText="Masuk"
-        onClick={handleSignIn}
+        onClick={handleClickSignIn}
         className="w-full"
       />
     </main>

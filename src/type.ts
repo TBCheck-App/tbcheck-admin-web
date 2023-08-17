@@ -5,4 +5,8 @@ interface DataPeserta {
   usia: string;
 }
 
-export type { DataPeserta };
+interface Token {
+  token: string;
+}
+
+export type { DataPeserta, Token };
