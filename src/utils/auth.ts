@@ -1,3 +1,4 @@
+import apiEndpoints from "@/config/apiEndpoints";
 import { Token } from "@/type";
 
 const storeToken = (token: Token): boolean => {
@@ -8,4 +9,24 @@ const storeToken = (token: Token): boolean => {
   return false;
 };
 
-export { storeToken };
+const tokenIsAvailable = (): boolean => {
+  if (typeof Storage !== undefined) {
+    let token: string | Token | null = localStorage.getItem("token");
+
+    if (token) {
+      token = JSON.parse(token);
+
+      if (token!.hasOwnProperty("token")) {
+        return true;
+      } else {
+        return false;
+      }
+    } else {
+      return false;
+    }
+  } else {
+    return false;
+  }
+};
+
+export { storeToken, tokenIsAvailable };
