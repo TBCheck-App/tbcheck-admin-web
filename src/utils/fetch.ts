@@ -1,15 +1,27 @@
 import apiEndpoints from "@/config/apiEndpoints";
 import { Token } from "@/type";
 
-const getAllUser = (group: string, subGroup: string): Promise<Response> => {
+const getAllUser = (
+  name: string,
+  group: string,
+  subGroup: string
+): Promise<Response> => {
   let query = "?";
 
+  if (name != "") {
+    query += `name=${name}`;
+  }
+
   if (group != "") {
-    query += `group=${group}`;
+    if (query.includes("name")) {
+      query += `&group=${group}`;
+    } else {
+      query += `group=${group}`;
+    }
   }
 
   if (subGroup != "") {
-    if (query.includes("group")) {
+    if (query.includes("group") || query.includes("name")) {
       query += `&subGroup=${subGroup}`;
     } else {
       query += `subGroup=${subGroup}`;

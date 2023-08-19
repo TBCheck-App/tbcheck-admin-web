@@ -1,6 +1,6 @@
 "use client";
 import ButtonBack from "@/components/buttons/ButtonBack";
-import React, { useEffect, useState } from "react";
+import React, { ChangeEvent, useEffect, useState } from "react";
 import Image from "next/image";
 import ButtonOutlined from "@/components/buttons/ButtonOutlined";
 import { DataPeserta, Token } from "@/type";
@@ -18,12 +18,17 @@ function DataPeserta() {
   const [dataPeserta, setDataPeserta] = useState<DataPeserta[] | null>(null);
   const [group, setGroup] = useState<string>("");
   const [subGroup, setSubGroup] = useState<string>("");
+  const [name, setName] = useState<string>("");
   const [render, setRender] = useState<boolean>(false);
 
   const router = useRouter();
 
   const filterDataClick = () => {
     setShowFilterDataPeserta(true);
+  };
+
+  const handleChangeSearch = (event: ChangeEvent<HTMLInputElement>) => {
+    setName(event.target.value);
   };
 
   useEffect(() => {
@@ -33,12 +38,12 @@ function DataPeserta() {
       if (res == false) {
         router.push("/signin");
       } else {
-        getAllUser(group, subGroup)
+        getAllUser(name, group, subGroup)
           .then((res) => res.json())
           .then((resJson) => setDataPeserta(resJson.users));
       }
     });
-  }, [group, subGroup]);
+  }, [group, subGroup, name]);
 
   if (render) {
     return (
@@ -84,6 +89,8 @@ function DataPeserta() {
                   type="text"
                   className="focus:outline-none text-xs"
                   placeholder="Search"
+                  value={name}
+                  onChange={handleChangeSearch}
                 />
               </div>
 
