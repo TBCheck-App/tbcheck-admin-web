@@ -1,10 +1,34 @@
 "use client";
 import Button from "@/components/buttons/Button";
-import { tokenIsAvailable } from "@/utils/auth";
-import { redirect } from "next/navigation";
+import { tokenIsValid } from "@/utils/auth";
+import { redirect, useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 
 export default function Home() {
-  if (tokenIsAvailable()) {
+  const router = useRouter();
+  const [status, setStatus] = useState<boolean>(false);
+
+  console.log("tesssss");
+
+  useEffect(() => {
+    console.log("hoho");
+
+    tokenIsValid().then((res) => {
+      console.log("hehe");
+
+      setStatus(res);
+
+      console.log("res", res);
+
+      if (res == false) {
+        console.log("sinii");
+
+        router.push("/signin");
+      }
+    });
+  }, []);
+
+  if (status) {
     return (
       <main className="flex flex-col gap-8">
         <div className="px-5">
@@ -43,7 +67,5 @@ export default function Home() {
         </div>
       </main>
     );
-  } else {
-    redirect("/signin");
   }
 }
