@@ -1,12 +1,12 @@
 import React from "react";
 
 interface Props {
-  setState: React.Dispatch<React.SetStateAction<boolean>>;
+  setShowState: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-function Backdrop({ setState }: Props) {
+function Backdrop({ setShowState }: Props) {
   const removeClick = () => {
-    setState(false);
+    setShowState(false);
   };
 
   return (

@@ -129,7 +129,7 @@ function DataPeserta() {
           </div>
         </div>
         {showFilterDataPeserta ? (
-          <FilterDataPeserta setState={setShowDataPeserta} />
+          <FilterDataPeserta setShowDataPeserta={setShowDataPeserta} />
         ) : null}
       </main>
     );

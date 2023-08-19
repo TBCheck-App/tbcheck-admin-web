@@ -3,17 +3,17 @@ import Backdrop from "./Backdrop";
 import Image from "next/image";
 
 interface Props {
-  setState: React.Dispatch<React.SetStateAction<boolean>>;
+  setShowDataPeserta: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-function FilterDataPeserta({ setState }: Props) {
+function FilterDataPeserta({ setShowDataPeserta }: Props) {
   const removeClick = () => {
-    setState(false);
+    setShowDataPeserta(false);
   };
 
   return (
     <div>
-      <Backdrop setState={setState} />
+      <Backdrop setShowState={setShowDataPeserta} />
 
       <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white p-4 w-[350px] flex flex-col gap-3">
         <div className="flex flex-row justify-between">
