@@ -10,18 +10,13 @@ const storeToken = (token: Token): boolean => {
 };
 
 const tokenIsValid = async (): Promise<boolean> => {
-  console.log("hihi");
-
   if (typeof Storage !== undefined) {
     let token: string | Token | null = localStorage.getItem("token");
 
     if (token) {
       token = JSON.parse(token);
-      console.log("tess");
 
       if (token!.hasOwnProperty("token")) {
-        console.log("haha");
-
         const options: RequestInit = {
           method: "GET",
           headers: {
@@ -36,8 +31,6 @@ const tokenIsValid = async (): Promise<boolean> => {
         const resJson = await res.json();
 
         if (resJson.statusCode == 401) {
-          console.log(resJson);
-
           return false;
         }
 
