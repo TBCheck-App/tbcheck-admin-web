@@ -59,7 +59,10 @@ function DataPeserta() {
           </div>
 
           <div className="mx-5">
-            <ButtonOutlined />
+            <ButtonOutlined
+              icons="/download.svg"
+              text="Data Peserta"
+            />
           </div>
 
           <div

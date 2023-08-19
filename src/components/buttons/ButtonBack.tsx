@@ -21,7 +21,7 @@ function ButtonBack({ buttonText, destPage }: Props) {
       onClick={goTo}
     >
       <Image
-        src="chevron-left.svg"
+        src="/chevron-left.svg"
         alt=""
         width={20}
         height={20}
