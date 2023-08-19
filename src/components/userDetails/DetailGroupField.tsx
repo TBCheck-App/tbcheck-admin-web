@@ -32,7 +32,7 @@ function DetailGroupField({ group, subGroup }: Props) {
         </div>
         <input
           type="text"
-          value={subGroup}
+          value={`${group}${subGroup}`}
           className="bg-[#EEF2F7] px-3 py-2 rounded-md text-[#ABB4C4]"
           disabled
         />
