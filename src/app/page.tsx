@@ -6,29 +6,19 @@ import { useEffect, useState } from "react";
 
 export default function Home() {
   const router = useRouter();
-  const [status, setStatus] = useState<boolean>(false);
-
-  console.log("tesssss");
+  const [render, setRender] = useState<boolean>(false);
 
   useEffect(() => {
-    console.log("hoho");
-
     tokenIsValid().then((res) => {
-      console.log("hehe");
-
-      setStatus(res);
-
-      console.log("res", res);
+      setRender(res);
 
       if (res == false) {
-        console.log("sinii");
-
         router.push("/signin");
       }
     });
   }, []);
 
-  if (status) {
+  if (render) {
     return (
       <main className="flex flex-col gap-8">
         <div className="px-5">
