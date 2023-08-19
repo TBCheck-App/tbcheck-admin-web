@@ -2,7 +2,7 @@ import React from "react";
 
 interface Props {
   buttonText: string;
-  onClick: () => void;
+  onClick?: () => void;
   className?: string;
 }
 

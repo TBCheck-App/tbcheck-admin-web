@@ -5,12 +5,14 @@ interface Props {
   icons: string;
   text: string;
   className?: string;
+  onClick?: () => void;
 }
 
-function ButtonOutlined({ icons, text, className }: Props) {
+function ButtonOutlined({ icons, text, className, onClick }: Props) {
   return (
     <button
       className={`border border-[#5497F6] w-full flex flex-row justify-center gap-4 rounded-md py-3 ${className}`}
+      onClick={onClick}
     >
       <Image
         src={icons}
