@@ -28,11 +28,11 @@ function FilterDataPeserta({ setState }: Props) {
           </button>
         </div>
 
-        <div>
+        <div className="flex flex-col gap-2">
           <h2 className="flex flex-row font-bold">
             Pilih Group<p className="text-[#F63564]">*</p>
           </h2>
-          <select className="border w-full px-3 py-2">
+          <select className="border w-full px-3 py-2 rounded-md">
             <option value="Semua">Semua</option>
             <option value="A">A</option>
             <option value="B">B</option>
@@ -45,11 +45,11 @@ function FilterDataPeserta({ setState }: Props) {
           </select>
         </div>
 
-        <div>
+        <div className="flex flex-col gap-2">
           <h2 className="flex flex-row font-bold">
             Pilih Sub-group<p className="text-[#F63564]">*</p>
           </h2>
-          <select className="border w-full px-3 py-2">
+          <select className="border w-full px-3 py-2 rounded-md">
             <option value="Semua">Semua</option>
             <option value="1">1</option>
             <option value="2">2</option>
