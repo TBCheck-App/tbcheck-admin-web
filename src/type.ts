@@ -1,8 +1,9 @@
 interface DataPeserta {
+  id: string;
+  name: string;
   group: string;
-  subgroup: string;
-  nama: string;
-  usia: string;
+  subGroup: number;
+  age: string;
 }
 
 interface Token {

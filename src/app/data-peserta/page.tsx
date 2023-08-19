@@ -3,71 +3,14 @@ import ButtonBack from "@/components/buttons/ButtonBack";
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import ButtonOutlined from "@/components/buttons/ButtonOutlined";
-import { DataPeserta } from "@/type";
+import { DataPeserta, Token } from "@/type";
 import PesertaTable from "@/components/PesertaTable";
 import Backdrop from "@/components/Backdrop";
 import FilterDataPeserta from "@/components/FilterDataPeserta";
 import { tokenIsValid } from "@/utils/auth";
 import { useRouter } from "next/navigation";
-
-// const dataPeserta: DataPeserta[] = [
-//   {
-//     group: "A",
-//     subgroup: "A1",
-//     nama: "Azmi Ramadisha",
-//     username: "azmi.ramadisha",
-//     usia: "18-24 Tahun",
-//   },
-//   {
-//     group: "A",
-//     subgroup: "A1",
-//     nama: "Azmi Ramadisha",
-//     username: "azmi.ramadisha",
-//     usia: "18-24 Tahun",
-//   },
-//   {
-//     group: "A",
-//     subgroup: "A1",
-//     nama: "Azmi Ramadisha",
-//     username: "azmi.ramadisha",
-//     usia: "18-24 Tahun",
-//   },
-//   {
-//     group: "A",
-//     subgroup: "A1",
-//     nama: "Azmi Ramadisha",
-//     username: "azmi.ramadisha",
-//     usia: "18-24 Tahun",
-//   },
-//   {
-//     group: "A",
-//     subgroup: "A1",
-//     nama: "Azmi Ramadisha",
-//     username: "azmi.ramadisha",
-//     usia: "18-24 Tahun",
-//   },
-//   {
-//     group: "A",
-//     subgroup: "A1",
-//     nama: "Azmi Ramadisha",
-//     username: "azmi.ramadisha",
-//     usia: "18-24 Tahun",
-//   },
-//   {
-//     group: "A",
-//     subgroup: "A1",
-//     nama: "Azmi Ramadisha",
-//     username: "azmi.ramadisha",
-//     usia: "18-24 Tahun",
-//   },
-//   {
-//     group: "A",
-//     subgroup: "A1",
-//     nama: "Azmi Ramadisha",
-//     username: "azmi.ramadisha",
-//     usia: "18-24 Tahun",
-//   },
-// ];
+import apiEndpoints from "@/config/apiEndpoints";
+import { getAllUser } from "@/utils/fetch";
 
 function DataPeserta() {
   const [showFilterDataPeserta, setShowDataPeserta] = useState<boolean>(false);
@@ -86,6 +29,10 @@ function DataPeserta() {
 
       if (res == false) {
         router.push("/signin");
+      } else {
+        getAllUser()
+          .then((res) => res.json())
+          .then((resJson) => setDataPeserta(resJson.users));
       }
     });
   }, []);

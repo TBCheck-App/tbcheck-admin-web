@@ -7,6 +7,19 @@ interface Props {
 }
 
 function PesertaTable({ peserta, index }: Props) {
+  let ageString = "";
+  switch (peserta.age) {
+    case "UNDER_18":
+      ageString = "Dibawah 18 Tahun";
+      break;
+    case "BETWEEN_18_24":
+      ageString = "18-24 Tahun";
+      break;
+    case "OVER_24":
+      ageString = "Diatas 24 Tahun";
+      break;
+  }
+
   return (
     <div
       key={index}
@@ -16,15 +29,21 @@ function PesertaTable({ peserta, index }: Props) {
         <p className="text-center">{peserta.group}</p>
       </div>
       <div className="w-[63px]">
-        <p className="text-center">{peserta.subgroup}</p>
+        <p className="text-center">
+          {peserta.group}
+          {peserta.subGroup}
+        </p>
       </div>
       <div className="w-[81px]">
-        <a className="font-semibold text-[#5497F6] cursor-pointer">
-          {peserta.nama}
+        <a
+          href={`/data-peserta/${peserta.id}`}
+          className="font-semibold text-[#5497F6] cursor-pointer"
+        >
+          {peserta.name}
         </a>
       </div>
       <div className="w-[85px]">
-        <p className="text-center">{peserta.usia}</p>
+        <p className="text-center">{ageString}</p>
       </div>
     </div>
   );
