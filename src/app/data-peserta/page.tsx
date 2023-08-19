@@ -13,14 +13,17 @@ import apiEndpoints from "@/config/apiEndpoints";
 import { getAllUser } from "@/utils/fetch";
 
 function DataPeserta() {
-  const [showFilterDataPeserta, setShowDataPeserta] = useState<boolean>(false);
+  const [showFilterDataPeserta, setShowFilterDataPeserta] =
+    useState<boolean>(false);
   const [dataPeserta, setDataPeserta] = useState<DataPeserta[] | null>(null);
+  const [group, setGroup] = useState<string>("");
+  const [subGroup, setSubGroup] = useState<string>("");
   const [render, setRender] = useState<boolean>(false);
 
   const router = useRouter();
 
   const filterDataClick = () => {
-    setShowDataPeserta(true);
+    setShowFilterDataPeserta(true);
   };
 
   useEffect(() => {
@@ -30,12 +33,12 @@ function DataPeserta() {
       if (res == false) {
         router.push("/signin");
       } else {
-        getAllUser()
+        getAllUser(group, subGroup)
           .then((res) => res.json())
           .then((resJson) => setDataPeserta(resJson.users));
       }
     });
-  }, []);
+  }, [group, subGroup]);
 
   if (render) {
     return (
@@ -129,7 +132,13 @@ function DataPeserta() {
           </div>
         </div>
         {showFilterDataPeserta ? (
-          <FilterDataPeserta setShowDataPeserta={setShowDataPeserta} />
+          <FilterDataPeserta
+            setShowFilterDataPeserta={setShowFilterDataPeserta}
+            group={group}
+            setGroup={setGroup}
+            subGroup={subGroup}
+            setSubGroup={setSubGroup}
+          />
         ) : null}
       </main>
     );

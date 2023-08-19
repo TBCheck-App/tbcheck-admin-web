@@ -1,7 +1,21 @@
 import apiEndpoints from "@/config/apiEndpoints";
 import { Token } from "@/type";
 
-const getAllUser = (): Promise<Response> => {
+const getAllUser = (group: string, subGroup: string): Promise<Response> => {
+  let query = "?";
+
+  if (group != "") {
+    query += `group=${group}`;
+  }
+
+  if (subGroup != "") {
+    if (query.includes("group")) {
+      query += `&subGroup=${subGroup}`;
+    } else {
+      query += `subGroup=${subGroup}`;
+    }
+  }
+
   const token = JSON.parse(localStorage.getItem("token")!);
 
   const options: RequestInit = {
@@ -12,7 +26,7 @@ const getAllUser = (): Promise<Response> => {
   };
 
   return fetch(
-    `${process.env.NEXT_PUBLIC_BACKEND_URL}${apiEndpoints.getAllUser}`,
+    `${process.env.NEXT_PUBLIC_BACKEND_URL}${apiEndpoints.getAllUser}${query}`,
     options
   );
 };
