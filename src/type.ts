@@ -27,4 +27,9 @@ interface Token {
   token: string;
 }
 
-export type { DataPeserta, DetailPeserta, Token };
+interface DateObject {
+  date: number;
+  thisMonth: boolean;
+}
+
+export type { DataPeserta, DetailPeserta, Token, DateObject };

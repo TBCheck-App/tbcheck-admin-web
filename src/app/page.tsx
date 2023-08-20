@@ -1,5 +1,6 @@
 "use client";
 import Button from "@/components/buttons/Button";
+import Calendar from "@/components/calendar/Calendar";
 import { tokenIsValid } from "@/utils/auth";
 import { redirect, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -37,7 +38,7 @@ export default function Home() {
           <Button
             imageSrc="/daily-checkup-report.svg"
             buttonText="Laporan Daily Checkup"
-            destPage="/"
+            destPage="/daily-checkup"
           />
           <Button
             imageSrc="response-time-log.svg"

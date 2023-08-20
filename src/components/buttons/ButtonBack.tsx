@@ -5,10 +5,11 @@ import { useRouter } from "next/navigation";
 
 interface Props {
   buttonText: string;
-  destPage: string;
+  destPage?: string;
+  onClick?: () => void;
 }
 
-function ButtonBack({ buttonText, destPage }: Props) {
+function ButtonBack({ buttonText, destPage = "/", onClick }: Props) {
   const router = useRouter();
 
   const goTo = () => {
@@ -18,7 +19,7 @@ function ButtonBack({ buttonText, destPage }: Props) {
   return (
     <button
       className="flex flex-row items-center gap-4"
-      onClick={goTo}
+      onClick={onClick ? onClick : goTo}
     >
       <Image
         src="/chevron-left.svg"
