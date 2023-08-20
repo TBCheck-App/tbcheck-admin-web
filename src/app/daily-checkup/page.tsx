@@ -7,6 +7,7 @@ import { tokenIsValid } from "@/utils/auth";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
+import ChooseCalendarSection from "@/components/sections/daily-checkup/ChooseCalendarSection";
 
 function DailyCheckUp() {
   const [render, setRender] = useState<boolean>(false);
@@ -50,16 +51,7 @@ function DailyCheckUp() {
         </div>
 
         {showCalendarPage ? (
-          <div className="px-4">
-            <div className="text-center flex flex-col gap-3">
-              <h1 className="font-bold text-2xl">Pilih Tanggal Laporan</h1>
-              <h2 className="font-bold text-xl">Sub-group G1</h2>
-            </div>
-
-            <div className="flex justify-center">
-              <Calendar />
-            </div>
-          </div>
+          <ChooseCalendarSection />
         ) : (
           <ChooseGroupSection goToCalendar={goToCalendar} />
         )}
