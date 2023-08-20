@@ -35,6 +35,9 @@ const getListOfDates = (year: number, monthIndex: number): DateObject[][] => {
       result[0].unshift({
         date: firstDateOfCurrentMonth.getDate(),
         thisMonth: false,
+        dateParam: `${firstDateOfCurrentMonth.getFullYear()}-${
+          firstDateOfCurrentMonth.getMonth() + 1
+        }-${firstDateOfCurrentMonth.getDate()}`,
       });
     }
   }
@@ -44,18 +47,25 @@ const getListOfDates = (year: number, monthIndex: number): DateObject[][] => {
   );
   // current month
   for (let i = 1; i <= lastDateOfCurrentMonth; i++) {
+    const date: DateObject = {
+      date: i,
+      thisMonth: true,
+      dateParam: `${currentDate.getFullYear()}-${
+        currentDate.getMonth() + 1
+      }-${i}`,
+    };
     if (result[0].length < 7) {
-      result[0].push({ date: i, thisMonth: true });
+      result[0].push(date);
     } else if (result[1].length < 7) {
-      result[1].push({ date: i, thisMonth: true });
+      result[1].push(date);
     } else if (result[2].length < 7) {
-      result[2].push({ date: i, thisMonth: true });
+      result[2].push(date);
     } else if (result[3].length < 7) {
-      result[3].push({ date: i, thisMonth: true });
+      result[3].push(date);
     } else if (result[4].length < 7) {
-      result[4].push({ date: i, thisMonth: true });
+      result[4].push(date);
     } else if (result[5].length < 7) {
-      result[5].push({ date: i, thisMonth: true });
+      result[5].push(date);
     }
   }
   if (result[4].length < 7 || result[5].length < 7) {
@@ -69,6 +79,9 @@ const getListOfDates = (year: number, monthIndex: number): DateObject[][] => {
       result[4].push({
         date: firstDateOfNextMonth.getDate(),
         thisMonth: false,
+        dateParam: `${firstDateOfNextMonth.getFullYear()}-${
+          firstDateOfNextMonth.getMonth() + 1
+        }-${firstDateOfNextMonth.getDate()}`,
       });
       firstDateOfNextMonth.setDate(firstDateOfNextMonth.getDate() + 1);
     }
@@ -77,6 +90,9 @@ const getListOfDates = (year: number, monthIndex: number): DateObject[][] => {
       result[5].push({
         date: firstDateOfNextMonth.getDate(),
         thisMonth: false,
+        dateParam: `${firstDateOfNextMonth.getFullYear()}-${
+          firstDateOfNextMonth.getMonth() + 1
+        }-${firstDateOfNextMonth.getDate()}`,
       });
       firstDateOfNextMonth.setDate(firstDateOfNextMonth.getDate() + 1);
     }

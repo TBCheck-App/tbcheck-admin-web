@@ -4,7 +4,12 @@ import DateBox from "./DateBox";
 import { getListOfDates } from "@/utils/date";
 import { DateObject } from "@/type";
 
-function Calendar() {
+interface Props {
+  group: string;
+  subGroup: string;
+}
+
+function Calendar({ group, subGroup }: Props) {
   const [year, setYear] = useState<number>(2023);
   const [monthIndex, setMonthIndex] = useState<number>(7);
   // list of dates
@@ -108,6 +113,7 @@ function Calendar() {
                   return (
                     <DateBox
                       text={`${day.date}`}
+                      href={`/daily-checkup/${group}${subGroup}/${day.dateParam}`}
                       key={index}
                     />
                   );
@@ -116,6 +122,7 @@ function Calendar() {
                 return (
                   <DateBox
                     text={`${day.date}`}
+                    href={`/daily-checkup/${group}${subGroup}/${day.dateParam}`}
                     key={index}
                     className="text-[#546881]"
                   />

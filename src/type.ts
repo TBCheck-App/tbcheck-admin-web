@@ -30,6 +30,7 @@ interface Token {
 interface DateObject {
   date: number;
   thisMonth: boolean;
+  dateParam: string;
 }
 
 export type { DataPeserta, DetailPeserta, Token, DateObject };

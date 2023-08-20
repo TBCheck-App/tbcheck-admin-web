@@ -15,7 +15,10 @@ function ChooseCalendarSection({ group, subGroup }: Props) {
       </div>
 
       <div className="flex justify-center">
-        <Calendar />
+        <Calendar
+          group={group}
+          subGroup={subGroup}
+        />
       </div>
     </div>
   );
