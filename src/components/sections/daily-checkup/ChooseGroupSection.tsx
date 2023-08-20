@@ -1,12 +1,22 @@
 import ButtonBlue from "@/components/buttons/ButtonBlue";
-import React from "react";
+import React, { ChangeEvent } from "react";
 import Image from "next/image";
 
 interface Props {
   goToCalendar: () => void;
+  group: string;
+  handleChangeGroup: (event: ChangeEvent<HTMLSelectElement>) => void;
+  subGroup: string;
+  handleChangeSubGroup: (event: ChangeEvent<HTMLSelectElement>) => void;
 }
 
-function ChooseGroupSection({ goToCalendar }: Props) {
+function ChooseGroupSection({
+  goToCalendar,
+  group,
+  handleChangeGroup,
+  subGroup,
+  handleChangeSubGroup,
+}: Props) {
   return (
     <div className="px-4 flex flex-col gap-6">
       <div className="flex flex-col gap-3 justify-between items-center">
@@ -25,7 +35,11 @@ function ChooseGroupSection({ goToCalendar }: Props) {
         <h3 className="font-bold">
           Pilih Group<span className="text-[#F63564]">*</span>
         </h3>
-        <select className="border w-full px-3 py-2 rounded-md">
+        <select
+          className="border w-full px-3 py-2 rounded-md"
+          value={group}
+          onChange={handleChangeGroup}
+        >
           <option value="A">A</option>
           <option value="B">B</option>
           <option value="C">C</option>
@@ -41,7 +55,11 @@ function ChooseGroupSection({ goToCalendar }: Props) {
         <h3 className="font-bold">
           Pilih Sub-group<span className="text-[#F63564]">*</span>
         </h3>
-        <select className="border w-full px-3 py-2 rounded-md">
+        <select
+          className="border w-full px-3 py-2 rounded-md"
+          value={subGroup}
+          onChange={handleChangeSubGroup}
+        >
           <option value="1">1</option>
           <option value="2">2</option>
         </select>

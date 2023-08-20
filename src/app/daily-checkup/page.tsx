@@ -6,12 +6,14 @@ import ChooseGroupSection from "@/components/sections/daily-checkup/ChooseGroupS
 import { tokenIsValid } from "@/utils/auth";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import React, { useEffect, useState } from "react";
+import React, { ChangeEvent, useEffect, useState } from "react";
 import ChooseCalendarSection from "@/components/sections/daily-checkup/ChooseCalendarSection";
 
 function DailyCheckUp() {
   const [render, setRender] = useState<boolean>(false);
   const [showCalendarPage, setShowCalendarPage] = useState<boolean>(false);
+  const [group, setGroup] = useState<string>("A");
+  const [subGroup, setSubGroup] = useState<string>("1");
 
   const router = useRouter();
 
@@ -21,6 +23,14 @@ function DailyCheckUp() {
 
   const backToChooseGroup = () => {
     setShowCalendarPage(false);
+  };
+
+  const handleChangeGroup = (event: ChangeEvent<HTMLSelectElement>) => {
+    setGroup(event.target.value);
+  };
+
+  const handleChangeSubGroup = (event: ChangeEvent<HTMLSelectElement>) => {
+    setSubGroup(event.target.value);
   };
 
   useEffect(() => {
@@ -51,9 +61,18 @@ function DailyCheckUp() {
         </div>
 
         {showCalendarPage ? (
-          <ChooseCalendarSection />
+          <ChooseCalendarSection
+            group={group}
+            subGroup={subGroup}
+          />
         ) : (
-          <ChooseGroupSection goToCalendar={goToCalendar} />
+          <ChooseGroupSection
+            goToCalendar={goToCalendar}
+            group={group}
+            subGroup={subGroup}
+            handleChangeGroup={handleChangeGroup}
+            handleChangeSubGroup={handleChangeSubGroup}
+          />
         )}
       </div>
     );
