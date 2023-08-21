@@ -6,7 +6,7 @@ import React from "react";
 
 interface Props {
   params: {
-    group: string;
+    subgroup: string;
   };
 }
 
@@ -30,9 +30,9 @@ const groupList = [
 ];
 
 function DailyCheckUpCalendar({ params }: Props) {
-  if (params.group.length <= 2 && groupList.includes(params.group)) {
-    const group = params.group.split("")[0];
-    const subGroup = params.group.split("")[1];
+  if (params.subgroup.length <= 2 && groupList.includes(params.subgroup)) {
+    const group = params.subgroup.split("")[0];
+    const subGroup = params.subgroup.split("")[1];
 
     return (
       <main className="flex flex-col gap-8">
