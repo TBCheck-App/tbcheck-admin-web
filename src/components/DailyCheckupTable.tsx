@@ -1,5 +1,6 @@
 import { Risk } from "@/type";
 import React from "react";
+import RiskCurveBox from "./RiskCurveBox";
 
 interface Props {
   // dailyReport: {
@@ -26,23 +27,7 @@ function DailyCheckupTable({ risk }: Props) {
         </a>
       </div>
       <div className="p-2 flex justify-center items-center">
-        {risk == "HIGH_RISK" ? (
-          <p className="py-1 w-[90%] bg-[#FCC0CF] text-[#6F182D] font-semibold text-center rounded-[100px]">
-            Berisiko Tinggi
-          </p>
-        ) : null}
-
-        {risk == "MEDIUM_RISK" ? (
-          <p className="py-1 w-[90%] bg-[#FFF2B0] text-[#736000] font-semibold text-center rounded-[100px]">
-            Berisiko
-          </p>
-        ) : null}
-
-        {risk == "LOW_RISK" ? (
-          <p className="py-1 w-[90%] bg-[#CDEFEC] text-[#2B5B58] font-semibold text-center rounded-[100px]">
-            Berisiko Rendah
-          </p>
-        ) : null}
+        <RiskCurveBox risk={risk} />
       </div>
     </div>
   );
