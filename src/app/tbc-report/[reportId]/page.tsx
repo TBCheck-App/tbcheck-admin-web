@@ -1,7 +1,25 @@
-import React from "react";
+"use client";
+import { tokenIsValid } from "@/utils/auth";
+import { useRouter } from "next/navigation";
+import React, { useEffect, useState } from "react";
 
 function TBCReportDetail() {
-  return <div>TBCReportDetail</div>;
+  const router = useRouter();
+  const [render, setRender] = useState<boolean>(false);
+
+  useEffect(() => {
+    tokenIsValid().then((res) => {
+      setRender(res);
+
+      if (res == false) {
+        router.push("/signin");
+      }
+    });
+  }, []);
+
+  if (render) {
+    return <div>TBCReportDetail</div>;
+  }
 }
 
 export default TBCReportDetail;
