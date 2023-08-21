@@ -43,7 +43,7 @@ export default function Home() {
           <Button
             imageSrc="response-time-log.svg"
             buttonText="Response Time Log"
-            destPage="/"
+            destPage="/response-time-log"
           />
           <Button
             imageSrc="/skrining-report.svg"
