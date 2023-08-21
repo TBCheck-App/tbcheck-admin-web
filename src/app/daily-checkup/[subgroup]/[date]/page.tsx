@@ -1,3 +1,4 @@
+"use client";
 import DailyCheckupTable from "@/components/DailyCheckupTable";
 import ButtonBack from "@/components/buttons/ButtonBack";
 import ButtonOutlined from "@/components/buttons/ButtonOutlined";
