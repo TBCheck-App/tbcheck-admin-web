@@ -1,7 +1,110 @@
-import React from "react";
+"use client";
+import ScreeningTable from "@/components/ScreeningTable";
+import ButtonBack from "@/components/buttons/ButtonBack";
+import ButtonOutlined from "@/components/buttons/ButtonOutlined";
+import { tokenIsValid } from "@/utils/auth";
+import Image from "next/image";
+import { useRouter } from "next/navigation";
+import React, { useEffect, useState } from "react";
 
 function Screening() {
-  return <div>Screening</div>;
+  const router = useRouter();
+  const [render, setRender] = useState<boolean>(false);
+
+  useEffect(() => {
+    tokenIsValid().then((res) => {
+      setRender(res);
+
+      if (res == false) {
+        router.push("/signin");
+      }
+    });
+  }, []);
+
+  if (render) {
+    return (
+      <main className="flex flex-col gap-8">
+        <div className="px-4">
+          <ButtonBack
+            buttonText="Home"
+            destPage="/"
+          />
+        </div>
+
+        <div className="mx-5 flex flex-col gap-6">
+          <div className="flex flex-col items-center justify-between gap-3">
+            <Image
+              src="/skrining-report.svg"
+              alt=""
+              width={60}
+              height={60}
+            />
+            <h1 className="font-bold text-2xl">Laporan Skrining</h1>
+          </div>
+
+          <ButtonOutlined
+            icons="/download.svg"
+            text="Unduh Riwayat Laporan"
+          />
+
+          <div
+            id="tables"
+            className="border rounded text-xs"
+          >
+            <header className="flex flex-row p-4 gap-4">
+              <div className="rounded-[32px] flex flex-row gap-1 border py-3 px-2 w-[286px]">
+                <Image
+                  src="/magnifying-glass.svg"
+                  alt=""
+                  width={16}
+                  height={16}
+                />
+                <input
+                  type="text"
+                  className="focus:outline-none text-xs"
+                  placeholder="Search"
+                />
+              </div>
+
+              <button>
+                <Image
+                  src="/funnel.svg"
+                  alt=""
+                  width={16}
+                  height={16}
+                />
+              </button>
+            </header>
+
+            <div className="font-semibold grid grid-screening-table text-center">
+              <div className="flex flex-row justify-center items-center p-2">
+                <Image
+                  src="/bars-arrow-down.svg"
+                  alt=""
+                  width={16}
+                  height={16}
+                />
+                <p>Waktu Check Up</p>
+              </div>
+              <div className="flex justify-center items-center p-2">
+                <p>Group</p>
+              </div>
+              <div className="flex justify-center items-center p-2">
+                <p>Nama Peserta</p>
+              </div>
+              <div className="flex justify-center items-center p-2">
+                <p>Hasil Skrining</p>
+              </div>
+            </div>
+
+            <ScreeningTable risk="HIGH_RISK" />
+            <ScreeningTable risk="MEDIUM_RISK" />
+            <ScreeningTable risk="LOW_RISK" />
+          </div>
+        </div>
+      </main>
+    );
+  }
 }
 
 export default Screening;

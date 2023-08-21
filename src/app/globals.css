@@ -5,3 +5,7 @@
 .grid-daily-checkup-table {
 	grid-template-columns: 100px 125px 125px;
 }
+
+.grid-screening-table {
+	grid-template-columns: 90px 48px 97px auto;
+}
