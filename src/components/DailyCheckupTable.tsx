@@ -14,7 +14,7 @@ interface Props {
 
 function DailyCheckupTable({ risk }: Props) {
   return (
-    <div className="text-xs h-12 grid grid-daily-checkup-table">
+    <div className="text-xs h-12 grid grid-daily-checkup-table border-t">
       <div className="p-2 flex justify-center items-center">
         <p>14:00:00</p>
       </div>

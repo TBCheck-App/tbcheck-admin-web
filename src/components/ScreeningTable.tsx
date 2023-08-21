@@ -8,7 +8,7 @@ interface Props {
 
 function ScreeningTable({ risk }: Props) {
   return (
-    <div className="grid h-14 text-xs grid-screening-table text-center">
+    <div className="grid h-14 text-xs grid-screening-table text-center border-t">
       <div className="flex justify-center items-center">
         <p>30/07/2023</p>
       </div>
