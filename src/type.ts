@@ -33,4 +33,6 @@ interface DateObject {
   dateParam: string;
 }
 
-export type { DataPeserta, DetailPeserta, Token, DateObject };
+type Risk = "HIGH_RISK" | "MEDIUM_RISK" | "LOW_RISK";
+
+export type { DataPeserta, DetailPeserta, Token, DateObject, Risk };

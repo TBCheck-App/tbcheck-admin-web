@@ -1,8 +1,9 @@
 import React from "react";
 import Image from "next/image";
+import { Risk } from "@/type";
 
 interface Props {
-  risk: "HIGH_RISK" | "MEDIUM_RISK" | "LOW_RISK";
+  risk: Risk;
 }
 
 function RiskBox({ risk }: Props) {

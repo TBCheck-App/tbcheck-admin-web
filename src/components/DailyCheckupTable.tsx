@@ -1,3 +1,4 @@
+import { Risk } from "@/type";
 import React from "react";
 
 interface Props {
@@ -7,7 +8,7 @@ interface Props {
   //   result: "HIGH_RISK" | "MEDIUM_RISK" | "LOW_RISK";
   //   name: string;
   // };
-  risk: "HIGH_RISK" | "MEDIUM_RISK" | "LOW_RISK";
+  risk: Risk;
 }
 
 function DailyCheckupTable({ risk }: Props) {
