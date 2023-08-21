@@ -48,7 +48,7 @@ export default function Home() {
           <Button
             imageSrc="/skrining-report.svg"
             buttonText="Laporan Skrining"
-            destPage="/"
+            destPage="/screening"
           />
           <Button
             imageSrc="data-peserta.svg"
