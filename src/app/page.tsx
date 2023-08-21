@@ -33,7 +33,7 @@ export default function Home() {
           <Button
             imageSrc="/laporan-tbc.svg"
             buttonText="Laporan Kasus TBC"
-            destPage="/"
+            destPage="/tbc-report"
           />
           <Button
             imageSrc="/daily-checkup-report.svg"
