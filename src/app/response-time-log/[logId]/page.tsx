@@ -38,6 +38,11 @@ function ResponseTimeLogDetail() {
           </div>
 
           <div className="flex flex-col gap-2">
+            <h2 className="font-bold">Group</h2>
+            <p>A</p>
+          </div>
+
+          <div className="flex flex-col gap-2">
             <h2 className="font-bold">Sub-Group</h2>
             <p>A1</p>
           </div>
@@ -58,13 +63,27 @@ function ResponseTimeLogDetail() {
           </div>
 
           <div className="flex flex-col gap-2">
-            <h2 className="font-bold">Group</h2>
-            <p>A</p>
+            <h2 className="font-bold">Variasi Desain Notifikasi</h2>
+            <p>Variasi 0</p>
+          </div>
+        </div>
+
+        <div className="flex flex-col gap-5">
+          <p className="font-bold text-[#546881]">Hasil Jawaban Pertanyaan</p>
+
+          <div className="flex flex-col gap-2">
+            <h2 className="font-bold">
+              Menurut Anda, seberapa penting Anda harus menggunakan masker?
+            </h2>
+            <p>Sangat tidak peduli</p>
           </div>
 
           <div className="flex flex-col gap-2">
-            <h2 className="font-bold">Group</h2>
-            <p>A</p>
+            <h2 className="font-bold">
+              Menurut Anda, seberapa besar kepedulian Anda untuk menggunakan
+              masker?
+            </h2>
+            <p>Sangat tidak peduli</p>
           </div>
         </div>
       </div>
