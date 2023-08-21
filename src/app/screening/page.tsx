@@ -1,7 +1,7 @@
 import React from "react";
 
-function ScreeningTable() {
-  return <div>ScreeningTable</div>;
+function Screening() {
+  return <div>Screening</div>;
 }
 
-export default ScreeningTable;
+export default Screening;
