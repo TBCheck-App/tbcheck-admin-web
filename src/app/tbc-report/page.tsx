@@ -1,5 +1,5 @@
 "use client";
-import TBCReportTable from "@/components/TBCReportTable";
+import TBCReportTable from "@/components/tables/TBCReportTable";
 import ButtonBack from "@/components/buttons/ButtonBack";
 import ButtonOutlined from "@/components/buttons/ButtonOutlined";
 import { tokenIsValid } from "@/utils/auth";

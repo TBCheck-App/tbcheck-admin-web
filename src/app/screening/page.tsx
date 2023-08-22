@@ -1,5 +1,5 @@
 "use client";
-import ScreeningTable from "@/components/ScreeningTable";
+import ScreeningTable from "@/components/tables/ScreeningTable";
 import ButtonBack from "@/components/buttons/ButtonBack";
 import ButtonOutlined from "@/components/buttons/ButtonOutlined";
 import { tokenIsValid } from "@/utils/auth";

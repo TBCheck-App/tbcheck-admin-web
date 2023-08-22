@@ -1,6 +1,6 @@
 import { Risk } from "@/type";
 import React from "react";
-import RiskCurveBox from "./RiskCurveBox";
+import RiskCurveBox from "../RiskCurveBox";
 
 interface Props {
   // dailyReport: {

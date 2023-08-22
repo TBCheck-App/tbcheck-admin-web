@@ -1,5 +1,5 @@
 "use client";
-import DailyCheckupTable from "@/components/DailyCheckupTable";
+import DailyCheckupTable from "@/components/tables/DailyCheckupTable";
 import ButtonBack from "@/components/buttons/ButtonBack";
 import ButtonOutlined from "@/components/buttons/ButtonOutlined";
 import { dayNames, groupList, monthNames } from "@/config/var";

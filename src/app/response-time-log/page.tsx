@@ -1,5 +1,5 @@
 "use client";
-import ResponseTimeTable from "@/components/ResponseTimeTable";
+import ResponseTimeTable from "@/components/tables/ResponseTimeTable";
 import ButtonBack from "@/components/buttons/ButtonBack";
 import ButtonOutlined from "@/components/buttons/ButtonOutlined";
 import { tokenIsValid } from "@/utils/auth";

@@ -4,7 +4,7 @@ import React, { ChangeEvent, useEffect, useState } from "react";
 import Image from "next/image";
 import ButtonOutlined from "@/components/buttons/ButtonOutlined";
 import { DataPeserta, Token } from "@/type";
-import PesertaTable from "@/components/PesertaTable";
+import PesertaTable from "@/components/tables/PesertaTable";
 import Backdrop from "@/components/Backdrop";
 import FilterDataPeserta from "@/components/FilterDataPeserta";
 import { tokenIsValid } from "@/utils/auth";
