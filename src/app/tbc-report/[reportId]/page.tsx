@@ -18,7 +18,7 @@ function TBCReportDetail() {
   }, []);
 
   if (render) {
-    return <div>TBCReportDetail</div>;
+    return <main>TBCReportDetail</main>;
   }
 }
 

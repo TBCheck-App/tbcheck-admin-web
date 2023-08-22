@@ -13,3 +13,7 @@
 .grid-response-table {
 	grid-template-columns: 83px 48px 52px 87px 80px;
 }
+
+.grid-tbc-table {
+	grid-template-columns: repeat(2, 1fr) 100px 1fr;
+}
