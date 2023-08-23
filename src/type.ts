@@ -40,6 +40,17 @@ interface DailyCheckupTableType {
   name: string;
 }
 
+interface DailyDetail {
+  id: string;
+  reportedAt: string;
+  isUsingMask: boolean;
+  isUsingPublicTransport: boolean;
+  isAttendingLargeGathering: boolean;
+  isExperiencingSymptoms: boolean;
+  result: Risk;
+  userId: string;
+}
+
 type Risk = "HIGH_RISK" | "MEDIUM_RISK" | "LOW_RISK";
 
 export type {
@@ -49,4 +60,5 @@ export type {
   DateObject,
   Risk,
   DailyCheckupTableType,
+  DailyDetail,
 };
