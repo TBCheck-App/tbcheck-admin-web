@@ -7,27 +7,48 @@ import { redirect, useRouter } from "next/navigation";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import { tokenIsValid } from "@/utils/auth";
+import { getAllDailyCheckup } from "@/utils/fetch";
+import { DailyCheckupTableType } from "@/type";
 
 interface Props {
   params: { subgroup: string; date: string };
 }
 
 function DailyCheckUpData({ params }: Props) {
+  const [highRisk, setHighRisk] = useState<number>(0);
+  const [mediumRisk, setMediumRisk] = useState<number>(0);
+  const [lowRisk, setLowRisk] = useState<number>(0);
+  const [reports, setReports] = useState<DailyCheckupTableType[]>([]);
+
   const [render, setRender] = useState<boolean>(false);
   const router = useRouter();
 
-  useEffect(() => {
-    tokenIsValid().then((res) => {
-      setRender(res);
+  if (params.subgroup.length <= 2 && groupList.includes(params.subgroup)) {
+    useEffect(() => {
+      tokenIsValid().then((res) => {
+        setRender(res);
 
-      if (res == false) {
-        router.push("signin");
-      }
-    });
-  }, []);
+        if (res == false) {
+          router.push("signin");
+        } else {
+          const group = params.subgroup.split("")[0];
+          const subGroup = parseInt(params.subgroup.split("")[1]);
+          const date = new Date(params.date);
+          date.setDate(date.getDate() + 1);
 
-  if (render) {
-    if (params.subgroup.length <= 2 && groupList.includes(params.subgroup)) {
+          getAllDailyCheckup(group, subGroup, date.toISOString())
+            .then((res) => res.json())
+            .then((resJson) => {
+              setHighRisk(resJson.highRisk);
+              setMediumRisk(resJson.mediumRisk);
+              setLowRisk(resJson.lowRisk);
+              setReports(resJson.reports);
+            });
+        }
+      });
+    }, []);
+
+    if (render) {
       const currentDate = new Date(params.date);
       const stringDate = `${
         dayNames[currentDate.getDay()]
@@ -57,15 +78,15 @@ function DailyCheckUpData({ params }: Props) {
               <div className="text-sm flex flex-col gap-2">
                 <div className="flex flex-row justify-between">
                   <p className="font-bold">Berisiko Tinggi</p>
-                  <p>10 Orang</p>
+                  <p>{highRisk} Orang</p>
                 </div>
                 <div className="flex flex-row justify-between">
                   <p className="font-bold">Berisiko</p>
-                  <p>100 Orang</p>
+                  <p>{mediumRisk} Orang</p>
                 </div>
                 <div className="flex flex-row justify-between">
                   <p className="font-bold">Berisiko Rendah</p>
-                  <p>100 Orang</p>
+                  <p>{lowRisk} Orang</p>
                 </div>
               </div>
 
@@ -122,16 +143,22 @@ function DailyCheckUpData({ params }: Props) {
                 </div>
               </div>
 
-              <DailyCheckupTable risk="HIGH_RISK" />
-              <DailyCheckupTable risk="MEDIUM_RISK" />
-              <DailyCheckupTable risk="LOW_RISK" />
+              {reports.length > 0
+                ? reports.map((report, index) => (
+                    <DailyCheckupTable
+                      data={report}
+                      params={params}
+                      key={index}
+                    />
+                  ))
+                : null}
             </div>
           </div>
         </main>
       );
-    } else {
-      redirect("/daily-checkup");
     }
+  } else {
+    redirect("/daily-checkup");
   }
 }
 

@@ -33,6 +33,20 @@ interface DateObject {
   dateParam: string;
 }
 
+interface DailyCheckupTableType {
+  id: string;
+  reportedAt: string;
+  result: Risk;
+  name: string;
+}
+
 type Risk = "HIGH_RISK" | "MEDIUM_RISK" | "LOW_RISK";
 
-export type { DataPeserta, DetailPeserta, Token, DateObject, Risk };
+export type {
+  DataPeserta,
+  DetailPeserta,
+  Token,
+  DateObject,
+  Risk,
+  DailyCheckupTableType,
+};

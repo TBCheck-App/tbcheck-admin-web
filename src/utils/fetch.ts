@@ -59,4 +59,28 @@ const getUserDetail = (id: string): Promise<Response> => {
   );
 };
 
-export { getAllUser, getUserDetail };
+const getAllDailyCheckup = (
+  group: string,
+  subGroup: number,
+  date: string
+): Promise<Response> => {
+  const token = JSON.parse(localStorage.getItem("token")!);
+
+  const options: RequestInit = {
+    method: "GET",
+    headers: {
+      Authorization: `Bearer ${(token as Token).token}`,
+    },
+  };
+
+  return fetch(
+    `${process.env.NEXT_PUBLIC_BACKEND_URL}${apiEndpoints.getAllDailyCheckup(
+      group,
+      subGroup,
+      date
+    )}`,
+    options
+  );
+};
+
+export { getAllUser, getUserDetail, getAllDailyCheckup };
