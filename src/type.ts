@@ -53,6 +53,21 @@ interface DailyDetail {
 
 type Risk = "HIGH_RISK" | "MEDIUM_RISK" | "LOW_RISK";
 
+interface DataScreening {
+  createdAt: string;
+  group: string;
+  subGroup: string;
+  id: string;
+  name: string;
+  result: ScreeningResult;
+}
+
+type ScreeningResult =
+  | "NOT_SUSPECTED_TB"
+  | "SUSPECTED_TB"
+  | "UNDERGOING_TREATMENT"
+  | "SUSPECTED_TB_RO";
+
 export type {
   DataPeserta,
   DetailPeserta,
@@ -61,4 +76,6 @@ export type {
   Risk,
   DailyCheckupTableType,
   DailyDetail,
+  DataScreening,
+  ScreeningResult,
 };

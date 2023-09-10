@@ -5,6 +5,7 @@ const apiEndpoints = {
   getAllDailyCheckup: (group: string, subGroup: number, date: string) =>
     `/daily-checkup?group=${group}&subGroup=${subGroup}&date=${date}`,
   getDetailDailyCheckup: (id: string) => `daily-checkup/${id}`,
+  getAllScreening: "/screening",
 };
 
 export default apiEndpoints;

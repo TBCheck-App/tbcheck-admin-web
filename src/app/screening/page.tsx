@@ -6,14 +6,27 @@ import { tokenIsValid } from "@/utils/auth";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
+import { getAllScreening } from "@/utils/fetch";
+import { DataScreening } from "@/type";
 
 function Screening() {
-  const router = useRouter();
+  const [dataScreening, setDataScreening] = useState<DataScreening[] | null>(
+    null
+  );
+  const [name, setName] = useState<string>("");
   const [render, setRender] = useState<boolean>(false);
+
+  const router = useRouter();
 
   useEffect(() => {
     tokenIsValid().then((res) => {
       setRender(res);
+      getAllScreening(name)
+        .then((res) => res.json())
+        .then((resJson) => setDataScreening(resJson.screenings))
+        .catch((error) =>
+          alert(`There was a problem with the fetch operation: ${error}`)
+        );
 
       if (res == false) {
         router.push("/signin");
@@ -97,9 +110,19 @@ function Screening() {
               </div>
             </div>
 
-            <ScreeningTable risk="HIGH_RISK" />
-            <ScreeningTable risk="MEDIUM_RISK" />
-            <ScreeningTable risk="LOW_RISK" />
+            {dataScreening
+              ? dataScreening.map((screening, index) => {
+                  return (
+                    <ScreeningTable
+                      id={screening.id}
+                      dateString={screening.createdAt}
+                      group={screening.group}
+                      name={screening.name}
+                      risk={screening.result}
+                    />
+                  );
+                })
+              : null}
           </div>
         </div>
       </main>

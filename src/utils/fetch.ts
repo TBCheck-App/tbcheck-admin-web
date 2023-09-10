@@ -101,4 +101,32 @@ const getDetailDailyCheckup = (id: string): Promise<Response> => {
   );
 };
 
-export { getAllUser, getUserDetail, getAllDailyCheckup, getDetailDailyCheckup };
+const getAllScreening = (name: string): Promise<Response> => {
+  let query = "?";
+
+  if (name != "") {
+    query += `name=${name}`;
+  }
+
+  const token = JSON.parse(localStorage.getItem("token")!);
+
+  const options: RequestInit = {
+    method: "GET",
+    headers: {
+      Authorization: `Bearer ${(token as Token).token}`,
+    },
+  };
+
+  return fetch(
+    `${process.env.NEXT_PUBLIC_BACKEND_URL}${apiEndpoints.getAllScreening}${query}`,
+    options
+  );
+};
+
+export {
+  getAllUser,
+  getUserDetail,
+  getAllDailyCheckup,
+  getDetailDailyCheckup,
+  getAllScreening,
+};
