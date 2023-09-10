@@ -68,6 +68,60 @@ type ScreeningResult =
   | "UNDERGOING_TREATMENT"
   | "SUSPECTED_TB_RO";
 
+interface ScreeningDetail {
+  id: string;
+  createdAt: string;
+  userId: string;
+  name: string;
+  group: string;
+  subGroup: number;
+  university: string;
+  result: ScreeningResult;
+  answer: {
+    coughPast2Months: boolean;
+    coughDuration: TimeInterval;
+    coughWithPhlegm: boolean;
+    coughBloodPast1Year: boolean;
+    feverPast2Months: boolean;
+    feverDuration: TimeInterval;
+    chestPainPast2Months: boolean;
+    shortnessOfBreathPast2Months: boolean;
+    fatigueUnexplainedPast2Months: boolean;
+    decreasedAppetitePast2Months: boolean;
+    unexplainedWeightLossPast2Months: boolean;
+    nightSweatsUnexplained: boolean;
+    smokingHistory: SmokingHistoryAnswer;
+    smokingDuration: number;
+    cigarettesPerDay: number;
+    eCigaretteUser: boolean;
+    quitYear: number;
+    tbDiagnosisHistory: boolean;
+    tbDiagnosisYear: number;
+    tbTreatmentComplete: boolean;
+    tbTreatmentOngoing: boolean;
+    tbHouseholdContact: AnswerWithNotSure;
+    householdTbStatus: AnswerWithNotSure;
+    tbCoworkerContact: AnswerWithNotSure;
+    coworkerTbStatus: AnswerWithNotSure;
+    diabetesHistory: AnswerWithNotSure;
+    hivTestHistory: boolean;
+    hivTestResult: AnswerWithNotSure;
+    chestXRayHistory: AnswerWithNotSure;
+    lastChestXrayYear: number;
+    lastChestXrayResult: AnswerWithNotSure;
+    hasChestXrayAbnormality: boolean;
+  };
+}
+
+type AnswerWithNotSure = "YES" | "NO" | "NOT_SURE";
+
+type SmokingHistoryAnswer = "YES" | "FORMERLY" | "NO";
+
+type TimeInterval =
+  | "LESS_THAN_ONE_WEEK"
+  | "ONE_TO_TWO_WEEKS"
+  | "MORE_THAN_TWO_WEEKS";
+
 export type {
   DataPeserta,
   DetailPeserta,
@@ -78,4 +132,8 @@ export type {
   DailyDetail,
   DataScreening,
   ScreeningResult,
+  ScreeningDetail,
+  AnswerWithNotSure,
+  TimeInterval,
+  SmokingHistoryAnswer,
 };

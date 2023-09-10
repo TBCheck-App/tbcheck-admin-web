@@ -123,10 +123,29 @@ const getAllScreening = (name: string): Promise<Response> => {
   );
 };
 
+const getScreeningDetail = (id: string): Promise<Response> => {
+  const token = JSON.parse(localStorage.getItem("token")!);
+
+  const options: RequestInit = {
+    method: "GET",
+    headers: {
+      Authorization: `Bearer ${(token as Token).token}`,
+    },
+  };
+
+  return fetch(
+    `${process.env.NEXT_PUBLIC_BACKEND_URL}${apiEndpoints.getScreeningDetail(
+      id
+    )}`,
+    options
+  );
+};
+
 export {
   getAllUser,
   getUserDetail,
   getAllDailyCheckup,
   getDetailDailyCheckup,
   getAllScreening,
+  getScreeningDetail,
 };
