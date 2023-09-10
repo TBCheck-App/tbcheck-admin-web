@@ -5,7 +5,7 @@ import ButtonOutlined from "@/components/buttons/ButtonOutlined";
 import { tokenIsValid } from "@/utils/auth";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import React, { useEffect, useState } from "react";
+import React, { ChangeEvent, useEffect, useState } from "react";
 import { getAllScreening } from "@/utils/fetch";
 import { DataScreening } from "@/type";
 
@@ -17,6 +17,10 @@ function Screening() {
   const [render, setRender] = useState<boolean>(false);
 
   const router = useRouter();
+
+  const handleChangeSearch = (event: ChangeEvent<HTMLInputElement>) => {
+    setName(event.target.value);
+  };
 
   useEffect(() => {
     tokenIsValid().then((res) => {
@@ -32,7 +36,7 @@ function Screening() {
         router.push("/signin");
       }
     });
-  }, []);
+  }, [name]);
 
   if (render) {
     return (
@@ -76,6 +80,8 @@ function Screening() {
                   type="text"
                   className="focus:outline-none text-xs"
                   placeholder="Search"
+                  value={name}
+                  onChange={handleChangeSearch}
                 />
               </div>
 
