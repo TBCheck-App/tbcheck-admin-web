@@ -23,8 +23,8 @@ function DailyCheckUpData({ params }: Props) {
   const [render, setRender] = useState<boolean>(false);
   const router = useRouter();
 
-  if (params.subgroup.length <= 2 && groupList.includes(params.subgroup)) {
-    useEffect(() => {
+  useEffect(() => {
+    if (params.subgroup.length <= 2 && groupList.includes(params.subgroup)) {
       tokenIsValid().then((res) => {
         setRender(res);
 
@@ -46,8 +46,10 @@ function DailyCheckUpData({ params }: Props) {
             });
         }
       });
-    }, []);
+    }
+  }, []);
 
+  if (params.subgroup.length <= 2 && groupList.includes(params.subgroup)) {
     if (render) {
       const currentDate = new Date(params.date);
       const stringDate = `${

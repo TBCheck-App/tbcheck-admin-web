@@ -16,8 +16,8 @@ function DailyCheckUpCalendar({ params }: Props) {
   const [render, setRender] = useState<boolean>(false);
   const router = useRouter();
 
-  if (params.subgroup.length <= 2 && groupList.includes(params.subgroup)) {
-    useEffect(() => {
+  useEffect(() => {
+    if (params.subgroup.length <= 2 && groupList.includes(params.subgroup)) {
       tokenIsValid().then((res) => {
         setRender(res);
 
@@ -25,8 +25,10 @@ function DailyCheckUpCalendar({ params }: Props) {
           router.push("signin");
         }
       });
-    }, []);
+    }
+  }, []);
 
+  if (params.subgroup.length <= 2 && groupList.includes(params.subgroup)) {
     if (render) {
       const group = params.subgroup.split("")[0];
       const subGroup = params.subgroup.split("")[1];
