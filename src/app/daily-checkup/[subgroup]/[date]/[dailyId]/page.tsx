@@ -26,8 +26,8 @@ function DailyCheckUpDetail({ params }: Props) {
   const [render, setRender] = useState<boolean>(false);
   const router = useRouter();
 
-  if (params.subgroup.length <= 2 && groupList.includes(params.subgroup)) {
-    useEffect(() => {
+  useEffect(() => {
+    if (params.subgroup.length <= 2 && groupList.includes(params.subgroup)) {
       tokenIsValid().then((res) => {
         setRender(res);
 
@@ -45,8 +45,10 @@ function DailyCheckUpDetail({ params }: Props) {
             });
         }
       });
-    }, []);
+    }
+  }, []);
 
+  if (params.subgroup.length <= 2 && groupList.includes(params.subgroup)) {
     if (render) {
       return (
         <main className="flex flex-col gap-8">
