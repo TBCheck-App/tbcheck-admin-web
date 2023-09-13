@@ -13,6 +13,7 @@ interface Props {
 }
 
 function DailyCheckUpCalendar({ params }: Props) {
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   const [render, setRender] = useState<boolean>(false);
   const router = useRouter();
 
@@ -20,16 +21,17 @@ function DailyCheckUpCalendar({ params }: Props) {
     if (params.subgroup.length <= 2 && groupList.includes(params.subgroup)) {
       tokenIsValid().then((res) => {
         setRender(res);
-
-        if (res == false) {
-          router.push("signin");
-        }
+        setIsLoading(false);
       });
     }
   }, []);
 
   if (params.subgroup.length <= 2 && groupList.includes(params.subgroup)) {
-    if (render) {
+    if (isLoading) {
+      return <h1>Loading...</h1>;
+    }
+
+    if (render && !isLoading) {
       const group = params.subgroup.split("")[0];
       const subGroup = params.subgroup.split("")[1];
 
@@ -59,6 +61,9 @@ function DailyCheckUpCalendar({ params }: Props) {
           </div>
         </main>
       );
+    }
+    if (!render && !isLoading) {
+      router.push("signin");
     }
   } else {
     redirect("/daily-checkup");

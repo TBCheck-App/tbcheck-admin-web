@@ -8,6 +8,7 @@ import { useRouter } from "next/navigation";
 import React, { ChangeEvent, useEffect, useState } from "react";
 
 function DailyCheckUp() {
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   const [render, setRender] = useState<boolean>(false);
   const [group, setGroup] = useState<string>("A");
   const [subGroup, setSubGroup] = useState<string>("1");
@@ -29,14 +30,15 @@ function DailyCheckUp() {
   useEffect(() => {
     tokenIsValid().then((res) => {
       setRender(res);
-
-      if (res == false) {
-        router.push("signin");
-      }
+      setIsLoading(false);
     });
   }, []);
 
-  if (render) {
+  if (isLoading) {
+    return <h1>Loading...</h1>;
+  }
+
+  if (render && !isLoading) {
     return (
       <div className="flex flex-col gap-8">
         <div className="px-4">
@@ -100,6 +102,9 @@ function DailyCheckUp() {
         </div>
       </div>
     );
+  }
+  if (!render && !isLoading) {
+    router.push("signin");
   }
 }
 

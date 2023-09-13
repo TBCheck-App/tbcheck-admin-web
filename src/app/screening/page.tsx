@@ -120,6 +120,7 @@ function Screening() {
               ? dataScreening.map((screening, index) => {
                   return (
                     <ScreeningTable
+                      key={index}
                       id={screening.id}
                       dateString={screening.createdAt}
                       group={screening.group}

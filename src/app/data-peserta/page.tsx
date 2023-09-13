@@ -130,6 +130,7 @@ function DataPeserta() {
               ? dataPeserta.map((peserta, index) => {
                   return (
                     <PesertaTable
+                      key={index}
                       peserta={peserta}
                       index={index}
                     />
