@@ -20,6 +20,7 @@ function DataPeserta() {
   const [subGroup, setSubGroup] = useState<string>("");
   const [name, setName] = useState<string>("");
   const [render, setRender] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
   const router = useRouter();
 
@@ -34,10 +35,9 @@ function DataPeserta() {
   useEffect(() => {
     tokenIsValid().then((res) => {
       setRender(res);
+      setIsLoading(false);
 
-      if (res == false) {
-        router.push("/signin");
-      } else {
+      if (res) {
         getAllUser(name, group, subGroup)
           .then((res) => res.json())
           .then((resJson) => setDataPeserta(resJson.users));
@@ -45,7 +45,11 @@ function DataPeserta() {
     });
   }, [group, subGroup, name]);
 
-  if (render) {
+  if (isLoading) {
+    return <h1>Loading...</h1>;
+  }
+
+  if (render && !isLoading) {
     return (
       <main className="flex flex-col gap-8">
         <div className="px-4">
@@ -150,6 +154,10 @@ function DataPeserta() {
         ) : null}
       </main>
     );
+  }
+
+  if (!render && !isLoading) {
+    router.push("signin");
   }
 }
 
