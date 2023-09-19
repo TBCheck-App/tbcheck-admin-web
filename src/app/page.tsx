@@ -3,7 +3,7 @@ import Button from "@/components/buttons/Button";
 import Calendar from "@/components/calendar/Calendar";
 import { tokenIsValid } from "@/utils/auth";
 import { redirect, useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 
 export default function Home() {
   const router = useRouter();
