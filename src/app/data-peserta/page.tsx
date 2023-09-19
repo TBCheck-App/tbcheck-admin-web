@@ -12,7 +12,7 @@ import { useRouter } from "next/navigation";
 import apiEndpoints from "@/config/apiEndpoints";
 import { getAllUser } from "@/utils/fetch";
 
-function DataPeserta() {
+export default function DataPeserta() {
   const [showFilterDataPeserta, setShowFilterDataPeserta] =
     useState<boolean>(false);
   const [dataPeserta, setDataPeserta] = useState<DataPeserta[] | null>(null);
@@ -160,5 +160,3 @@ function DataPeserta() {
     router.push("signin");
   }
 }
-
-export default DataPeserta;

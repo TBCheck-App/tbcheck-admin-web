@@ -18,7 +18,7 @@ interface Props {
   };
 }
 
-function ScreeningDetail({ params }: Props) {
+export default function ScreeningDetail({ params }: Props) {
   const [screeningDetail, setScreeningDetail] =
     useState<ScreeningDetail | null>(null);
   const [date, setDate] = useState<Date | null>(null);
@@ -438,5 +438,3 @@ function ScreeningDetail({ params }: Props) {
     );
   }
 }
-
-export default ScreeningDetail;
