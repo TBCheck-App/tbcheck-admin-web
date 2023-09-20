@@ -7,7 +7,9 @@ interface Props {
     | TimeInterval
     | SmokingHistoryAnswer
     | number
-    | AnswerWithNotSure;
+    | AnswerWithNotSure
+    | undefined
+    | null;
 }
 
 function ScreeningAnswer({ answer }: Props) {
@@ -31,6 +33,8 @@ function ScreeningAnswer({ answer }: Props) {
     return <p>{answer}</p>;
   } else if (answer == "NOT_SURE") {
     return <p>Tidak tahu</p>;
+  } else {
+    return <p>-</p>;
   }
 }
 

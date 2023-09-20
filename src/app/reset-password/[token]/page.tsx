@@ -27,9 +27,13 @@ export default function ResetPasswordComponent({ params }: Props) {
   const handleClickResetPassword = () => {
     resetPasswordUser(newPassword, params.token)
       .then((res) => {
-        if (!res.ok) {
+        console.log(res);
+
+        if (!res.ok || (res.status >= 200 && res.status < 300)) {
           throw new Error("Failed to reset password");
         }
+
+        alert("Sukses menggantikan password!");
       })
       .catch((err) => alert(err));
   };
@@ -64,7 +68,7 @@ export default function ResetPasswordComponent({ params }: Props) {
 
         <div className="flex flex-col gap-2">
           <h2 className="font-bold text-base">
-            Password baru<span className="text-[#F63564]">*</span>
+            Ketik Password baru<span className="text-[#F63564]">*</span>
           </h2>
           <div className="border border-[#EEF0F2] rounded-md flex flex-row w-full p-3 gap-3">
             <Image

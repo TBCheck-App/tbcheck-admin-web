@@ -8,6 +8,7 @@ const apiEndpoints = {
   getAllScreening: "/screening",
   getScreeningDetail: (id: string) => `/screening/${id}`,
   patchResetPassword: "/reset",
+  getAllTBReport: "/tb-report",
 };
 
 export default apiEndpoints;

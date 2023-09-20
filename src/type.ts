@@ -77,7 +77,7 @@ interface ScreeningDetail {
   subGroup: number;
   university: string;
   result: ScreeningResult;
-  answer: {
+  answers: {
     coughPast2Months: boolean;
     coughDuration: TimeInterval;
     coughWithPhlegm: boolean;
@@ -121,6 +121,48 @@ type TimeInterval =
   | "LESS_THAN_ONE_WEEK"
   | "ONE_TO_TWO_WEEKS"
   | "MORE_THAN_TWO_WEEKS";
+
+type TBReportAnswer = "YES" | "NO" | "UNKNOWN";
+
+interface TBTravelHistory {
+  country: string;
+  city: string;
+  date: string;
+}
+
+interface TBContact {
+  name: string;
+  phone: string;
+  relation: string;
+  address: string;
+  city: string;
+  province: string;
+}
+
+interface TBResultDetail {
+  // TODO: NOT DONE
+  id: string;
+  createdAt: string;
+  coughWithPhlegm: TBReportAnswer;
+  bleedingCough: TBReportAnswer;
+  fever: TBReportAnswer;
+  nightSweats: TBReportAnswer;
+  loseWeight: TBReportAnswer;
+  lymphNodeEnlargement: TBReportAnswer;
+  breathless: TBReportAnswer;
+  takenPulmonaryMedicine: TBReportAnswer;
+  relativesWithTB: TBReportAnswer;
+  asthma: TBReportAnswer;
+  diabetesMellitus: TBReportAnswer;
+  otherSymptoms: string;
+  symptomsDate: string;
+  testType: string;
+  testDate: string;
+  testResult: TBReportAnswer;
+  testSite: string;
+  travelHistories: TBTravelHistory[];
+  contacts: TBContact[];
+}
 
 export type {
   DataPeserta,

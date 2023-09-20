@@ -14,7 +14,7 @@ import ScreeningAnswer from "@/components/ScreeningAnswer";
 
 interface Props {
   params: {
-    id: string;
+    screeningId: string;
   };
 }
 
@@ -29,9 +29,13 @@ export default function ScreeningDetail({ params }: Props) {
   useEffect(() => {
     tokenIsValid().then((res) => {
       setRender(res);
-      getScreeningDetail(params.id)
+      console.log(params.screeningId);
+
+      getScreeningDetail(params.screeningId)
         .then((res) => res.json())
         .then((resJson) => {
+          console.log(resJson);
+
           setScreeningDetail(resJson.screening);
           setDate(new Date(resJson.screening.createdAt));
         })
@@ -45,7 +49,7 @@ export default function ScreeningDetail({ params }: Props) {
     });
   }, []);
 
-  if (render) {
+  if (render && screeningDetail) {
     return (
       <main className="flex flex-col gap-5">
         <div className="px-4">
@@ -129,7 +133,7 @@ export default function ScreeningDetail({ params }: Props) {
             </div>
           </div>
 
-          {screeningDetail ? (
+          {screeningDetail.answers ? (
             <div className="flex flex-col gap-5">
               <p className="font-bold text-[#546881]">
                 Hasil Jawaban Pertanyaan
@@ -140,14 +144,14 @@ export default function ScreeningDetail({ params }: Props) {
                   Apakah Anda sedang batuk dalam 2 bulan terakhir?
                 </h2>
                 <ScreeningAnswer
-                  answer={screeningDetail.answer.coughPast2Months}
+                  answer={screeningDetail.answers.coughPast2Months}
                 />
               </div>
 
               <div className="flex flex-col gap-2">
                 <h2 className="font-bold">Sudah berapa lama anda batuk?</h2>
                 <ScreeningAnswer
-                  answer={screeningDetail.answer.coughDuration}
+                  answer={screeningDetail.answers.coughDuration}
                 />
               </div>
 
@@ -156,7 +160,7 @@ export default function ScreeningDetail({ params }: Props) {
                   Bila sedang batuk, apakah Anda batuk berdahak?
                 </h2>
                 <ScreeningAnswer
-                  answer={screeningDetail.answer.coughWithPhlegm}
+                  answer={screeningDetail.answers.coughWithPhlegm}
                 />
               </div>
 
@@ -165,7 +169,7 @@ export default function ScreeningDetail({ params }: Props) {
                   Apakah Anda pernah batuk berdarah dalam 1 tahun terakhir?
                 </h2>
                 <ScreeningAnswer
-                  answer={screeningDetail.answer.coughBloodPast1Year}
+                  answer={screeningDetail.answers.coughBloodPast1Year}
                 />
               </div>
 
@@ -175,14 +179,14 @@ export default function ScreeningDetail({ params }: Props) {
                   terakhir?
                 </h2>
                 <ScreeningAnswer
-                  answer={screeningDetail.answer.feverPast2Months}
+                  answer={screeningDetail.answers.feverPast2Months}
                 />
               </div>
 
               <div className="flex flex-col gap-2">
                 <h2 className="font-bold">Berapa lama Anda demam/meriang?</h2>
                 <ScreeningAnswer
-                  answer={screeningDetail.answer.feverDuration}
+                  answer={screeningDetail.answers.feverDuration}
                 />
               </div>
 
@@ -191,7 +195,7 @@ export default function ScreeningDetail({ params }: Props) {
                   Apakah Anda mengalami nyeri dada dalam 2 bulan terakhir?
                 </h2>
                 <ScreeningAnswer
-                  answer={screeningDetail.answer.chestPainPast2Months}
+                  answer={screeningDetail.answers.chestPainPast2Months}
                 />
               </div>
 
@@ -200,7 +204,7 @@ export default function ScreeningDetail({ params }: Props) {
                   Apakah Anda mengalami sesak napas dalam 2 bulan terakhir?
                 </h2>
                 <ScreeningAnswer
-                  answer={screeningDetail.answer.shortnessOfBreathPast2Months}
+                  answer={screeningDetail.answers.shortnessOfBreathPast2Months}
                 />
               </div>
 
@@ -212,7 +216,7 @@ export default function ScreeningDetail({ params }: Props) {
                   berat, tetapi badan Anda terasa lemas/lesu)
                 </h2>
                 <ScreeningAnswer
-                  answer={screeningDetail.answer.fatigueUnexplainedPast2Months}
+                  answer={screeningDetail.answers.fatigueUnexplainedPast2Months}
                 />
               </div>
 
@@ -222,7 +226,7 @@ export default function ScreeningDetail({ params }: Props) {
                   sebab yang jelas?
                 </h2>
                 <ScreeningAnswer
-                  answer={screeningDetail.answer.decreasedAppetitePast2Months}
+                  answer={screeningDetail.answers.decreasedAppetitePast2Months}
                 />
               </div>
 
@@ -235,7 +239,7 @@ export default function ScreeningDetail({ params }: Props) {
                 </h2>
                 <ScreeningAnswer
                   answer={
-                    screeningDetail.answer.unexplainedWeightLossPast2Months
+                    screeningDetail.answers.unexplainedWeightLossPast2Months
                   }
                 />
               </div>
@@ -247,21 +251,21 @@ export default function ScreeningDetail({ params }: Props) {
                   Anda berkeringat)
                 </h2>
                 <ScreeningAnswer
-                  answer={screeningDetail.answer.nightSweatsUnexplained}
+                  answer={screeningDetail.answers.nightSweatsUnexplained}
                 />
               </div>
 
               <div className="flex flex-col gap-2">
                 <h2 className="font-bold">Apakah Anda merokok?</h2>
                 <ScreeningAnswer
-                  answer={screeningDetail.answer.smokingHistory}
+                  answer={screeningDetail.answers.smokingHistory}
                 />
               </div>
 
               <div className="flex flex-col gap-2">
                 <h2 className="font-bold">Sudah berapa lama Anda merokok?</h2>
                 <ScreeningAnswer
-                  answer={screeningDetail.answer.smokingDuration}
+                  answer={screeningDetail.answers.smokingDuration}
                 />
               </div>
 
@@ -270,7 +274,7 @@ export default function ScreeningDetail({ params }: Props) {
                   Berapa banyak batang rokok yang dihisap/hari?
                 </h2>
                 <ScreeningAnswer
-                  answer={screeningDetail.answer.cigarettesPerDay}
+                  answer={screeningDetail.answers.cigarettesPerDay}
                 />
               </div>
 
@@ -279,7 +283,7 @@ export default function ScreeningDetail({ params }: Props) {
                   Apakah Anda juga pengguna rokok elektrik?
                 </h2>
                 <ScreeningAnswer
-                  answer={screeningDetail.answer.eCigaretteUser}
+                  answer={screeningDetail.answers.eCigaretteUser}
                 />
               </div>
 
@@ -287,7 +291,7 @@ export default function ScreeningDetail({ params }: Props) {
                 <h2 className="font-bold">
                   Tahun berapa Anda berhenti merokok?
                 </h2>
-                <ScreeningAnswer answer={screeningDetail.answer.quitYear} />
+                <ScreeningAnswer answer={screeningDetail.answers.quitYear} />
               </div>
 
               <div className="flex flex-col gap-2">
@@ -296,7 +300,7 @@ export default function ScreeningDetail({ params }: Props) {
                   6 bulan?
                 </h2>
                 <ScreeningAnswer
-                  answer={screeningDetail.answer.tbDiagnosisHistory}
+                  answer={screeningDetail.answers.tbDiagnosisHistory}
                 />
               </div>
 
@@ -306,7 +310,7 @@ export default function ScreeningDetail({ params }: Props) {
                   bulan?
                 </h2>
                 <ScreeningAnswer
-                  answer={screeningDetail.answer.tbDiagnosisYear}
+                  answer={screeningDetail.answers.tbDiagnosisYear}
                 />
               </div>
 
@@ -316,7 +320,7 @@ export default function ScreeningDetail({ params }: Props) {
                   sembuh oleh petugas kesehatan?
                 </h2>
                 <ScreeningAnswer
-                  answer={screeningDetail.answer.tbTreatmentComplete}
+                  answer={screeningDetail.answers.tbTreatmentComplete}
                 />
               </div>
 
@@ -325,7 +329,7 @@ export default function ScreeningDetail({ params }: Props) {
                   Apakah Anda masih menjalani pengobatan TBC (belum selesai)?
                 </h2>
                 <ScreeningAnswer
-                  answer={screeningDetail.answer.tbTreatmentOngoing}
+                  answer={screeningDetail.answers.tbTreatmentOngoing}
                 />
               </div>
 
@@ -335,7 +339,7 @@ export default function ScreeningDetail({ params }: Props) {
                   paru?
                 </h2>
                 <ScreeningAnswer
-                  answer={screeningDetail.answer.tbHouseholdContact}
+                  answer={screeningDetail.answers.tbHouseholdContact}
                 />
               </div>
 
@@ -345,7 +349,7 @@ export default function ScreeningDetail({ params }: Props) {
                   obat/tidak mempan obat/resistan obat?
                 </h2>
                 <ScreeningAnswer
-                  answer={screeningDetail.answer.householdTbStatus}
+                  answer={screeningDetail.answers.householdTbStatus}
                 />
               </div>
 
@@ -355,7 +359,7 @@ export default function ScreeningDetail({ params }: Props) {
                   paru?
                 </h2>
                 <ScreeningAnswer
-                  answer={screeningDetail.answer.tbCoworkerContact}
+                  answer={screeningDetail.answers.tbCoworkerContact}
                 />
               </div>
 
@@ -365,7 +369,7 @@ export default function ScreeningDetail({ params }: Props) {
                   obat/tidak mempan obat/resistan obat?
                 </h2>
                 <ScreeningAnswer
-                  answer={screeningDetail.answer.coworkerTbStatus}
+                  answer={screeningDetail.answers.coworkerTbStatus}
                 />
               </div>
 
@@ -375,7 +379,7 @@ export default function ScreeningDetail({ params }: Props) {
                   manis/sakit gula?
                 </h2>
                 <ScreeningAnswer
-                  answer={screeningDetail.answer.diabetesHistory}
+                  answer={screeningDetail.answers.diabetesHistory}
                 />
               </div>
 
@@ -384,14 +388,14 @@ export default function ScreeningDetail({ params }: Props) {
                   Apakah Anda pernah menjalani tes HIV?
                 </h2>
                 <ScreeningAnswer
-                  answer={screeningDetail.answer.hivTestHistory}
+                  answer={screeningDetail.answers.hivTestHistory}
                 />
               </div>
 
               <div className="flex flex-col gap-2">
                 <h2 className="font-bold">Apa hasil tes HIV Anda?</h2>
                 <ScreeningAnswer
-                  answer={screeningDetail.answer.hivTestResult}
+                  answer={screeningDetail.answers.hivTestResult}
                 />
               </div>
 
@@ -401,7 +405,7 @@ export default function ScreeningDetail({ params }: Props) {
                   paru/dada?
                 </h2>
                 <ScreeningAnswer
-                  answer={screeningDetail.answer.chestXRayHistory}
+                  answer={screeningDetail.answers.chestXRayHistory}
                 />
               </div>
 
@@ -410,7 +414,7 @@ export default function ScreeningDetail({ params }: Props) {
                   Tahun berapa foto rontgen paru terakhir?
                 </h2>
                 <ScreeningAnswer
-                  answer={screeningDetail.answer.lastChestXrayYear}
+                  answer={screeningDetail.answers.lastChestXrayYear}
                 />
               </div>
 
@@ -419,7 +423,7 @@ export default function ScreeningDetail({ params }: Props) {
                   Apakah hasil rontgen paru terakhir Anda normal?
                 </h2>
                 <ScreeningAnswer
-                  answer={screeningDetail.answer.lastChestXrayResult}
+                  answer={screeningDetail.answers.lastChestXrayResult}
                 />
               </div>
 
@@ -428,7 +432,7 @@ export default function ScreeningDetail({ params }: Props) {
                   Apakah ada gambar flek paru/TBC pada rontgen terakhir?
                 </h2>
                 <ScreeningAnswer
-                  answer={screeningDetail.answer.hasChestXrayAbnormality}
+                  answer={screeningDetail.answers.hasChestXrayAbnormality}
                 />
               </div>
             </div>
@@ -436,5 +440,7 @@ export default function ScreeningDetail({ params }: Props) {
         </div>
       </main>
     );
+  } else {
+    return <h1>Loading...</h1>;
   }
 }

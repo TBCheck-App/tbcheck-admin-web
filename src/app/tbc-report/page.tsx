@@ -6,10 +6,12 @@ import { tokenIsValid } from "@/utils/auth";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
+import { getAllTBReport } from "@/utils/fetch";
 
 function TBCReport() {
   const router = useRouter();
   const [render, setRender] = useState<boolean>(false);
+  const [tBlist, setTBList] = useState<null>(null);
 
   useEffect(() => {
     tokenIsValid().then((res) => {
@@ -18,6 +20,12 @@ function TBCReport() {
       if (res == false) {
         router.push("/signin");
       }
+
+      // PUT FETCH AFTER if (res == false)
+      getAllTBReport()
+        .then((res) => res.json())
+        .then((resJson) => setTBList(resJson.reports))
+        .catch((err) => alert(err));
     });
   }, []);
 
