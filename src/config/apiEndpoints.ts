@@ -7,6 +7,7 @@ const apiEndpoints = {
   getDetailDailyCheckup: (id: string) => `daily-checkup/${id}`,
   getAllScreening: "/screening",
   getScreeningDetail: (id: string) => `/screening/${id}`,
+  patchResetPassword: "/reset",
 };
 
 export default apiEndpoints;

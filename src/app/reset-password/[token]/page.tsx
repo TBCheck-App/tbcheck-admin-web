@@ -2,6 +2,7 @@
 import ButtonBlue from "@/components/buttons/ButtonBlue";
 import React, { ChangeEvent, useState } from "react";
 import Image from "next/image";
+import { resetPasswordUser } from "@/utils/auth";
 
 interface Props {
   params: {
@@ -21,6 +22,16 @@ export default function ResetPasswordComponent({ params }: Props) {
     event: ChangeEvent<HTMLInputElement>
   ) => {
     setConfirmNewPassword(event.target.value);
+  };
+
+  const handleClickResetPassword = () => {
+    resetPasswordUser(newPassword, params.token)
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error("Failed to reset password");
+        }
+      })
+      .catch((err) => alert(err));
   };
 
   return (
@@ -75,6 +86,7 @@ export default function ResetPasswordComponent({ params }: Props) {
       <ButtonBlue
         buttonText="Atur Ulang Password"
         className="w-full"
+        onClick={handleClickResetPassword}
       />
     </div>
   );

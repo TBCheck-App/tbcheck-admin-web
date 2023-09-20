@@ -46,4 +46,22 @@ const tokenIsValid = async (): Promise<boolean> => {
   }
 };
 
-export { storeToken, tokenIsValid };
+const resetPasswordUser = async (
+  newPassword: string,
+  resetToken: string
+): Promise<Response> => {
+  const options: RequestInit = {
+    method: "PATCH",
+    body: JSON.stringify({
+      newPassword,
+      resetToken,
+    }),
+  };
+
+  return fetch(
+    `${process.env.NEXT_PUBLIC_BACKEND_URL}${apiEndpoints.patchResetPassword}`,
+    options
+  );
+};
+
+export { storeToken, tokenIsValid, resetPasswordUser };
