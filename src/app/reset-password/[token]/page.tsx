@@ -3,6 +3,7 @@ import ButtonBlue from "@/components/buttons/ButtonBlue";
 import React, { ChangeEvent, useState } from "react";
 import Image from "next/image";
 import { resetPasswordUser } from "@/utils/auth";
+import { redirect } from "next/navigation";
 
 interface Props {
   params: {
@@ -25,17 +26,26 @@ export default function ResetPasswordComponent({ params }: Props) {
   };
 
   const handleClickResetPassword = () => {
-    resetPasswordUser(newPassword, params.token)
-      .then((res) => {
-        console.log(res);
+    console.log(newPassword);
+    console.log(params.token);
 
-        if (!res.ok || (res.status >= 200 && res.status < 300)) {
-          throw new Error("Failed to reset password");
-        }
-
-        alert("Sukses menggantikan password!");
-      })
-      .catch((err) => alert(err));
+    if (newPassword === confirmNewPassword) {
+      resetPasswordUser(newPassword, params.token)
+        .then((res) => {
+          console.log(res);
+          if (!res.ok) {
+            return res.json();
+          }
+          alert("Sukses menggantikan password!");
+          redirect("/signin");
+        })
+        .then((resJson) => {
+          throw new Error(resJson.message);
+        })
+        .catch((err) => alert(err));
+    } else {
+      alert("Password baru tidak sama dengan konfirmasinya.");
+    }
   };
 
   return (

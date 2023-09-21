@@ -52,6 +52,9 @@ const resetPasswordUser = async (
 ): Promise<Response> => {
   const options: RequestInit = {
     method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+    },
     body: JSON.stringify({
       newPassword,
       resetToken,
