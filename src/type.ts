@@ -51,7 +51,7 @@ interface DailyDetail {
   userId: string;
 }
 
-type Risk = "HIGH_RISK" | "MEDIUM_RISK" | "LOW_RISK";
+type Risk = 'HIGH_RISK' | 'MEDIUM_RISK' | 'LOW_RISK';
 
 interface DataScreening {
   createdAt: string;
@@ -63,10 +63,10 @@ interface DataScreening {
 }
 
 type ScreeningResult =
-  | "NOT_SUSPECTED_TB"
-  | "SUSPECTED_TB"
-  | "UNDERGOING_TREATMENT"
-  | "SUSPECTED_TB_RO";
+  | 'NOT_SUSPECTED_TB'
+  | 'SUSPECTED_TB'
+  | 'UNDERGOING_TREATMENT'
+  | 'SUSPECTED_TB_RO';
 
 interface ScreeningDetail {
   id: string;
@@ -113,16 +113,16 @@ interface ScreeningDetail {
   };
 }
 
-type AnswerWithNotSure = "YES" | "NO" | "NOT_SURE";
+type AnswerWithNotSure = 'YES' | 'NO' | 'NOT_SURE';
 
-type SmokingHistoryAnswer = "YES" | "FORMERLY" | "NO";
+type SmokingHistoryAnswer = 'YES' | 'FORMERLY' | 'NO';
 
 type TimeInterval =
-  | "LESS_THAN_ONE_WEEK"
-  | "ONE_TO_TWO_WEEKS"
-  | "MORE_THAN_TWO_WEEKS";
+  | 'LESS_THAN_ONE_WEEK'
+  | 'ONE_TO_TWO_WEEKS'
+  | 'MORE_THAN_TWO_WEEKS';
 
-type TBReportAnswer = "YES" | "NO" | "UNKNOWN";
+type TBReportAnswer = 'YES' | 'NO' | 'UNKNOWN';
 
 interface TBTravelHistory {
   country: string;
@@ -164,6 +164,84 @@ interface TBResultDetail {
   contacts: TBContact[];
 }
 
+interface TBUserReport {
+  id: string;
+  reportedAt: string;
+  userId: string;
+  name: string;
+  university: 'UI' | 'TELKOM' | 'UNDANA' | 'UTI';
+  group: 'A' | 'B' | 'C' | 'D' | 'E' | 'F' | 'G' | 'H';
+  subGroup: 1 | 2;
+}
+
+interface TBCReportTableProps {
+  id: string;
+  dateStr: string;
+  name: string;
+  userClass: 'A' | 'B' | 'C' | 'D' | 'E' | 'F' | 'G' | 'H';
+  university: 'UI' | 'TELKOM' | 'UNDANA' | 'UTI';
+}
+
+interface ReportDetailProps {
+  id: string;
+  userId: string;
+  name: string;
+  group: 'A' | 'B' | 'C' | 'D' | 'E' | 'F' | 'G' | 'H';
+  subGroup: 1 | 2;
+  reportDate: string;
+  university: 'UI' | 'TELKOM' | 'UNDANA' | 'UTI';
+  symptoms: {
+    coughWithPhlegm: TBReportAnswer;
+    bleedingCough: TBReportAnswer;
+    fever: TBReportAnswer;
+    nightSweats: TBReportAnswer;
+    loseWeight: TBReportAnswer;
+    lymphNodeEnlargement: TBReportAnswer;
+    breathless: TBReportAnswer;
+    takenPulmonaryMedicine: TBReportAnswer;
+    relativesWithTB: TBReportAnswer;
+    asthma: TBReportAnswer;
+    diabetesMellitus: TBReportAnswer;
+  };
+  otherSymptoms: string;
+  symptomDate: string;
+  travelHistories: [
+    {
+      city: string;
+      country: string;
+      date: string;
+    },
+  ];
+  contacts: [
+    {
+      address: string;
+      city: string;
+      name: string;
+      phone: string;
+      province: string;
+      relation: 'FRIEND' | 'FAMILY' | 'OTHER';
+    },
+  ];
+  testType:
+    | 'NEVER_TESTED'
+    | 'MANTOUX_TEST'
+    | 'TB_CM'
+    | 'SPUTUM_ANALYSIS'
+    | 'IGRA_TEST'
+    | 'CHEST_XRAY'
+    | 'CT_SCAN';
+  testDate: string;
+  testResult: TBReportAnswer;
+  testSite: string;
+}
+
+interface TBCCloseContactCardProps {
+  name: string;
+  address: string;
+  relation: string;
+  phone: string;
+}
+
 export type {
   DataPeserta,
   DetailPeserta,
@@ -178,4 +256,9 @@ export type {
   AnswerWithNotSure,
   TimeInterval,
   SmokingHistoryAnswer,
+  TBCReportTableProps,
+  TBUserReport,
+  ReportDetailProps,
+  TBReportAnswer,
+  TBCCloseContactCardProps,
 };

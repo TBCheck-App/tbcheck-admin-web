@@ -1,37 +1,37 @@
-import apiEndpoints from "@/config/apiEndpoints";
-import { Token } from "@/type";
+import apiEndpoints from '@/config/apiEndpoints';
+import { Token } from '@/type';
 
 const getAllUser = (
   name: string,
   group: string,
-  subGroup: string
+  subGroup: string,
 ): Promise<Response> => {
-  let query = "?";
+  let query = '?';
 
-  if (name != "") {
+  if (name != '') {
     query += `name=${name}`;
   }
 
-  if (group != "") {
-    if (query.includes("name")) {
+  if (group != '') {
+    if (query.includes('name')) {
       query += `&group=${group}`;
     } else {
       query += `group=${group}`;
     }
   }
 
-  if (subGroup != "") {
-    if (query.includes("group") || query.includes("name")) {
+  if (subGroup != '') {
+    if (query.includes('group') || query.includes('name')) {
       query += `&subGroup=${subGroup}`;
     } else {
       query += `subGroup=${subGroup}`;
     }
   }
 
-  const token = JSON.parse(localStorage.getItem("token")!);
+  const token = JSON.parse(localStorage.getItem('token')!);
 
   const options: RequestInit = {
-    method: "GET",
+    method: 'GET',
     headers: {
       Authorization: `Bearer ${(token as Token).token}`,
     },
@@ -39,15 +39,15 @@ const getAllUser = (
 
   return fetch(
     `${process.env.NEXT_PUBLIC_BACKEND_URL}${apiEndpoints.getAllUser}${query}`,
-    options
+    options,
   );
 };
 
 const getUserDetail = (id: string): Promise<Response> => {
-  const token = JSON.parse(localStorage.getItem("token")!);
+  const token = JSON.parse(localStorage.getItem('token')!);
 
   const options: RequestInit = {
-    method: "GET",
+    method: 'GET',
     headers: {
       Authorization: `Bearer ${(token as Token).token}`,
     },
@@ -55,19 +55,19 @@ const getUserDetail = (id: string): Promise<Response> => {
 
   return fetch(
     `${process.env.NEXT_PUBLIC_BACKEND_URL}${apiEndpoints.getUserDetail(id)}`,
-    options
+    options,
   );
 };
 
 const getAllDailyCheckup = (
   group: string,
   subGroup: number,
-  date: string
+  date: string,
 ): Promise<Response> => {
-  const token = JSON.parse(localStorage.getItem("token")!);
+  const token = JSON.parse(localStorage.getItem('token')!);
 
   const options: RequestInit = {
-    method: "GET",
+    method: 'GET',
     headers: {
       Authorization: `Bearer ${(token as Token).token}`,
     },
@@ -77,17 +77,17 @@ const getAllDailyCheckup = (
     `${process.env.NEXT_PUBLIC_BACKEND_URL}${apiEndpoints.getAllDailyCheckup(
       group,
       subGroup,
-      date
+      date,
     )}`,
-    options
+    options,
   );
 };
 
 const getDetailDailyCheckup = (id: string): Promise<Response> => {
-  const token = JSON.parse(localStorage.getItem("token")!);
+  const token = JSON.parse(localStorage.getItem('token')!);
 
   const options: RequestInit = {
-    method: "GET",
+    method: 'GET',
     headers: {
       Authorization: `Bearer ${(token as Token).token}`,
     },
@@ -97,21 +97,21 @@ const getDetailDailyCheckup = (id: string): Promise<Response> => {
     `${
       process.env.NEXT_PUBLIC_BACKEND_URL
     }/${apiEndpoints.getDetailDailyCheckup(id)}`,
-    options
+    options,
   );
 };
 
 const getAllScreening = (name: string): Promise<Response> => {
-  let query = "?";
+  let query = '?';
 
-  if (name != "") {
+  if (name != '') {
     query += `name=${name}`;
   }
 
-  const token = JSON.parse(localStorage.getItem("token")!);
+  const token = JSON.parse(localStorage.getItem('token')!);
 
   const options: RequestInit = {
-    method: "GET",
+    method: 'GET',
     headers: {
       Authorization: `Bearer ${(token as Token).token}`,
     },
@@ -119,15 +119,15 @@ const getAllScreening = (name: string): Promise<Response> => {
 
   return fetch(
     `${process.env.NEXT_PUBLIC_BACKEND_URL}${apiEndpoints.getAllScreening}${query}`,
-    options
+    options,
   );
 };
 
 const getScreeningDetail = (id: string): Promise<Response> => {
-  const token = JSON.parse(localStorage.getItem("token")!);
+  const token = JSON.parse(localStorage.getItem('token')!);
 
   const options: RequestInit = {
-    method: "GET",
+    method: 'GET',
     headers: {
       Authorization: `Bearer ${(token as Token).token}`,
     },
@@ -135,26 +135,50 @@ const getScreeningDetail = (id: string): Promise<Response> => {
 
   return fetch(
     `${process.env.NEXT_PUBLIC_BACKEND_URL}${apiEndpoints.getScreeningDetail(
-      id
+      id,
     )}`,
-    options
+    options,
   );
 };
 
-const getAllTBReport = (): Promise<Response> => {
+const getAllTBReport = (
+  search: string,
+  group: string,
+  subGroup: string,
+): Promise<Response> => {
   // TODO: NOT DONE(?)
-  const token = JSON.parse(localStorage.getItem("token")!);
+  const token = JSON.parse(localStorage.getItem('token')!);
 
   const options: RequestInit = {
-    method: "GET",
+    method: 'GET',
     headers: {
       Authorization: `Bearer ${(token as Token).token}`,
     },
   };
 
   return fetch(
-    `${process.env.NEXT_PUBLIC_BACKEND_URL}${apiEndpoints.getAllTBReport}`,
-    options
+    `${process.env.NEXT_PUBLIC_BACKEND_URL}${
+      apiEndpoints.getAllTBReport
+    }?name=${search}${group && `&group=${group}`}${
+      subGroup && `&subGroup=${subGroup}`
+    }`,
+    options,
+  );
+};
+
+const getTBReportDetail = (reportId: string): Promise<Response> => {
+  const token = JSON.parse(localStorage.getItem('token')!);
+
+  const options: RequestInit = {
+    method: 'GET',
+    headers: {
+      Authorization: `Bearer ${(token as Token).token}`,
+    },
+  };
+
+  return fetch(
+    `${process.env.NEXT_PUBLIC_BACKEND_URL}${apiEndpoints.getAllTBReport}/${reportId}`,
+    options,
   );
 };
 
@@ -166,4 +190,5 @@ export {
   getAllScreening,
   getScreeningDetail,
   getAllTBReport,
+  getTBReportDetail,
 };
