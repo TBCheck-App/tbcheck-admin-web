@@ -1,16 +1,22 @@
-import React from "react";
+import { TBCCloseContactCardProps } from '@/type';
+import React from 'react';
 
-function TBCCloseContactCard() {
+function TBCCloseContactCard({
+  name,
+  address,
+  relation,
+  phone,
+}: TBCCloseContactCardProps) {
   return (
     <div className="p-3 border rounded text-xs grid grid-rows-4 gap-4 items-center grid-tbc-close-contact">
       <p className="font-bold">Nama</p>
-      <p>Annisa Az Zahra</p>
+      <p>{name}</p>
       <p className="font-bold">Alamat</p>
-      <p>Pondok Cina, Beji, Depok City, West Java, 16424</p>
+      <p>{address}</p>
       <p className="font-bold">Hubungan</p>
-      <p>Teman</p>
+      <p>{relation}</p>
       <p className="font-bold">Nomor HP</p>
-      <p>083857130641</p>
+      <p>{phone}</p>
     </div>
   );
 }

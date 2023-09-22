@@ -1,24 +1,32 @@
-import React from "react";
+import React from 'react';
+import { TBCReportTableProps } from '@/type';
+import Link from 'next/link';
 
-function TBCReportTable() {
+function TBCReportTable({
+  dateStr,
+  userClass,
+  name,
+  university,
+  id,
+}: TBCReportTableProps) {
   return (
     <div className="text-xs h-12 grid grid-tbc-table border-t">
       <div className="p-2 flex justify-center items-center">
-        <p>26/07/2023</p>
+        <p>{new Date(dateStr).toLocaleDateString()}</p>
       </div>
       <div className="p-2 flex justify-center items-center">
-        <p>A</p>
+        <p>{userClass}</p>
       </div>
       <div className="p-2 flex justify-center items-center">
-        <a
+        <Link
           className="font-semibold text-[#5497F6]"
-          href=""
+          href={`/tbc-report/${id}`}
         >
-          Azmi Ramadisha
-        </a>
+          {name}
+        </Link>
       </div>
       <div className="p-2 flex justify-center items-center">
-        <p>Universitas Indonesia</p>
+        <p>{university}</p>
       </div>
     </div>
   );
