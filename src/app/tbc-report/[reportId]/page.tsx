@@ -1,30 +1,30 @@
-'use client';
-import ButtonBack from '@/components/buttons/ButtonBack';
-import { tokenIsValid } from '@/utils/auth';
-import React, { useEffect, useState } from 'react';
-import Image from 'next/image';
-import DataField from '@/components/DataField';
-import TBCSymptomTable from '@/components/tables/TBCSymptomTable';
-import TBCHistoryTravelTable from '@/components/tables/TBCHistoryTravelTable';
-import TBCCloseContactCard from '@/components/TBCCloseContactCard';
-import RiskCurveBox from '@/components/RiskCurveBox';
-import ButtonBlue from '@/components/buttons/ButtonBlue';
-import { ReportDetailProps } from '@/type';
-import { getTBReportDetail } from '@/utils/fetch';
-import { useRouter } from 'next/navigation';
-import Link from 'next/link';
+"use client";
+import ButtonBack from "@/components/buttons/ButtonBack";
+import { tokenIsValid } from "@/utils/auth";
+import React, { useEffect, useState } from "react";
+import Image from "next/image";
+import DataField from "@/components/DataField";
+import TBCSymptomTable from "@/components/tables/TBCSymptomTable";
+import TBCHistoryTravelTable from "@/components/tables/TBCHistoryTravelTable";
+import TBCCloseContactCard from "@/components/TBCCloseContactCard";
+import RiskCurveBox from "@/components/RiskCurveBox";
+import ButtonBlue from "@/components/buttons/ButtonBlue";
+import { ReportDetailProps } from "@/type";
+import { getTBReportDetail } from "@/utils/fetch";
+import { useRouter } from "next/navigation";
+import Link from "next/link";
 
-const generateSymptompAnswer = (rawAnswer: 'YES' | 'NO' | 'UNKNOWN') => {
-  if (rawAnswer === 'YES') return 'Ya';
-  if (rawAnswer === 'NO') return 'Tidak';
-  else return 'Tidak Tahu';
+const generateSymptompAnswer = (rawAnswer: "YES" | "NO" | "UNKNOWN") => {
+  if (rawAnswer === "YES") return "Ya";
+  if (rawAnswer === "NO") return "Tidak";
+  else return "Tidak Tahu";
 };
 
 function TBCReportDetail({ params }: { params: { reportId: string } }) {
   const router = useRouter();
   const [render, setRender] = useState<boolean>(false);
   const [reportDetail, setReportDetail] = useState<null | ReportDetailProps>(
-    null,
+    null
   );
 
   useEffect(() => {
@@ -32,7 +32,7 @@ function TBCReportDetail({ params }: { params: { reportId: string } }) {
       setRender(res);
 
       if (res == false) {
-        router.push('/signin');
+        router.push("/signin");
       }
     });
     getTBReportDetail(params.reportId)
@@ -45,7 +45,10 @@ function TBCReportDetail({ params }: { params: { reportId: string } }) {
     return (
       <main className="flex flex-col gap-5">
         <div className="px-4">
-          <ButtonBack buttonText="Kembali" destPage="/tbc-report" />
+          <ButtonBack
+            buttonText="Kembali"
+            destPage="/tbc-report"
+          />
         </div>
 
         {reportDetail && (
@@ -74,7 +77,10 @@ function TBCReportDetail({ params }: { params: { reportId: string } }) {
                 </div>
               </div>
 
-              <DataField title="Group" content={reportDetail.group} />
+              <DataField
+                title="Group"
+                content={reportDetail.group}
+              />
               <DataField
                 title="Sub-Group"
                 content={`${reportDetail.group}${reportDetail.subGroup}`}
@@ -82,13 +88,13 @@ function TBCReportDetail({ params }: { params: { reportId: string } }) {
               <DataField
                 title="Hari, Tanggal Laporan"
                 content={new Date(reportDetail.reportDate)
-                  .toLocaleDateString('id-ID', {
-                    weekday: 'long',
-                    year: 'numeric',
-                    month: '2-digit',
-                    day: '2-digit',
+                  .toLocaleDateString("id-ID", {
+                    weekday: "long",
+                    year: "numeric",
+                    month: "2-digit",
+                    day: "2-digit",
                   })
-                  .replace(/(\d+)\/(\d+)\/(\d+)/, '$2/$1/$3')}
+                  .replace(/(\d+)\/(\d+)\/(\d+)/, "$2/$1/$3")}
               />
               <DataField
                 title="Asal Universitas"
@@ -106,13 +112,13 @@ function TBCReportDetail({ params }: { params: { reportId: string } }) {
                   <TBCSymptomTable
                     symptomText="Batuk Berdahak > 2-3 Minggu"
                     answer={generateSymptompAnswer(
-                      reportDetail.symptoms.coughWithPhlegm,
+                      reportDetail.symptoms.coughWithPhlegm
                     )}
                   />
                   <TBCSymptomTable
                     symptomText="Batuk Berdarah"
                     answer={generateSymptompAnswer(
-                      reportDetail.symptoms.bleedingCough,
+                      reportDetail.symptoms.bleedingCough
                     )}
                   />
                   <TBCSymptomTable
@@ -122,49 +128,49 @@ function TBCReportDetail({ params }: { params: { reportId: string } }) {
                   <TBCSymptomTable
                     symptomText="Keringat malam tanpa aktifitas"
                     answer={generateSymptompAnswer(
-                      reportDetail.symptoms.nightSweats,
+                      reportDetail.symptoms.nightSweats
                     )}
                   />
                   <TBCSymptomTable
                     symptomText="Penurunan Berat Badan tanpa sebab yang jelas"
                     answer={generateSymptompAnswer(
-                      reportDetail.symptoms.loseWeight,
+                      reportDetail.symptoms.loseWeight
                     )}
                   />
                   <TBCSymptomTable
                     symptomText="Pembesaran kelenjar getah bening (benjolan di sekitar leher) dengan ukuran > 2 cm"
                     answer={generateSymptompAnswer(
-                      reportDetail.symptoms.lymphNodeEnlargement,
+                      reportDetail.symptoms.lymphNodeEnlargement
                     )}
                   />
                   <TBCSymptomTable
                     symptomText="Sesak napas dan nyeri dada"
                     answer={generateSymptompAnswer(
-                      reportDetail.symptoms.breathless,
+                      reportDetail.symptoms.breathless
                     )}
                   />
                   <TBCSymptomTable
                     symptomText="Pernah minum obat paru dalam waktu lama sebelumnya"
                     answer={generateSymptompAnswer(
-                      reportDetail.symptoms.takenPulmonaryMedicine,
+                      reportDetail.symptoms.takenPulmonaryMedicine
                     )}
                   />
                   <TBCSymptomTable
                     symptomText="Ada keluarga/ tetangga yang pernah sakit paru-paru/TB/pengobatan paru lama"
                     answer={generateSymptompAnswer(
-                      reportDetail.symptoms.relativesWithTB,
+                      reportDetail.symptoms.relativesWithTB
                     )}
                   />
                   <TBCSymptomTable
                     symptomText="Mengidap asma"
                     answer={generateSymptompAnswer(
-                      reportDetail.symptoms.asthma,
+                      reportDetail.symptoms.asthma
                     )}
                   />
                   <TBCSymptomTable
                     symptomText="Mengidap DM"
                     answer={generateSymptompAnswer(
-                      reportDetail.symptoms.diabetesMellitus,
+                      reportDetail.symptoms.diabetesMellitus
                     )}
                   />
                 </div>
@@ -217,7 +223,12 @@ function TBCReportDetail({ params }: { params: { reportId: string } }) {
               <div className="flex flex-col gap-3">
                 <h2 className="font-bold">Daftar Kontak Erat</h2>
                 {reportDetail.contacts.map((contact, index) => {
-                  return <TBCCloseContactCard {...contact} key={index} />;
+                  return (
+                    <TBCCloseContactCard
+                      {...contact}
+                      key={index}
+                    />
+                  );
                 })}
               </div>
 
@@ -239,15 +250,18 @@ function TBCReportDetail({ params }: { params: { reportId: string } }) {
                 />
               </div>
 
-              <DataField title="Tempat Tes" content={reportDetail.testSite} />
+              <DataField
+                title="Tempat Tes"
+                content={reportDetail.testSite}
+              />
 
-              <Link href={'/'} className="block w-full">
+              {/* <Link href={'/'} className="block w-full">
                 <ButtonBlue
                   buttonText="Buat Notifikasi"
                   className="w-full"
                   icons="/signal.svg"
                 />
-              </Link>
+              </Link> */}
             </div>
           </div>
         )}

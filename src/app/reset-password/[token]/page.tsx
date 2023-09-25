@@ -38,10 +38,10 @@ export default function ResetPasswordComponent({ params }: Props) {
           if (!res.ok) {
             return res.json();
           }
-          setDisplayResult(true);
-          setIsSuccess(true);
         })
         .then((resJson) => {
+          setDisplayResult(true);
+          setIsSuccess(true);
           throw new Error(resJson.message);
         })
         .catch((err) => {
@@ -144,7 +144,7 @@ export default function ResetPasswordComponent({ params }: Props) {
             />
             <p className="text-base">
               Link yang anda gunakan sudah tidak berlaku, harap kembali ke
-              aplikasi TBCheck dan ualng kembali tahap lupa password
+              aplikasi TBCheck dan ulang kembali tahap lupa password
             </p>
           </div>
         </div>
