@@ -35,14 +35,15 @@ export default function ResetPasswordComponent({ params }: Props) {
       resetPasswordUser(newPassword, params.token)
         .then((res) => {
           console.log(res);
-          if (!res.ok) {
+          if (res.ok) {
             return res.json();
+          } else {
+            throw new Error("error");
           }
         })
         .then((resJson) => {
           setDisplayResult(true);
           setIsSuccess(true);
-          throw new Error(resJson.message);
         })
         .catch((err) => {
           setDisplayResult(true);
