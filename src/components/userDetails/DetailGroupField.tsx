@@ -1,21 +1,38 @@
-import React, { useState } from "react";
+import React, { ChangeEvent, useState } from "react";
 import ButtonOutlined from "../buttons/ButtonOutlined";
 import ButtonBlue from "../buttons/ButtonBlue";
+import { changeUserGroupAndSubGroup } from "@/utils/fetch";
 
 interface Props {
   group: string;
   subGroup: number;
+  userId: string;
 }
 
-function DetailGroupField({ group, subGroup }: Props) {
+function DetailGroupField({ group, subGroup, userId }: Props) {
   const [editMode, setEditMode] = useState<boolean>(false);
+  const [groupState, setGroupState] = useState<string>(group);
+  const [subGroupState, setSubGroupState] = useState<number>(subGroup);
 
   const showEditMode = () => {
     setEditMode(true);
   };
 
   const saveEdit = () => {
-    setEditMode(false);
+    changeUserGroupAndSubGroup(userId, groupState, subGroupState)
+      .then((res) => res.json())
+      .then((resJson) => {
+        setEditMode(false);
+      })
+      .catch((error) => alert(error));
+  };
+
+  const handleChangeGroup = (event: ChangeEvent<HTMLSelectElement>) => {
+    setGroupState(event.target.value);
+  };
+
+  const handleChangeSubGroup = (event: ChangeEvent<HTMLSelectElement>) => {
+    setSubGroupState(parseInt(event.target.value));
   };
 
   return (
@@ -33,7 +50,11 @@ function DetailGroupField({ group, subGroup }: Props) {
           )}
         </div>
         {editMode ? (
-          <select className="border w-full px-3 py-2 rounded-md">
+          <select
+            className="border w-full px-3 py-2 rounded-md"
+            value={groupState}
+            onChange={handleChangeGroup}
+          >
             <option value="">Semua</option>
             <option value="A">A</option>
             <option value="B">B</option>
@@ -47,7 +68,7 @@ function DetailGroupField({ group, subGroup }: Props) {
         ) : (
           <input
             type="text"
-            value={group}
+            value={groupState}
             className="bg-[#EEF2F7] px-3 py-2 rounded-md text-[#ABB4C4]"
             disabled
           />
@@ -59,7 +80,11 @@ function DetailGroupField({ group, subGroup }: Props) {
           <h1 className="font-bold">Sub-group</h1>
         </div>
         {editMode ? (
-          <select className="border w-full px-3 py-2 rounded-md">
+          <select
+            className="border w-full px-3 py-2 rounded-md"
+            value={subGroupState}
+            onChange={handleChangeSubGroup}
+          >
             <option value="">Semua</option>
             <option value="1">1</option>
             <option value="2">2</option>
@@ -67,7 +92,7 @@ function DetailGroupField({ group, subGroup }: Props) {
         ) : (
           <input
             type="text"
-            value={`${group}${subGroup}`}
+            value={`${groupState}${subGroupState}`}
             className="bg-[#EEF2F7] px-3 py-2 rounded-md text-[#ABB4C4]"
             disabled
           />

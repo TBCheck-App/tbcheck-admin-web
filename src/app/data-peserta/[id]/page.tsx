@@ -100,6 +100,7 @@ function PesertaDetail({ params }: Props) {
               <DetailGroupField
                 group={peserta.group}
                 subGroup={peserta.subGroup}
+                userId={params.id}
               />
             </div>
           ) : null}

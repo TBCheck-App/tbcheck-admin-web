@@ -5,7 +5,7 @@ import ButtonOutlined from "@/components/buttons/ButtonOutlined";
 import { dayNames, groupList, monthNames } from "@/config/var";
 import { redirect, useRouter } from "next/navigation";
 import Image from "next/image";
-import React, { useEffect, useState } from "react";
+import React, { ChangeEvent, useEffect, useState } from "react";
 import { tokenIsValid } from "@/utils/auth";
 import { getAllDailyCheckup } from "@/utils/fetch";
 import { DailyCheckupTableType } from "@/type";
@@ -19,9 +19,16 @@ function DailyCheckUpData({ params }: Props) {
   const [mediumRisk, setMediumRisk] = useState<number>(0);
   const [lowRisk, setLowRisk] = useState<number>(0);
   const [reports, setReports] = useState<DailyCheckupTableType[]>([]);
+  const [name, setName] = useState<string>("");
 
   const [render, setRender] = useState<boolean>(false);
   const router = useRouter();
+
+  const handleChangeDailyCheckupName = (
+    event: ChangeEvent<HTMLInputElement>
+  ) => {
+    setName(event.target.value);
+  };
 
   useEffect(() => {
     if (params.subgroup.length <= 2 && groupList.includes(params.subgroup)) {
@@ -36,7 +43,7 @@ function DailyCheckUpData({ params }: Props) {
           const date = new Date(params.date);
           date.setDate(date.getDate() + 1);
 
-          getAllDailyCheckup(group, subGroup, date.toISOString())
+          getAllDailyCheckup(group, subGroup, date.toISOString(), name)
             .then((res) => res.json())
             .then((resJson) => {
               setHighRisk(resJson.highRisk);
@@ -47,7 +54,7 @@ function DailyCheckUpData({ params }: Props) {
         }
       });
     }
-  }, []);
+  }, [name]);
 
   if (params.subgroup.length <= 2 && groupList.includes(params.subgroup)) {
     if (render) {
@@ -119,6 +126,8 @@ function DailyCheckUpData({ params }: Props) {
                   <input
                     type="text"
                     className="focus:outline-none text-xs"
+                    value={name}
+                    onChange={handleChangeDailyCheckupName}
                     placeholder="Search"
                   />
                 </div>
