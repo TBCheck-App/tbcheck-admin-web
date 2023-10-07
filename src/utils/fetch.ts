@@ -38,7 +38,7 @@ const getAllUser = (
   };
 
   return fetch(
-    `https://tb-checker-production.up.railway.app${apiEndpoints.getAllUser}${query}`,
+    `${process.env.NEXT_PUBLIC_BACKEND_URL}${apiEndpoints.getAllUser}${query}`,
     options
   );
 };
@@ -54,9 +54,7 @@ const getUserDetail = (id: string): Promise<Response> => {
   };
 
   return fetch(
-    `https://tb-checker-production.up.railway.app${apiEndpoints.getUserDetail(
-      id
-    )}`,
+    `${process.env.NEXT_PUBLIC_BACKEND_URL}${apiEndpoints.getUserDetail(id)}`,
     options
   );
 };
@@ -83,7 +81,7 @@ const getAllDailyCheckup = (
   };
 
   return fetch(
-    `https://tb-checker-production.up.railway.app${apiEndpoints.getAllDailyCheckup(
+    `${process.env.NEXT_PUBLIC_BACKEND_URL}${apiEndpoints.getAllDailyCheckup(
       group,
       subGroup,
       date
@@ -127,7 +125,7 @@ const getAllScreening = (name: string): Promise<Response> => {
   };
 
   return fetch(
-    `https://tb-checker-production.up.railway.app${apiEndpoints.getAllScreening}${query}`,
+    `${process.env.NEXT_PUBLIC_BACKEND_URL}${apiEndpoints.getAllScreening}${query}`,
     options
   );
 };
@@ -143,7 +141,7 @@ const getScreeningDetail = (id: string): Promise<Response> => {
   };
 
   return fetch(
-    `https://tb-checker-production.up.railway.app${apiEndpoints.getScreeningDetail(
+    `${process.env.NEXT_PUBLIC_BACKEND_URL}${apiEndpoints.getScreeningDetail(
       id
     )}`,
     options
@@ -166,7 +164,7 @@ const getAllTBReport = (
   };
 
   return fetch(
-    `https://tb-checker-production.up.railway.app${
+    `${process.env.NEXT_PUBLIC_BACKEND_URL}${
       apiEndpoints.getAllTBReport
     }?name=${search}${group && `&group=${group}`}${
       subGroup && `&subGroup=${subGroup}`
@@ -186,7 +184,7 @@ const getTBReportDetail = (reportId: string): Promise<Response> => {
   };
 
   return fetch(
-    `https://tb-checker-production.up.railway.app${apiEndpoints.getAllTBReport}/${reportId}`,
+    `${process.env.NEXT_PUBLIC_BACKEND_URL}${apiEndpoints.getAllTBReport}/${reportId}`,
     options
   );
 };
