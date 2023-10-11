@@ -75,7 +75,7 @@ export default function ScreeningDetail({ params }: Props) {
               <div className="flex justify-between items-center">
                 <p>{screeningDetail?.name}</p>
                 <a
-                  href=""
+                  href={`/data-peserta/${screeningDetail.userId}`}
                   className="text-sm font-medium text-[#5497F6] flex flex-row gap-4"
                 >
                   <p>Lihat data peserta</p>
