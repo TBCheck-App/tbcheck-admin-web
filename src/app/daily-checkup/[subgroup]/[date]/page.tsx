@@ -154,7 +154,7 @@ function DailyCheckUpData({ params }: Props) {
                 </div>
               </div>
 
-              {reports.length > 0
+              {reports && reports.length > 0
                 ? reports.map((report, index) => (
                     <DailyCheckupTable
                       data={report}
