@@ -251,6 +251,24 @@ interface NotificationLog {
   name: string;
 }
 
+type NotificationMessageContentType = "GAIN" | "LOSS";
+
+type NotificationMessageDesignType = "POLYMORPHISM" | "NON_POLYMORPHISM";
+interface DetailNotificationLog {
+  id: string;
+  sentAt: string;
+  respondedAt: string;
+  messageContentType: NotificationMessageContentType;
+  messageDesignType: NotificationMessageDesignType;
+  variant: number;
+  isMaskCare: number;
+  isMaskImportant: number;
+  userId: string;
+  name: string;
+  group: "A" | "B" | "C" | "D" | "E" | "F" | "G" | "H";
+  subGroup: 1 | 2;
+}
+
 export type {
   DataPeserta,
   DetailPeserta,
@@ -271,4 +289,5 @@ export type {
   TBReportAnswer,
   TBCCloseContactCardProps,
   NotificationLog,
+  DetailNotificationLog,
 };

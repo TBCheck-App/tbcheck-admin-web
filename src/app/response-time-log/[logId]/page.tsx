@@ -4,10 +4,21 @@ import Image from "next/image";
 import ButtonBack from "@/components/buttons/ButtonBack";
 import { tokenIsValid } from "@/utils/auth";
 import { useRouter } from "next/navigation";
+import { getDetailNotificationLog } from "@/utils/fetch";
+import { DetailNotificationLog } from "@/type";
 
-function ResponseTimeLogDetail() {
+interface Props {
+  params: {
+    logId: string;
+  };
+}
+
+function ResponseTimeLogDetail({ params }: Props) {
   const router = useRouter();
   const [render, setRender] = useState<boolean>(false);
+  const [logDetail, setLogDetail] = useState<DetailNotificationLog | null>(
+    null
+  );
 
   useEffect(() => {
     tokenIsValid().then((res) => {
@@ -16,6 +27,18 @@ function ResponseTimeLogDetail() {
       if (res == false) {
         router.push("/signin");
       }
+      getDetailNotificationLog(params.logId)
+        .then((res) => {
+          if (!res.ok) {
+            throw new Error("Cannot get log detail.");
+          }
+          return res.json();
+        })
+        .then((resJson) => {
+          console.log(resJson);
+          setLogDetail(resJson.log);
+        })
+        .catch((err) => alert(err));
     });
   }, []);
 
@@ -38,9 +61,9 @@ function ResponseTimeLogDetail() {
             <div className="flex flex-col gap-2">
               <h2 className="font-bold">Nama Lengkap</h2>
               <div className="flex justify-between items-center">
-                <p>Azmi Ramadisha</p>
+                <p>{logDetail ? logDetail.name : null}</p>
                 <a
-                  href=""
+                  href={logDetail ? `data-peserta/${logDetail.userId}` : ""}
                   className="text-sm font-medium text-[#5497F6] flex flex-row gap-4"
                 >
                   <p>Lihat data peserta</p>
@@ -56,32 +79,32 @@ function ResponseTimeLogDetail() {
 
             <div className="flex flex-col gap-2">
               <h2 className="font-bold">Group</h2>
-              <p>A</p>
+              <p>{logDetail ? logDetail.group : null}</p>
             </div>
 
             <div className="flex flex-col gap-2">
               <h2 className="font-bold">Sub-Group</h2>
-              <p>A1</p>
+              <p>{logDetail ? logDetail.subGroup : null}</p>
             </div>
 
             <div className="flex flex-col gap-2">
               <h2 className="font-bold">Hari, Tanggal Respon</h2>
-              <p>Rabu, 26/07/2023</p>
+              <p>{logDetail ? logDetail.respondedAt : null}</p>
             </div>
 
             <div className="flex flex-col gap-2">
               <h2 className="font-bold">Waktu Respon</h2>
-              <p>19:30:36 WIB</p>
+              <p>{logDetail ? logDetail.respondedAt : null}</p>
             </div>
 
             <div className="flex flex-col gap-2">
               <h2 className="font-bold">Jeda Respon dari Notifikasi</h2>
-              <p>10 Menit</p>
+              <p>NULL</p>
             </div>
 
             <div className="flex flex-col gap-2">
               <h2 className="font-bold">Variasi Desain Notifikasi</h2>
-              <p>Variasi 0</p>
+              <p>Variasi {logDetail ? logDetail.variant : null}</p>
             </div>
           </div>
 
@@ -92,7 +115,7 @@ function ResponseTimeLogDetail() {
               <h2 className="font-bold">
                 Menurut Anda, seberapa penting Anda harus menggunakan masker?
               </h2>
-              <p>Sangat tidak peduli</p>
+              <p>{logDetail ? logDetail.isMaskImportant : null}</p>
             </div>
 
             <div className="flex flex-col gap-2">
@@ -100,7 +123,7 @@ function ResponseTimeLogDetail() {
                 Menurut Anda, seberapa besar kepedulian Anda untuk menggunakan
                 masker?
               </h2>
-              <p>Sangat tidak peduli</p>
+              <p>{logDetail ? logDetail.isMaskCare : null}</p>
             </div>
           </div>
         </div>

@@ -11,6 +11,7 @@ const apiEndpoints = {
   patchResetPassword: "/auth/reset",
   getAllTBReport: "/tb-report",
   getAllNotification: "/notification/log",
+  getDetailnotification: (id: string) => `/notification/log/${id}`,
 };
 
 export default apiEndpoints;
