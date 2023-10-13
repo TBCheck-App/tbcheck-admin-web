@@ -51,7 +51,7 @@ interface DailyDetail {
   userId: string;
 }
 
-type Risk = 'HIGH_RISK' | 'MEDIUM_RISK' | 'LOW_RISK';
+type Risk = "HIGH_RISK" | "MEDIUM_RISK" | "LOW_RISK";
 
 interface DataScreening {
   createdAt: string;
@@ -63,10 +63,10 @@ interface DataScreening {
 }
 
 type ScreeningResult =
-  | 'NOT_SUSPECTED_TB'
-  | 'SUSPECTED_TB'
-  | 'UNDERGOING_TREATMENT'
-  | 'SUSPECTED_TB_RO';
+  | "NOT_SUSPECTED_TB"
+  | "SUSPECTED_TB"
+  | "UNDERGOING_TREATMENT"
+  | "SUSPECTED_TB_RO";
 
 interface ScreeningDetail {
   id: string;
@@ -113,16 +113,16 @@ interface ScreeningDetail {
   };
 }
 
-type AnswerWithNotSure = 'YES' | 'NO' | 'NOT_SURE';
+type AnswerWithNotSure = "YES" | "NO" | "NOT_SURE";
 
-type SmokingHistoryAnswer = 'YES' | 'FORMERLY' | 'NO';
+type SmokingHistoryAnswer = "YES" | "FORMERLY" | "NO";
 
 type TimeInterval =
-  | 'LESS_THAN_ONE_WEEK'
-  | 'ONE_TO_TWO_WEEKS'
-  | 'MORE_THAN_TWO_WEEKS';
+  | "LESS_THAN_ONE_WEEK"
+  | "ONE_TO_TWO_WEEKS"
+  | "MORE_THAN_TWO_WEEKS";
 
-type TBReportAnswer = 'YES' | 'NO' | 'UNKNOWN';
+type TBReportAnswer = "YES" | "NO" | "UNKNOWN";
 
 interface TBTravelHistory {
   country: string;
@@ -169,8 +169,8 @@ interface TBUserReport {
   reportedAt: string;
   userId: string;
   name: string;
-  university: 'UI' | 'TELKOM' | 'UNDANA' | 'UTI';
-  group: 'A' | 'B' | 'C' | 'D' | 'E' | 'F' | 'G' | 'H';
+  university: "UI" | "TELKOM" | "UNDANA" | "UTI";
+  group: "A" | "B" | "C" | "D" | "E" | "F" | "G" | "H";
   subGroup: 1 | 2;
 }
 
@@ -178,18 +178,18 @@ interface TBCReportTableProps {
   id: string;
   dateStr: string;
   name: string;
-  userClass: 'A' | 'B' | 'C' | 'D' | 'E' | 'F' | 'G' | 'H';
-  university: 'UI' | 'TELKOM' | 'UNDANA' | 'UTI';
+  userClass: "A" | "B" | "C" | "D" | "E" | "F" | "G" | "H";
+  university: "UI" | "TELKOM" | "UNDANA" | "UTI";
 }
 
 interface ReportDetailProps {
   id: string;
   userId: string;
   name: string;
-  group: 'A' | 'B' | 'C' | 'D' | 'E' | 'F' | 'G' | 'H';
+  group: "A" | "B" | "C" | "D" | "E" | "F" | "G" | "H";
   subGroup: 1 | 2;
   reportDate: string;
-  university: 'UI' | 'TELKOM' | 'UNDANA' | 'UTI';
+  university: "UI" | "TELKOM" | "UNDANA" | "UTI";
   symptoms: {
     coughWithPhlegm: TBReportAnswer;
     bleedingCough: TBReportAnswer;
@@ -210,7 +210,7 @@ interface ReportDetailProps {
       city: string;
       country: string;
       date: string;
-    },
+    }
   ];
   contacts: [
     {
@@ -219,17 +219,17 @@ interface ReportDetailProps {
       name: string;
       phone: string;
       province: string;
-      relation: 'FRIEND' | 'FAMILY' | 'OTHER';
-    },
+      relation: "FRIEND" | "FAMILY" | "OTHER";
+    }
   ];
   testType:
-    | 'NEVER_TESTED'
-    | 'MANTOUX_TEST'
-    | 'TB_CM'
-    | 'SPUTUM_ANALYSIS'
-    | 'IGRA_TEST'
-    | 'CHEST_XRAY'
-    | 'CT_SCAN';
+    | "NEVER_TESTED"
+    | "MANTOUX_TEST"
+    | "TB_CM"
+    | "SPUTUM_ANALYSIS"
+    | "IGRA_TEST"
+    | "CHEST_XRAY"
+    | "CT_SCAN";
   testDate: string;
   testResult: TBReportAnswer;
   testSite: string;
@@ -240,6 +240,15 @@ interface TBCCloseContactCardProps {
   address: string;
   relation: string;
   phone: string;
+}
+
+interface NotificationLog {
+  id: string;
+  sentAt: string;
+  respondedAt: string;
+  group: "A" | "B" | "C" | "D" | "E" | "F" | "G" | "H";
+  subGroup: 1 | 2;
+  name: string;
 }
 
 export type {
@@ -261,4 +270,5 @@ export type {
   ReportDetailProps,
   TBReportAnswer,
   TBCCloseContactCardProps,
+  NotificationLog,
 };

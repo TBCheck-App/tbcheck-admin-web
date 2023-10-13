@@ -1,27 +1,43 @@
 import React from "react";
 
-function ResponseTimeTable() {
+interface Props {
+  id: string;
+  date: string;
+  group: string;
+  subGroup: number;
+  name: string;
+  respondedAt: string;
+}
+
+function ResponseTimeTable({
+  id,
+  date,
+  group,
+  subGroup,
+  name,
+  respondedAt,
+}: Props) {
   return (
     <div className="text-xs h-12 grid grid-response-table border-t">
       <div className="p-2 flex justify-center items-center">
-        <p>26/07/2023</p>
+        <p>{date}</p>
       </div>
       <div className="p-2 flex justify-center items-center">
-        <p>A</p>
+        <p>{group}</p>
       </div>
       <div className="p-2 flex justify-center items-center">
-        <p>A1</p>
+        <p>{subGroup}</p>
       </div>
       <div className="p-2 flex justify-center items-center">
         <a
           className="font-semibold text-[#5497F6]"
-          href=""
+          href={`response-time-log/${id}`}
         >
-          Azmi Ramadisha
+          {name}
         </a>
       </div>
       <div className="p-2 flex justify-center items-center">
-        <p>10 menit</p>
+        <p>{respondedAt}</p>
       </div>
     </div>
   );

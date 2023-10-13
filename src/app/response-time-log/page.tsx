@@ -6,10 +6,16 @@ import { tokenIsValid } from "@/utils/auth";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
+import { getAllNotificationLog } from "@/utils/fetch";
+import { NotificationLog } from "@/type";
 
 function ResponseTimeLog() {
   const router = useRouter();
   const [render, setRender] = useState<boolean>(false);
+
+  const [notificationLogs, setNotificationLogs] = useState<
+    NotificationLog[] | null
+  >(null);
 
   useEffect(() => {
     tokenIsValid().then((res) => {
@@ -18,6 +24,13 @@ function ResponseTimeLog() {
       if (res == false) {
         router.push("/signin");
       }
+
+      getAllNotificationLog()
+        .then((res) => res.json())
+        .then((resJson) => {
+          console.log(resJson);
+          setNotificationLogs(resJson.logs);
+        });
     });
   }, []);
 
@@ -100,9 +113,21 @@ function ResponseTimeLog() {
               </div>
             </div>
 
-            <ResponseTimeTable />
-            <ResponseTimeTable />
-            <ResponseTimeTable />
+            {notificationLogs && notificationLogs.length > 0
+              ? notificationLogs.map((notification, index) => {
+                  return (
+                    <ResponseTimeTable
+                      id={notification.id}
+                      date={notification.sentAt}
+                      group={notification.group}
+                      name={notification.name}
+                      respondedAt={notification.respondedAt}
+                      subGroup={notification.subGroup}
+                      key={index}
+                    />
+                  );
+                })
+              : null}
           </div>
         </div>
       </main>

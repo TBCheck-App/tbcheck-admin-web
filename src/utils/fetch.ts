@@ -216,6 +216,22 @@ const changeUserGroupAndSubGroup = (
   );
 };
 
+const getAllNotificationLog = () => {
+  const token = JSON.parse(localStorage.getItem("token")!);
+
+  const options: RequestInit = {
+    method: "GET",
+    headers: {
+      Authorization: `Bearer ${(token as Token).token}`,
+    },
+  };
+
+  return fetch(
+    `${process.env.NEXT_PUBLIC_BACKEND_URL}${apiEndpoints.getAllNotification}`,
+    options
+  );
+};
+
 export {
   getAllUser,
   getUserDetail,
@@ -226,4 +242,5 @@ export {
   getAllTBReport,
   getTBReportDetail,
   changeUserGroupAndSubGroup,
+  getAllNotificationLog,
 };
