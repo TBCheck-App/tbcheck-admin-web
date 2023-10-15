@@ -43,14 +43,22 @@ function DailyCheckUpData({ params }: Props) {
           const date = new Date(params.date);
           date.setDate(date.getDate() + 1);
 
+          console.log(date.toISOString());
+
           getAllDailyCheckup(group, subGroup, date.toISOString(), name)
-            .then((res) => res.json())
+            .then((res) => {
+              if (!res.ok) {
+                throw new Error("Cannot get data.");
+              }
+              return res.json();
+            })
             .then((resJson) => {
               setHighRisk(resJson.highRisk);
               setMediumRisk(resJson.mediumRisk);
               setLowRisk(resJson.lowRisk);
               setReports(resJson.reports);
-            });
+            })
+            .catch((err) => alert(err));
         }
       });
     }
