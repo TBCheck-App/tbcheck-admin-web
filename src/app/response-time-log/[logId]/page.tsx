@@ -66,7 +66,7 @@ function ResponseTimeLogDetail({ params }: Props) {
               <div className="flex justify-between items-center">
                 <p>{logDetail ? logDetail.name : null}</p>
                 <a
-                  href={logDetail ? `data-peserta/${logDetail.userId}` : ""}
+                  href={logDetail ? `/data-peserta/${logDetail.userId}` : ""}
                   className="text-sm font-medium text-[#5497F6] flex flex-row gap-4"
                 >
                   <p>Lihat data peserta</p>
