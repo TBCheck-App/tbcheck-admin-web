@@ -8,6 +8,7 @@ import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { getAllNotificationLog } from "@/utils/fetch";
 import { NotificationLog } from "@/type";
+import FilterDataPeserta from "@/components/FilterDataPeserta";
 
 function ResponseTimeLog() {
   const router = useRouter();
@@ -16,6 +17,14 @@ function ResponseTimeLog() {
   const [notificationLogs, setNotificationLogs] = useState<
     NotificationLog[] | null
   >(null);
+  const [group, setGroup] = useState<string>("");
+  const [subGroup, setSubGroup] = useState<string>("");
+  const [showFilterDataResponseTimeLog, setShowFilterDataResponseTimeLog] =
+    useState<boolean>(false);
+
+  const filterDataClick = () => {
+    setShowFilterDataResponseTimeLog(true);
+  };
 
   useEffect(() => {
     tokenIsValid().then((res) => {
@@ -28,11 +37,20 @@ function ResponseTimeLog() {
       getAllNotificationLog()
         .then((res) => res.json())
         .then((resJson) => {
-          console.log(resJson);
-          setNotificationLogs(resJson.logs);
+          let logs: NotificationLog[] = resJson.logs;
+          console.log(logs);
+
+          if (group != "") {
+            logs = logs.filter((log) => log.group == group);
+          }
+          if (subGroup != "") {
+            logs = logs.filter((log) => log.subGroup == parseInt(subGroup));
+          }
+
+          setNotificationLogs(logs);
         });
     });
-  }, []);
+  }, [group, subGroup]);
 
   if (render) {
     return (
@@ -76,7 +94,7 @@ function ResponseTimeLog() {
                 />
               </div>
 
-              <button>
+              <button onClick={filterDataClick}>
                 <Image
                   src="/funnel.svg"
                   alt=""
@@ -130,6 +148,16 @@ function ResponseTimeLog() {
               : null}
           </div>
         </div>
+
+        {showFilterDataResponseTimeLog ? (
+          <FilterDataPeserta
+            setShowFilterDataPeserta={setShowFilterDataResponseTimeLog}
+            group={group}
+            setGroup={setGroup}
+            subGroup={subGroup}
+            setSubGroup={setSubGroup}
+          />
+        ) : null}
       </main>
     );
   }
