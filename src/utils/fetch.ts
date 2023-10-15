@@ -65,10 +65,12 @@ const getAllDailyCheckup = (
   date: string,
   name: string
 ): Promise<Response> => {
-  let query = "?";
+  let query = "&";
 
   if (name != "") {
     query += `name=${name}`;
+  } else {
+    query = "";
   }
 
   const token = JSON.parse(localStorage.getItem("token")!);
