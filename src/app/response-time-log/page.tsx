@@ -118,7 +118,7 @@ function ResponseTimeLog() {
                   return (
                     <ResponseTimeTable
                       id={notification.id}
-                      date={notification.sentAt}
+                      date={new Date(notification.sentAt)}
                       group={notification.group}
                       name={notification.name}
                       respondedAt={notification.respondedAt}

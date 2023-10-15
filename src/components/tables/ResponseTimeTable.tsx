@@ -2,7 +2,7 @@ import React from "react";
 
 interface Props {
   id: string;
-  date: string;
+  date: Date;
   group: string;
   subGroup: number;
   name: string;
@@ -18,9 +18,11 @@ function ResponseTimeTable({
   respondedAt,
 }: Props) {
   return (
-    <div className="text-xs h-12 grid grid-response-table border-t">
+    <div className="text-xs min-h-[3rem] h-fit grid grid-response-table border-t">
       <div className="p-2 flex justify-center items-center">
-        <p>{date}</p>
+        <p>{`${date.getDate()}/${
+          date.getMonth() + 1
+        }/${date.getFullYear()}`}</p>
       </div>
       <div className="p-2 flex justify-center items-center">
         <p>{group}</p>
@@ -37,7 +39,7 @@ function ResponseTimeTable({
         </a>
       </div>
       <div className="p-2 flex justify-center items-center">
-        <p>{respondedAt}</p>
+        <p>{respondedAt ? respondedAt : "NULL"}</p>
       </div>
     </div>
   );

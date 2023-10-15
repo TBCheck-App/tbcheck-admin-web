@@ -6,6 +6,7 @@ import { tokenIsValid } from "@/utils/auth";
 import { useRouter } from "next/navigation";
 import { getDetailNotificationLog } from "@/utils/fetch";
 import { DetailNotificationLog } from "@/type";
+import { dayNames } from "@/config/var";
 
 interface Props {
   params: {
@@ -19,6 +20,7 @@ function ResponseTimeLogDetail({ params }: Props) {
   const [logDetail, setLogDetail] = useState<DetailNotificationLog | null>(
     null
   );
+  const [dateRespond, setDateRespond] = useState<Date | null>(null);
 
   useEffect(() => {
     tokenIsValid().then((res) => {
@@ -37,6 +39,7 @@ function ResponseTimeLogDetail({ params }: Props) {
         .then((resJson) => {
           console.log(resJson);
           setLogDetail(resJson.log);
+          setDateRespond(new Date(resJson.log.sentAt));
         })
         .catch((err) => alert(err));
     });
@@ -79,22 +82,34 @@ function ResponseTimeLogDetail({ params }: Props) {
 
             <div className="flex flex-col gap-2">
               <h2 className="font-bold">Group</h2>
-              <p>{logDetail ? logDetail.group : null}</p>
+              <p>{logDetail && logDetail.group ? logDetail.group : "NULL"}</p>
             </div>
 
             <div className="flex flex-col gap-2">
               <h2 className="font-bold">Sub-Group</h2>
-              <p>{logDetail ? logDetail.subGroup : null}</p>
+              <p>
+                {logDetail && logDetail.subGroup ? logDetail.subGroup : "NULL"}
+              </p>
             </div>
 
             <div className="flex flex-col gap-2">
               <h2 className="font-bold">Hari, Tanggal Respon</h2>
-              <p>{logDetail ? logDetail.respondedAt : null}</p>
+              <p>
+                {dateRespond
+                  ? `${
+                      dayNames[dateRespond.getDay()]
+                    }, ${dateRespond.getDate()}/${dateRespond.getMonth()}/${dateRespond.getFullYear()}`
+                  : "NULL"}
+              </p>
             </div>
 
             <div className="flex flex-col gap-2">
               <h2 className="font-bold">Waktu Respon</h2>
-              <p>{logDetail ? logDetail.respondedAt : null}</p>
+              <p>
+                {logDetail && logDetail.respondedAt
+                  ? logDetail.respondedAt
+                  : "NULL"}
+              </p>
             </div>
 
             <div className="flex flex-col gap-2">
@@ -104,7 +119,11 @@ function ResponseTimeLogDetail({ params }: Props) {
 
             <div className="flex flex-col gap-2">
               <h2 className="font-bold">Variasi Desain Notifikasi</h2>
-              <p>Variasi {logDetail ? logDetail.variant : null}</p>
+              <p>
+                {logDetail && logDetail.variant != undefined
+                  ? `Variasi ${logDetail.variant}`
+                  : "NULL"}
+              </p>
             </div>
           </div>
 
@@ -115,7 +134,11 @@ function ResponseTimeLogDetail({ params }: Props) {
               <h2 className="font-bold">
                 Menurut Anda, seberapa penting Anda harus menggunakan masker?
               </h2>
-              <p>{logDetail ? logDetail.isMaskImportant : null}</p>
+              <p>
+                {logDetail && logDetail.isMaskImportant != undefined
+                  ? logDetail.isMaskImportant
+                  : "NULL"}
+              </p>
             </div>
 
             <div className="flex flex-col gap-2">
@@ -123,7 +146,11 @@ function ResponseTimeLogDetail({ params }: Props) {
                 Menurut Anda, seberapa besar kepedulian Anda untuk menggunakan
                 masker?
               </h2>
-              <p>{logDetail ? logDetail.isMaskCare : null}</p>
+              <p>
+                {logDetail && logDetail.isMaskCare != undefined
+                  ? logDetail.isMaskCare
+                  : "NULL"}
+              </p>
             </div>
           </div>
         </div>
