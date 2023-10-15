@@ -99,7 +99,7 @@ function ResponseTimeLogDetail({ params }: Props) {
                   ? `${
                       dayNames[dateRespond.getDay()]
                     }, ${dateRespond.getDate()}/${dateRespond.getMonth()}/${dateRespond.getFullYear()}`
-                  : "NULL"}
+                  : "Belum dijawab"}
               </p>
             </div>
 
@@ -108,7 +108,7 @@ function ResponseTimeLogDetail({ params }: Props) {
               <p>
                 {logDetail && logDetail.respondedAt
                   ? logDetail.respondedAt
-                  : "NULL"}
+                  : "Belum dijawab"}
               </p>
             </div>
 
@@ -137,7 +137,7 @@ function ResponseTimeLogDetail({ params }: Props) {
               <p>
                 {logDetail && logDetail.isMaskImportant != undefined
                   ? logDetail.isMaskImportant
-                  : "NULL"}
+                  : "Belum dijawab"}
               </p>
             </div>
 
@@ -149,7 +149,7 @@ function ResponseTimeLogDetail({ params }: Props) {
               <p>
                 {logDetail && logDetail.isMaskCare != undefined
                   ? logDetail.isMaskCare
-                  : "NULL"}
+                  : "Belum dijawab"}
               </p>
             </div>
           </div>

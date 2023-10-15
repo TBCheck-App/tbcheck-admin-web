@@ -39,7 +39,7 @@ function ResponseTimeTable({
         </a>
       </div>
       <div className="p-2 flex justify-center items-center">
-        <p>{respondedAt ? respondedAt : "NULL"}</p>
+        <p>{respondedAt ? respondedAt : "Belum dijawab"}</p>
       </div>
     </div>
   );
