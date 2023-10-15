@@ -8,6 +8,7 @@ import { useRouter } from "next/navigation";
 import React, { ChangeEvent, useEffect, useState } from "react";
 import { getAllScreening } from "@/utils/fetch";
 import { DataScreening } from "@/type";
+import FilterDataPeserta from "@/components/FilterDataPeserta";
 
 function Screening() {
   const [dataScreening, setDataScreening] = useState<DataScreening[] | null>(
@@ -15,6 +16,10 @@ function Screening() {
   );
   const [name, setName] = useState<string>("");
   const [render, setRender] = useState<boolean>(false);
+  const [showFilterDataScreening, setShowFilterDataScreening] =
+    useState<boolean>(false);
+  const [group, setGroup] = useState<string>("");
+  const [subGroup, setSubGroup] = useState<string>("");
 
   const router = useRouter();
 
@@ -22,12 +27,39 @@ function Screening() {
     setName(event.target.value);
   };
 
+  const filterDataClick = () => {
+    setShowFilterDataScreening(true);
+  };
+
   useEffect(() => {
     tokenIsValid().then((res) => {
       setRender(res);
       getAllScreening(name)
         .then((res) => res.json())
-        .then((resJson) => setDataScreening(resJson.screenings))
+        .then((resJson) => {
+          if (group != "" && subGroup != "") {
+            setDataScreening(
+              resJson.screenings.filter(
+                (screening: DataScreening) =>
+                  screening.group == group && screening.subGroup == subGroup
+              )
+            );
+          } else if (group != "" && subGroup == "") {
+            setDataScreening(
+              resJson.screenings.filter(
+                (screening: DataScreening) => screening.group == group
+              )
+            );
+          } else if (group == "" && subGroup != "") {
+            setDataScreening(
+              resJson.screenings.filter(
+                (screening: DataScreening) => screening.subGroup == subGroup
+              )
+            );
+          } else {
+            setDataScreening(resJson.screenings);
+          }
+        })
         .catch((error) =>
           alert(`There was a problem with the fetch operation: ${error}`)
         );
@@ -36,7 +68,7 @@ function Screening() {
         router.push("/signin");
       }
     });
-  }, [name]);
+  }, [name, group, subGroup]);
 
   if (render) {
     return (
@@ -85,7 +117,7 @@ function Screening() {
                 />
               </div>
 
-              <button>
+              <button onClick={filterDataClick}>
                 <Image
                   src="/funnel.svg"
                   alt=""
@@ -132,6 +164,16 @@ function Screening() {
               : null}
           </div>
         </div>
+
+        {showFilterDataScreening ? (
+          <FilterDataPeserta
+            setShowFilterDataPeserta={setShowFilterDataScreening}
+            group={group}
+            setGroup={setGroup}
+            subGroup={subGroup}
+            setSubGroup={setSubGroup}
+          />
+        ) : null}
       </main>
     );
   }
