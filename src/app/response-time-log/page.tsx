@@ -5,7 +5,7 @@ import ButtonOutlined from "@/components/buttons/ButtonOutlined";
 import { tokenIsValid } from "@/utils/auth";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, ChangeEvent } from "react";
 import { getAllNotificationLog } from "@/utils/fetch";
 import { NotificationLog } from "@/type";
 import FilterDataPeserta from "@/components/FilterDataPeserta";
@@ -17,6 +17,7 @@ function ResponseTimeLog() {
   const [notificationLogs, setNotificationLogs] = useState<
     NotificationLog[] | null
   >(null);
+  const [name, setName] = useState<string>("");
   const [group, setGroup] = useState<string>("");
   const [subGroup, setSubGroup] = useState<string>("");
   const [showFilterDataResponseTimeLog, setShowFilterDataResponseTimeLog] =
@@ -24,6 +25,10 @@ function ResponseTimeLog() {
 
   const filterDataClick = () => {
     setShowFilterDataResponseTimeLog(true);
+  };
+
+  const handleChangeSearch = (event: ChangeEvent<HTMLInputElement>) => {
+    setName(event.target.value);
   };
 
   useEffect(() => {
@@ -40,6 +45,9 @@ function ResponseTimeLog() {
           let logs: NotificationLog[] = resJson.logs;
           console.log(logs);
 
+          if (name != "") {
+            logs = logs.filter((log) => log.name.includes(name));
+          }
           if (group != "") {
             logs = logs.filter((log) => log.group == group);
           }
@@ -50,7 +58,7 @@ function ResponseTimeLog() {
           setNotificationLogs(logs);
         });
     });
-  }, [group, subGroup]);
+  }, [name, group, subGroup]);
 
   if (render) {
     return (
@@ -91,6 +99,8 @@ function ResponseTimeLog() {
                   type="text"
                   className="focus:outline-none text-xs"
                   placeholder="Search"
+                  value={name}
+                  onChange={handleChangeSearch}
                 />
               </div>
 
