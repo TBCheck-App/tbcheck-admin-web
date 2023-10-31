@@ -55,6 +55,11 @@ export default function Home() {
             buttonText="Data Peserta"
             destPage="/data-peserta"
           />
+          <Button
+            imageSrc="mwt.svg"
+            buttonText="Mask Wearing Tracker"
+            destPage="/mask-wearing-tracker"
+          />
         </div>
       </main>
     );
