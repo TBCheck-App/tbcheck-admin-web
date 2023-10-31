@@ -152,7 +152,7 @@ const MaskWearingTrackerSubGroup = ({ params }: Props) => {
               <div className="text-xs font-semibold px-2 py-3">Tidak</div>
             </div>
 
-            {mwtLog.answers.map((answer) => {
+            {mwtLog.answers.map((answer, index) => {
               return (
                 <div
                   className={`border-t grid text-center ${
@@ -160,6 +160,7 @@ const MaskWearingTrackerSubGroup = ({ params }: Props) => {
                       ? "grid-mwt-table-enforcement"
                       : "grid-mwt-table-no-enforcement"
                   }`}
+                  key={index}
                 >
                   <div className="flex flex-row gap-1 py-3 px-2 items-center">
                     <p className="text-xs font-semibold h-fit">

@@ -50,7 +50,7 @@ const MaskWearingTrackerSubGroup = ({ params }: Props) => {
           <div className="px-4">
             <ButtonBack
               buttonText="Home"
-              destPage="/"
+              destPage="/mask-wearing-tracker"
             />
           </div>
 
