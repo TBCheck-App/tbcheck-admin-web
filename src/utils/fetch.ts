@@ -284,6 +284,24 @@ const getAllMWTHistory = (group: string, subGroup: string) => {
   );
 };
 
+const getDetailMWTHistory = (id: string) => {
+  const token = JSON.parse(localStorage.getItem("token")!);
+
+  const options: RequestInit = {
+    method: "GET",
+    headers: {
+      Authorization: `Bearer ${(token as Token).token}`,
+    },
+  };
+
+  return fetch(
+    `${process.env.NEXT_PUBLIC_BACKEND_URL}${apiEndpoints.getDetailMWTHistory(
+      id
+    )}`,
+    options
+  );
+};
+
 export {
   getAllUser,
   getUserDetail,
@@ -297,4 +315,5 @@ export {
   getAllNotificationLog,
   getDetailNotificationLog,
   getAllMWTHistory,
+  getDetailMWTHistory,
 };

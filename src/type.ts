@@ -280,6 +280,30 @@ interface MWTHistoryLog {
   totalUsers: number;
 }
 
+interface MWTHistoryLogDetail {
+  id: string;
+  group: string;
+  subGroup: number;
+  date: string;
+  withEnforcement: boolean;
+  numberOfAnswer: {
+    yes: number;
+    withEnforcement: number;
+    no: number;
+  };
+  answers: MWTAnswer[];
+}
+
+interface MWTAnswer {
+  isUseMask: null | UsingMaskAnswer;
+  user: {
+    id: string;
+    name: string;
+  };
+}
+
+type UsingMaskAnswer = "YES" | "NO" | "WITH_ENFORCEMENT";
+
 export type {
   DataPeserta,
   DetailPeserta,
@@ -302,4 +326,5 @@ export type {
   NotificationLog,
   DetailNotificationLog,
   MWTHistoryLog,
+  MWTHistoryLogDetail,
 };

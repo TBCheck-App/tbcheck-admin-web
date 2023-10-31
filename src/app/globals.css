@@ -3,25 +3,33 @@
 @tailwind utilities;
 
 .grid-daily-checkup-table {
-	grid-template-columns: 100px 125px 125px;
+  grid-template-columns: 100px 125px 125px;
 }
 
 .grid-screening-table {
-	grid-template-columns: 90px 48px 97px auto;
+  grid-template-columns: 90px 48px 97px auto;
 }
 
 .grid-response-table {
-	grid-template-columns: 83px 48px 52px 87px 80px;
+  grid-template-columns: 83px 48px 52px 87px 80px;
 }
 
 .grid-tbc-table {
-	grid-template-columns: repeat(2, 1fr) 100px 1fr;
+  grid-template-columns: repeat(2, 1fr) 100px 1fr;
 }
 
 .grid-tbc-table-detail {
-	grid-template-columns: 3fr 1fr;
+  grid-template-columns: 3fr 1fr;
 }
 
 .grid-tbc-close-contact {
-	grid-template-columns: min-content auto;
+  grid-template-columns: min-content auto;
+}
+
+.grid-mwt-table-no-enforcement {
+  grid-template-columns: 225px 1fr 1fr;
+}
+
+.grid-mwt-table-enforcement {
+  grid-template-columns: 180px 1fr 1fr 1fr;
 }
