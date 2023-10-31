@@ -11,6 +11,7 @@ import { tokenIsValid } from "@/utils/auth";
 import { useRouter } from "next/navigation";
 import apiEndpoints from "@/config/apiEndpoints";
 import { getAllUser } from "@/utils/fetch";
+import ButtonBlue from "@/components/buttons/ButtonBlue";
 
 export default function DataPeserta() {
   const [showFilterDataPeserta, setShowFilterDataPeserta] =
@@ -22,6 +23,8 @@ export default function DataPeserta() {
   const [render, setRender] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
+  const [page, setPage] = useState<number>(1);
+
   const router = useRouter();
 
   const filterDataClick = () => {
@@ -32,18 +35,29 @@ export default function DataPeserta() {
     setName(event.target.value);
   };
 
+  const prevPage = (event: React.MouseEvent<HTMLButtonElement>) => {
+    setPage(() => (page == 1 ? 1 : page - 1));
+  };
+
+  const nextPage = (event: React.MouseEvent<HTMLButtonElement>) => {
+    setPage(page + 1);
+  };
+
   useEffect(() => {
     tokenIsValid().then((res) => {
       setRender(res);
       setIsLoading(false);
 
       if (res) {
-        getAllUser(name, group, subGroup)
+        getAllUser(name, group, subGroup, page)
           .then((res) => res.json())
-          .then((resJson) => setDataPeserta(resJson.users));
+          .then((resJson) => {
+            console.log(resJson.users.length);
+            setDataPeserta(resJson.users);
+          });
       }
     });
-  }, [group, subGroup, name]);
+  }, [group, subGroup, name, page]);
 
   if (isLoading) {
     return <h1>Loading...</h1>;
@@ -152,6 +166,18 @@ export default function DataPeserta() {
             setSubGroup={setSubGroup}
           />
         ) : null}
+
+        <div className="fixed flex gap-1 items-center bottom-4 right-4">
+          <ButtonBlue
+            buttonText="Prev page"
+            onClick={prevPage}
+          />
+          <p>Page {page}</p>
+          <ButtonBlue
+            buttonText="Next page"
+            onClick={nextPage}
+          />
+        </div>
       </main>
     );
   }

@@ -4,9 +4,10 @@ import { Token } from "@/type";
 const getAllUser = (
   name: string,
   group: string,
-  subGroup: string
+  subGroup: string,
+  page: number = 1
 ): Promise<Response> => {
-  let query = "?";
+  let query = "";
 
   if (name != "") {
     query += `name=${name}`;
@@ -28,6 +29,16 @@ const getAllUser = (
     }
   }
 
+  if (
+    query.includes("name") ||
+    query.includes("group") ||
+    query.includes("subGroup")
+  ) {
+    query += `&page=${page}`;
+  } else {
+    query += `page=${page}`;
+  }
+
   const token = JSON.parse(localStorage.getItem("token")!);
 
   const options: RequestInit = {
@@ -37,8 +48,10 @@ const getAllUser = (
     },
   };
 
+  const queryParam = query != "" ? `?${query}` : "";
+
   return fetch(
-    `${process.env.NEXT_PUBLIC_BACKEND_URL}${apiEndpoints.getAllUser}${query}`,
+    `${process.env.NEXT_PUBLIC_BACKEND_URL}${apiEndpoints.getAllUser}${queryParam}`,
     options
   );
 };
