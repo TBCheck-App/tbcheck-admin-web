@@ -186,7 +186,7 @@ function ResponseTimeLog() {
             buttonText="Prev page"
             onClick={prevPage}
           />
-          <p>{page}</p>
+          <p>Page {page}</p>
           <ButtonBlue
             buttonText="Next page"
             onClick={nextPage}
