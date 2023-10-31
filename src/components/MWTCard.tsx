@@ -15,7 +15,7 @@ const MWTCard = ({ mwtLog }: Props) => {
 
   const goToDetailMWT = () => {
     router.push(
-      `mask-wearing-tracker/${mwtLog.group}${mwtLog.subGroup}/${mwtLog.id}`
+      `/mask-wearing-tracker/${mwtLog.group}${mwtLog.subGroup}/${mwtLog.id}`
     );
   };
 
