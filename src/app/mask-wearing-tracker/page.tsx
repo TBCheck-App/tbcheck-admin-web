@@ -15,8 +15,8 @@ function MaskWearingTracker() {
 
   const router = useRouter();
 
-  const goToCalendar = () => {
-    router.push(`/daily-checkup/${group}${subGroup}`);
+  const goToMWTSubGroup = () => {
+    router.push(`/mask-wearing-tracker/${group}${subGroup}`);
   };
 
   const handleChangeGroup = (event: ChangeEvent<HTMLSelectElement>) => {
@@ -97,7 +97,7 @@ function MaskWearingTracker() {
 
           <ButtonBlue
             buttonText="Lihat History"
-            onClick={goToCalendar}
+            onClick={goToMWTSubGroup}
           />
         </div>
       </div>
