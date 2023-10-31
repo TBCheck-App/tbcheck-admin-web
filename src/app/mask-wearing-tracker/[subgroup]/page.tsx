@@ -62,7 +62,14 @@ const MaskWearingTrackerSubGroup = ({ params }: Props) => {
                 width={60}
                 height={60}
               />
-              <h1 className="font-bold text-2xl">Data Semua Peserta</h1>
+              <h1 className="font-bold text-2xl">
+                History Mask Wearing Tracker
+              </h1>
+
+              <h2 className="font-bold text-xl">
+                Sub-group {group}
+                {subGroup}
+              </h2>
             </div>
 
             <div className="mx-5">

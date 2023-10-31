@@ -56,7 +56,7 @@ function MaskWearingTracker() {
               width={60}
               height={60}
             />
-            <h1 className="font-bold text-2xl">History Daily Check Up</h1>
+            <h1 className="font-bold text-2xl">History Mask Wearing Tracker</h1>
           </div>
 
           <h2 className="font-bold text-xl text-center">Pilih Grup</h2>
