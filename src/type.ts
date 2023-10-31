@@ -269,6 +269,17 @@ interface DetailNotificationLog {
   subGroup: 1 | 2;
 }
 
+interface MWTHistoryLog {
+  date: string;
+  group: "A" | "B" | "C" | "D" | "E" | "F" | "G" | "H";
+  subGroup: 1 | 2;
+  id: string;
+  no: number;
+  yes: number;
+  withEnforcement: number;
+  totalUsers: number;
+}
+
 export type {
   DataPeserta,
   DetailPeserta,
@@ -290,4 +301,5 @@ export type {
   TBCCloseContactCardProps,
   NotificationLog,
   DetailNotificationLog,
+  MWTHistoryLog,
 };

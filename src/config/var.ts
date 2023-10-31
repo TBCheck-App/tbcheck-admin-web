@@ -17,6 +17,8 @@ const groupList = [
   "H2",
 ];
 
+const enforcementGroups = ["A", "C", "E", "G"];
+
 const dayNames = [
   "Minggu",
   "Senin",
@@ -42,4 +44,4 @@ const monthNames = [
   "Desember",
 ];
 
-export { groupList, dayNames, monthNames };
+export { groupList, dayNames, monthNames, enforcementGroups };

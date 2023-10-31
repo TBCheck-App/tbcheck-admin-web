@@ -12,6 +12,8 @@ const apiEndpoints = {
   getAllTBReport: "/tb-report",
   getAllNotification: "/notification/log",
   getDetailnotification: (id: string) => `/notification/log/${id}`,
+  getAllMWTHistory: "/mask-tracker/history",
+  getDetailHistory: (id: string) => `/mask-tracker/history/${id}`,
 };
 
 export default apiEndpoints;
