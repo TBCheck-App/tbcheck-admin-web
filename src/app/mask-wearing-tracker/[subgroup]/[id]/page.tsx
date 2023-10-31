@@ -143,13 +143,17 @@ const MaskWearingTrackerSubGroup = ({ params }: Props) => {
               <div className="flex flex-row gap-1 py-3 px-2 items-center">
                 <p className="text-xs font-semibold h-fit">Nama Peserta</p>
               </div>
-              <div className="text-xs font-semibold px-2 py-3">Ya</div>
+              <div className="flex flex-row items-center justify-center text-xs font-semibold px-2 py-3">
+                <p>Ya</p>
+              </div>
               {mwtLog.withEnforcement ? (
-                <div className="text-xs font-semibold px-2 py-3">
-                  Ya, setelah dihimbau
+                <div className="flex flex-row items-center justify-center text-xs font-semibold px-2 py-3">
+                  <p>Ya, setelah dihimbau</p>
                 </div>
               ) : null}
-              <div className="text-xs font-semibold px-2 py-3">Tidak</div>
+              <div className="flex flex-row items-center justify-center text-xs font-semibold px-2 py-3">
+                <p>Tidak</p>
+              </div>
             </div>
 
             {mwtLog.answers.map((answer, index) => {
@@ -168,7 +172,7 @@ const MaskWearingTrackerSubGroup = ({ params }: Props) => {
                     </p>
                   </div>
 
-                  <div className="text-xs font-semibold px-2 py-3">
+                  <div className="text-xs font-semibold px-2 py-3 flex justify-center items-center">
                     {answer.isUseMask == "YES" ? (
                       <div className="w-4 h-4 bg-[#5497F6] rounded-full flex justify-center items-center">
                         <div className="w-[6px] h-[6px] bg-white rounded-full"></div>
@@ -179,7 +183,7 @@ const MaskWearingTrackerSubGroup = ({ params }: Props) => {
                   </div>
 
                   {mwtLog.withEnforcement ? (
-                    <div className="text-xs font-semibold px-2 py-3">
+                    <div className="text-xs font-semibold px-2 py-3 flex justify-center items-center">
                       {answer.isUseMask == "WITH_ENFORCEMENT" ? (
                         <div className="w-4 h-4 bg-[#5497F6] rounded-full flex justify-center items-center">
                           <div className="w-[6px] h-[6px] bg-white rounded-full"></div>
@@ -190,7 +194,7 @@ const MaskWearingTrackerSubGroup = ({ params }: Props) => {
                     </div>
                   ) : null}
 
-                  <div className="text-xs font-semibold px-2 py-3">
+                  <div className="text-xs font-semibold px-2 py-3 flex justify-center items-center">
                     {answer.isUseMask == "NO" ? (
                       <div className="w-4 h-4 bg-[#5497F6] rounded-full flex justify-center items-center">
                         <div className="w-[6px] h-[6px] bg-white rounded-full"></div>
