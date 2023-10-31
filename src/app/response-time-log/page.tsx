@@ -9,6 +9,7 @@ import React, { useEffect, useState, ChangeEvent } from "react";
 import { getAllNotificationLog } from "@/utils/fetch";
 import { NotificationLog } from "@/type";
 import FilterDataPeserta from "@/components/FilterDataPeserta";
+import ButtonBlue from "@/components/buttons/ButtonBlue";
 
 function ResponseTimeLog() {
   const router = useRouter();
@@ -23,12 +24,22 @@ function ResponseTimeLog() {
   const [showFilterDataResponseTimeLog, setShowFilterDataResponseTimeLog] =
     useState<boolean>(false);
 
+  const [page, setPage] = useState<number>(1);
+
   const filterDataClick = () => {
     setShowFilterDataResponseTimeLog(true);
   };
 
   const handleChangeSearch = (event: ChangeEvent<HTMLInputElement>) => {
     setName(event.target.value);
+  };
+
+  const prevPage = (event: React.MouseEvent<HTMLButtonElement>) => {
+    setPage(() => (page == 1 ? 1 : page - 1));
+  };
+
+  const nextPage = (event: React.MouseEvent<HTMLButtonElement>) => {
+    setPage(page + 1);
   };
 
   useEffect(() => {
@@ -39,7 +50,7 @@ function ResponseTimeLog() {
         router.push("/signin");
       }
 
-      getAllNotificationLog()
+      getAllNotificationLog(page)
         .then((res) => res.json())
         .then((resJson) => {
           let logs: NotificationLog[] = resJson.logs;
@@ -58,7 +69,7 @@ function ResponseTimeLog() {
           setNotificationLogs(logs);
         });
     });
-  }, [name, group, subGroup]);
+  }, [name, group, subGroup, page]);
 
   if (render) {
     return (
@@ -149,6 +160,7 @@ function ResponseTimeLog() {
                       date={new Date(notification.sentAt)}
                       group={notification.group}
                       name={notification.name}
+                      sentAt={notification.sentAt}
                       respondedAt={notification.respondedAt}
                       subGroup={notification.subGroup}
                       key={index}
@@ -168,6 +180,18 @@ function ResponseTimeLog() {
             setSubGroup={setSubGroup}
           />
         ) : null}
+
+        <div className="fixed flex gap-1 items-center bottom-4 right-4">
+          <ButtonBlue
+            buttonText="Prev page"
+            onClick={prevPage}
+          />
+          <p>{page}</p>
+          <ButtonBlue
+            buttonText="Next page"
+            onClick={nextPage}
+          />
+        </div>
       </main>
     );
   }

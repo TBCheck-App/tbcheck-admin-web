@@ -218,7 +218,7 @@ const changeUserGroupAndSubGroup = (
   );
 };
 
-const getAllNotificationLog = () => {
+const getAllNotificationLog = (page: number) => {
   const token = JSON.parse(localStorage.getItem("token")!);
 
   const options: RequestInit = {
@@ -229,7 +229,7 @@ const getAllNotificationLog = () => {
   };
 
   return fetch(
-    `${process.env.NEXT_PUBLIC_BACKEND_URL}${apiEndpoints.getAllNotification}`,
+    `${process.env.NEXT_PUBLIC_BACKEND_URL}${apiEndpoints.getAllNotification}?page=${page}`,
     options
   );
 };

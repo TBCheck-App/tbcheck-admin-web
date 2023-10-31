@@ -21,6 +21,15 @@ function ResponseTimeLogDetail({ params }: Props) {
     null
   );
   const [dateRespond, setDateRespond] = useState<Date | null>(null);
+  const [jedaRespond, setJedaRespond] = useState<string | null>(null);
+
+  const habituationResponds = [
+    "Sangat tidak penting",
+    "Tidak penting",
+    "Netral",
+    "Penting",
+    "Sangat penting",
+  ];
 
   useEffect(() => {
     tokenIsValid().then((res) => {
@@ -39,7 +48,20 @@ function ResponseTimeLogDetail({ params }: Props) {
         .then((resJson) => {
           console.log(resJson);
           setLogDetail(resJson.log);
-          setDateRespond(new Date(resJson.log.sentAt));
+          setDateRespond(new Date(resJson.log.respondedAt));
+          setJedaRespond(() => {
+            if (resJson.log.respondedAt) {
+              const sentAtDate = new Date(resJson.log.sentAt);
+              const respondedAtDate = new Date(resJson.log.respondedAt);
+              const differenceInSeconds = Math.round(
+                (respondedAtDate.getTime() - sentAtDate.getTime()) / 1000
+              );
+              const differenceInMinutes = (differenceInSeconds / 60).toFixed(2);
+              return differenceInMinutes;
+            } else {
+              return null;
+            }
+          });
         })
         .catch((err) => alert(err));
     });
@@ -106,15 +128,15 @@ function ResponseTimeLogDetail({ params }: Props) {
             <div className="flex flex-col gap-2">
               <h2 className="font-bold">Waktu Respon</h2>
               <p>
-                {logDetail && logDetail.respondedAt
-                  ? logDetail.respondedAt
+                {dateRespond
+                  ? `${dateRespond.getHours()}:${dateRespond.getMinutes()}:${dateRespond.getSeconds()} WIB`
                   : "Belum dijawab"}
               </p>
             </div>
 
             <div className="flex flex-col gap-2">
               <h2 className="font-bold">Jeda Respon dari Notifikasi</h2>
-              <p>NULL</p>
+              <p>{jedaRespond} Menit</p>
             </div>
 
             <div className="flex flex-col gap-2">
@@ -136,7 +158,7 @@ function ResponseTimeLogDetail({ params }: Props) {
               </h2>
               <p>
                 {logDetail && logDetail.isMaskImportant != undefined
-                  ? logDetail.isMaskImportant
+                  ? habituationResponds[logDetail.isMaskImportant - 1]
                   : "Belum dijawab"}
               </p>
             </div>
@@ -148,7 +170,7 @@ function ResponseTimeLogDetail({ params }: Props) {
               </h2>
               <p>
                 {logDetail && logDetail.isMaskCare != undefined
-                  ? logDetail.isMaskCare
+                  ? habituationResponds[logDetail.isMaskCare - 1]
                   : "Belum dijawab"}
               </p>
             </div>
