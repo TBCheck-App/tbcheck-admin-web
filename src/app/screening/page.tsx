@@ -6,7 +6,7 @@ import { tokenIsValid } from "@/utils/auth";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import React, { ChangeEvent, useEffect, useState } from "react";
-import { getAllScreening } from "@/utils/fetch";
+import { getAllScreening, getScreeningReports } from "@/utils/fetch";
 import { DataScreening } from "@/type";
 import FilterDataPeserta from "@/components/FilterDataPeserta";
 
@@ -29,6 +29,12 @@ function Screening() {
 
   const filterDataClick = () => {
     setShowFilterDataScreening(true);
+  };
+
+  const downloadFile = () => {
+    getScreeningReports()
+      .then((res) => res.blob())
+      .then((resBlob) => window.open(URL.createObjectURL(resBlob), "_blank"));
   };
 
   useEffect(() => {
@@ -94,6 +100,7 @@ function Screening() {
           <ButtonOutlined
             icons="/download.svg"
             text="Unduh Riwayat Laporan"
+            onClick={downloadFile}
           />
 
           <div
