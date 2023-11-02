@@ -6,7 +6,7 @@ import { tokenIsValid } from "@/utils/auth";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState, ChangeEvent } from "react";
-import { getAllNotificationLog } from "@/utils/fetch";
+import { getAllNotificationLog, getResponseTimeReports } from "@/utils/fetch";
 import { NotificationLog } from "@/type";
 import FilterDataPeserta from "@/components/FilterDataPeserta";
 import ButtonBlue from "@/components/buttons/ButtonBlue";
@@ -40,6 +40,12 @@ function ResponseTimeLog() {
 
   const nextPage = (event: React.MouseEvent<HTMLButtonElement>) => {
     setPage(page + 1);
+  };
+
+  const downloadFile = () => {
+    getResponseTimeReports()
+      .then((res) => res.blob())
+      .then((resBlob) => router.push(URL.createObjectURL(resBlob)));
   };
 
   useEffect(() => {
@@ -95,6 +101,7 @@ function ResponseTimeLog() {
           <ButtonOutlined
             icons="/download.svg"
             text="Unduh Data"
+            onClick={downloadFile}
           />
 
           <div className="border rounded">
