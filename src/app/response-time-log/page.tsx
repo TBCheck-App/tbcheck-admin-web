@@ -188,7 +188,7 @@ function ResponseTimeLog() {
           />
         ) : null}
 
-        <div className="fixed flex gap-1 items-center bottom-4 right-4">
+        <div className="fixed flex gap-1 items-center bottom-4 left-[50%] translate-x-[-50%] bg-white p-3 rounded-lg border shadow">
           <ButtonBlue
             buttonText="Prev page"
             onClick={prevPage}
