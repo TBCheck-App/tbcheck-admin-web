@@ -64,10 +64,10 @@ export default function ScreeningDetail({ params }: Props) {
             <h1 className="font-bold text-2xl text-center">Detail Skrining</h1>
           </div>
 
-          <ButtonOutlined
+          {/* <ButtonOutlined
             icons="/download.svg"
             text="Unduh Detail Skrining"
-          />
+          /> */}
 
           <div className="flex flex-col gap-7">
             <div className="flex flex-col gap-2">
