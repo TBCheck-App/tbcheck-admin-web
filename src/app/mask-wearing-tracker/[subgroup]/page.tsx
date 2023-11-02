@@ -29,7 +29,7 @@ const MaskWearingTrackerSubGroup = ({ params }: Props) => {
   const downloadFile = () => {
     getMWTReports()
       .then((res) => res.blob())
-      .then((resBlob) => router.push(URL.createObjectURL(resBlob)));
+      .then((resBlob) => window.open(URL.createObjectURL(resBlob), "_blank"));
   };
 
   useEffect(() => {

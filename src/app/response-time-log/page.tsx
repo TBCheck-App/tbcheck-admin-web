@@ -45,7 +45,7 @@ function ResponseTimeLog() {
   const downloadFile = () => {
     getResponseTimeReports()
       .then((res) => res.blob())
-      .then((resBlob) => router.push(URL.createObjectURL(resBlob)));
+      .then((resBlob) => window.open(URL.createObjectURL(resBlob), "_blank"));
   };
 
   useEffect(() => {
