@@ -10,7 +10,7 @@ import FilterDataPeserta from "@/components/FilterDataPeserta";
 import { tokenIsValid } from "@/utils/auth";
 import { useRouter } from "next/navigation";
 import apiEndpoints from "@/config/apiEndpoints";
-import { getAllUser } from "@/utils/fetch";
+import { getAllUser, getUserData } from "@/utils/fetch";
 import ButtonBlue from "@/components/buttons/ButtonBlue";
 
 export default function DataPeserta() {
@@ -41,6 +41,12 @@ export default function DataPeserta() {
 
   const nextPage = (event: React.MouseEvent<HTMLButtonElement>) => {
     setPage(page + 1);
+  };
+
+  const downloadFile = () => {
+    getUserData()
+      .then((res) => res.blob())
+      .then((resBlob) => window.open(URL.createObjectURL(resBlob), "_blank"));
   };
 
   useEffect(() => {
@@ -88,6 +94,7 @@ export default function DataPeserta() {
             <ButtonOutlined
               icons="/download.svg"
               text="Data Peserta"
+              onClick={downloadFile}
             />
           </div>
 

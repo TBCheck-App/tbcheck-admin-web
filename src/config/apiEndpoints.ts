@@ -17,6 +17,7 @@ const apiEndpoints = {
   getMWTDownload: "/mask-tracker/download",
   getResponseTimeLogDownload: "/notification/download",
   getScreeningDownload: "/screening/download",
+  getUserDownload: "/user/download",
 };
 
 export default apiEndpoints;
