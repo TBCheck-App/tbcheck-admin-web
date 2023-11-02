@@ -14,6 +14,7 @@ const apiEndpoints = {
   getDetailnotification: (id: string) => `/notification/log/${id}`,
   getAllMWTHistory: "/mask-tracker/history",
   getDetailMWTHistory: (id: string) => `/mask-tracker/history/${id}`,
+  getMWTDownload: "/mask-tracker/download",
 };
 
 export default apiEndpoints;

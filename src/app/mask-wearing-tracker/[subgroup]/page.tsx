@@ -7,7 +7,7 @@ import Image from "next/image";
 import ButtonBack from "@/components/buttons/ButtonBack";
 import ButtonOutlined from "@/components/buttons/ButtonOutlined";
 import MWTCard from "@/components/MWTCard";
-import { getAllMWTHistory } from "@/utils/fetch";
+import { getAllMWTHistory, getMWTReports } from "@/utils/fetch";
 import { MWTHistoryLog } from "@/type";
 
 interface Props {
@@ -25,6 +25,12 @@ const MaskWearingTrackerSubGroup = ({ params }: Props) => {
 
   const group = params.subgroup[0];
   const subGroup = params.subgroup[1];
+
+  const downloadFile = () => {
+    getMWTReports()
+      .then((res) => res.blob())
+      .then((resBlob) => router.push(URL.createObjectURL(resBlob)));
+  };
 
   useEffect(() => {
     if (params.subgroup.length <= 2 && groupList.includes(params.subgroup)) {
@@ -76,6 +82,7 @@ const MaskWearingTrackerSubGroup = ({ params }: Props) => {
               <ButtonOutlined
                 icons="/download.svg"
                 text="Data Peserta"
+                onClick={downloadFile}
               />
             </div>
 
