@@ -41,7 +41,6 @@ function DailyCheckUpData({ params }: Props) {
           const group = params.subgroup.split("")[0];
           const subGroup = parseInt(params.subgroup.split("")[1]);
           const date = new Date(params.date);
-          date.setDate(date.getDate() + 1);
 
           console.log(date.toISOString());
 
