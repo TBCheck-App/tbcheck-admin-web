@@ -167,7 +167,7 @@ const MaskWearingTrackerSubGroup = ({ params }: Props) => {
                   key={index}
                 >
                   <div className="flex flex-row gap-1 py-3 px-2 items-center">
-                    <p className="text-xs font-semibold h-fit">
+                    <p className="text-xs font-semibold h-fit text-left">
                       {answer.user.name}
                     </p>
                   </div>
