@@ -38,7 +38,7 @@ function FilterDataPeserta({
     <div>
       <Backdrop setShowState={setShowFilterDataPeserta} />
 
-      <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white p-4 w-[350px] flex flex-col gap-3">
+      <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white p-4 w-[350px] flex flex-col gap-3">
         <div className="flex flex-row justify-between">
           <h1 className="font-bold text-xl">Filter Data</h1>
           <button onClick={removeClick}>
