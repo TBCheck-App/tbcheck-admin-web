@@ -10,7 +10,6 @@ import { getAllNotificationLog, getResponseTimeReports } from "@/utils/fetch";
 import { NotificationLog } from "@/type";
 import FilterDataPeserta from "@/components/FilterDataPeserta";
 import ButtonBlue from "@/components/buttons/ButtonBlue";
-import apiEndpoints from "@/config/apiEndpoints";
 
 function ResponseTimeLog() {
   const router = useRouter();
@@ -44,10 +43,9 @@ function ResponseTimeLog() {
   };
 
   const downloadFile = () => {
-    window.open(
-      `${process.env.NEXT_PUBLIC_BACKEND_URL}${apiEndpoints.getResponseTimeLogDownload}`,
-      "_blank"
-    );
+    getResponseTimeReports()
+      .then((res) => res.blob())
+      .then((resBlob) => window.open(URL.createObjectURL(resBlob), "_blank"));
   };
 
   useEffect(() => {
