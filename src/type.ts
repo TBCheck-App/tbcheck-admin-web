@@ -1,3 +1,5 @@
+type UserGroup = "A" | "B" | "C" | "D" | "E" | "F" | "G" | "H";
+
 interface DataPeserta {
   id: string;
   name: string;
@@ -170,7 +172,7 @@ interface TBUserReport {
   userId: string;
   name: string;
   university: "UI" | "TELKOM" | "UNDANA" | "UTI";
-  group: "A" | "B" | "C" | "D" | "E" | "F" | "G" | "H";
+  group: UserGroup;
   subGroup: 1 | 2;
 }
 
@@ -178,7 +180,7 @@ interface TBCReportTableProps {
   id: string;
   dateStr: string;
   name: string;
-  userClass: "A" | "B" | "C" | "D" | "E" | "F" | "G" | "H";
+  userClass: UserGroup;
   university: "UI" | "TELKOM" | "UNDANA" | "UTI";
 }
 
@@ -186,7 +188,7 @@ interface ReportDetailProps {
   id: string;
   userId: string;
   name: string;
-  group: "A" | "B" | "C" | "D" | "E" | "F" | "G" | "H";
+  group: UserGroup;
   subGroup: 1 | 2;
   reportDate: string;
   university: "UI" | "TELKOM" | "UNDANA" | "UTI";
@@ -246,7 +248,7 @@ interface NotificationLog {
   id: string;
   sentAt: string;
   respondedAt: string;
-  group: "A" | "B" | "C" | "D" | "E" | "F" | "G" | "H";
+  group: UserGroup;
   subGroup: 1 | 2;
   name: string;
 }
@@ -265,13 +267,13 @@ interface DetailNotificationLog {
   isMaskImportant: number;
   userId: string;
   name: string;
-  group: "A" | "B" | "C" | "D" | "E" | "F" | "G" | "H";
+  group: UserGroup;
   subGroup: 1 | 2;
 }
 
 interface MWTHistoryLog {
   date: string;
-  group: "A" | "B" | "C" | "D" | "E" | "F" | "G" | "H";
+  group: UserGroup;
   subGroup: 1 | 2;
   id: string;
   no: number;
@@ -327,4 +329,5 @@ export type {
   DetailNotificationLog,
   MWTHistoryLog,
   MWTHistoryLogDetail,
+  UserGroup,
 };

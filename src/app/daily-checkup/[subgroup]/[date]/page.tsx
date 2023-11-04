@@ -7,8 +7,8 @@ import { redirect, useRouter } from "next/navigation";
 import Image from "next/image";
 import React, { ChangeEvent, useEffect, useState } from "react";
 import { tokenIsValid } from "@/utils/auth";
-import { getAllDailyCheckup } from "@/utils/fetch";
-import { DailyCheckupTableType } from "@/type";
+import { getAllDailyCheckup, getDailyCheckupReports } from "@/utils/fetch";
+import { DailyCheckupTableType, UserGroup } from "@/type";
 
 interface Props {
   params: { subgroup: string; date: string };
@@ -28,6 +28,19 @@ function DailyCheckUpData({ params }: Props) {
     event: ChangeEvent<HTMLInputElement>
   ) => {
     setName(event.target.value);
+  };
+
+  const downloadFile = () => {
+    const group = params.subgroup[0] as UserGroup;
+    const subGroup = parseInt(params.subgroup[1]) as 1 | 2;
+    const date = new Date(params.date);
+
+    getDailyCheckupReports(group, subGroup, date)
+      .then((res) => {
+        console.log(res);
+        return res.blob();
+      })
+      .then((resBlob) => window.open(URL.createObjectURL(resBlob), "_blank"));
   };
 
   useEffect(() => {
@@ -52,6 +65,8 @@ function DailyCheckUpData({ params }: Props) {
               return res.json();
             })
             .then((resJson) => {
+              console.log(resJson);
+
               setHighRisk(resJson.highRisk);
               setMediumRisk(resJson.mediumRisk);
               setLowRisk(resJson.lowRisk);
@@ -119,6 +134,7 @@ function DailyCheckUpData({ params }: Props) {
             <ButtonOutlined
               icons="/download.svg"
               text="Unduh Riwayat"
+              onClick={downloadFile}
             />
 
             <div className="border rounded">

@@ -1,3 +1,5 @@
+import { UserGroup } from "@/type";
+
 const apiEndpoints = {
   login: "/auth/login",
   getAllUser: "/user/all",
@@ -18,6 +20,8 @@ const apiEndpoints = {
   getResponseTimeLogDownload: "/notification/download",
   getScreeningDownload: "/screening/download",
   getUserDownload: "/user/download",
+  getDailyCheckupDownload: (group: UserGroup, subGroup: 1 | 2, date: Date) =>
+    `/download/${group}/${subGroup}/${date.toISOString()}`,
 };
 
 export default apiEndpoints;
