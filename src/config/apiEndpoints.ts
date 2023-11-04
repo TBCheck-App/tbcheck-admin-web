@@ -20,8 +20,10 @@ const apiEndpoints = {
   getResponseTimeLogDownload: "/notification/download",
   getScreeningDownload: "/screening/download",
   getUserDownload: "/user/download",
-  getDailyCheckupDownload: (group: UserGroup, subGroup: 1 | 2, date: Date) =>
+  getDailyCheckupDownload: (group: UserGroup, subGroup: number, date: Date) =>
     `/daily-checkup/download/${group}/${subGroup}/${date.toISOString()}`,
+  getTBCDownload: (group: UserGroup, subGroup: number) =>
+    `/tb-report/download/${group}/${subGroup}`,
 };
 
 export default apiEndpoints;
