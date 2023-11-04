@@ -81,7 +81,7 @@ const MaskWearingTrackerSubGroup = ({ params }: Props) => {
             <div className="mx-5">
               <ButtonOutlined
                 icons="/download.svg"
-                text="Data Peserta"
+                text="Unduh History"
                 onClick={downloadFile}
               />
             </div>
