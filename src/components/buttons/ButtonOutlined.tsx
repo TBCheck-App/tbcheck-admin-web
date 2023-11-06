@@ -1,5 +1,6 @@
 import React from "react";
 import Image from "next/image";
+import { twMerge } from "tailwind-merge";
 
 interface Props {
   icons?: string;
@@ -11,7 +12,10 @@ interface Props {
 function ButtonOutlined({ icons, text, className, onClick }: Props) {
   return (
     <button
-      className={`border border-[#5497F6] w-full flex flex-row justify-center gap-4 rounded-md py-3 ${className}`}
+      className={twMerge(
+        "border border-[#5497F6] w-full flex flex-row justify-center gap-4 rounded-md py-3",
+        className
+      )}
       onClick={onClick}
     >
       {icons ? (

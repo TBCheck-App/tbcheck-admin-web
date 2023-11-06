@@ -1,5 +1,6 @@
 import Image from "next/image";
 import React from "react";
+import { twMerge } from "tailwind-merge";
 
 interface Props {
   buttonText: string;
@@ -12,7 +13,10 @@ function ButtonBlue({ buttonText, onClick, className, icons }: Props) {
   return (
     <button
       onClick={onClick}
-      className={`bg-[#5497F6] text-white text-sm p-3 rounded-md flex flex-row justify-center items-center gap-4 ${className}`}
+      className={twMerge(
+        "bg-[#5497F6] text-white text-sm p-3 rounded-md flex flex-row justify-center items-center gap-4",
+        className
+      )}
     >
       {icons ? (
         <Image
