@@ -1,6 +1,6 @@
-import React from 'react';
-import { TBCReportTableProps } from '@/type';
-import Link from 'next/link';
+import React from "react";
+import { TBCReportTableProps } from "@/type";
+import Link from "next/link";
 
 function TBCReportTable({
   dateStr,
@@ -19,7 +19,7 @@ function TBCReportTable({
       </div>
       <div className="p-2 flex justify-center items-center">
         <Link
-          className="font-semibold text-[#5497F6]"
+          className="font-semibold text-[#5497F6] text-center"
           href={`/tbc-report/${id}`}
         >
           {name}
