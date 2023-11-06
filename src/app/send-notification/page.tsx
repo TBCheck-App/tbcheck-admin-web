@@ -1,7 +1,11 @@
 "use client";
 import ButtonBack from "@/components/buttons/ButtonBack";
 import { tokenIsValid } from "@/utils/auth";
-import { getAllNotifications, getAllUser } from "@/utils/fetch";
+import {
+  getAllNotifications,
+  getAllUser,
+  getNotificationSchedulesReports,
+} from "@/utils/fetch";
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import ButtonOutlined from "@/components/buttons/ButtonOutlined";
@@ -18,6 +22,12 @@ const SendNotificationPage = () => {
   >(null);
 
   const router = useRouter();
+
+  const downloadFile = () => {
+    getNotificationSchedulesReports()
+      .then((res) => res.blob())
+      .then((resBlob) => window.open(URL.createObjectURL(resBlob), "_blank"));
+  };
 
   useEffect(() => {
     tokenIsValid().then((res) => {
@@ -60,6 +70,7 @@ const SendNotificationPage = () => {
                 icons="/download.svg"
                 text="Unduh Riwayat"
                 className="w-fit px-4 flex-1"
+                onClick={downloadFile}
               />
               <ButtonBlue
                 icons="/plus.svg"

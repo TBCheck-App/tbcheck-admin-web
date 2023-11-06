@@ -24,6 +24,7 @@ const apiEndpoints = {
     `/daily-checkup/download/${group}/${subGroup}/${date.toISOString()}`,
   getTBCDownload: `/tb-report/download`,
   getAllNotificationSchedules: "/notification/schedules",
+  getNotificationSchedulesDownload: "/notification/download",
 };
 
 export default apiEndpoints;
