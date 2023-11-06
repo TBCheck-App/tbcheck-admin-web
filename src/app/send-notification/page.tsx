@@ -69,15 +69,15 @@ const SendNotificationPage = () => {
               <ButtonOutlined
                 icons="/download.svg"
                 text="Unduh Riwayat"
-                className="w-fit px-4 flex-1"
+                className="px-4 flex-1"
                 onClick={downloadFile}
               />
-              <ButtonBlue
+              {/* <ButtonBlue
                 icons="/plus.svg"
                 buttonText="Notifikasi Baru"
                 className="flex-1"
                 onClick={() => router.push("/send-notification/create")}
-              />
+              /> */}
             </div>
           </div>
 
