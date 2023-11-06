@@ -315,7 +315,7 @@ const getDetailMWTHistory = (id: string) => {
   );
 };
 
-const getMWTReports = () => {
+const getMWTReports = (group: string, subGroup: string) => {
   const token = JSON.parse(localStorage.getItem("token")!);
 
   const options: RequestInit = {
@@ -326,7 +326,10 @@ const getMWTReports = () => {
   };
 
   return fetch(
-    `${process.env.NEXT_PUBLIC_BACKEND_URL}${apiEndpoints.getMWTDownload}`,
+    `${process.env.NEXT_PUBLIC_BACKEND_URL}${apiEndpoints.getMWTDownload(
+      group,
+      subGroup
+    )}`,
     options
   );
 };

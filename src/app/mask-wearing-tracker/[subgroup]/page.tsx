@@ -27,7 +27,7 @@ const MaskWearingTrackerSubGroup = ({ params }: Props) => {
   const subGroup = params.subgroup[1];
 
   const downloadFile = () => {
-    getMWTReports()
+    getMWTReports(group, subGroup)
       .then((res) => res.blob())
       .then((resBlob) => window.open(URL.createObjectURL(resBlob), "_blank"));
   };

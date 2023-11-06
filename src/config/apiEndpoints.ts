@@ -16,7 +16,8 @@ const apiEndpoints = {
   getDetailnotification: (id: string) => `/notification/log/${id}`,
   getAllMWTHistory: "/mask-tracker/history",
   getDetailMWTHistory: (id: string) => `/mask-tracker/history/${id}`,
-  getMWTDownload: "/mask-tracker/download",
+  getMWTDownload: (group: string, subGroup: string) =>
+    `/mask-tracker/download/${group}/${subGroup}`,
   getResponseTimeLogDownload: "/notification/download",
   getScreeningDownload: "/screening/download",
   getUserDownload: "/user/download",
