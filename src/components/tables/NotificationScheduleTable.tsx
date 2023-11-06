@@ -28,7 +28,7 @@ const NotificationScheduleTable = ({ data }: Props) => {
             : sentDate.getMinutes()
         } WIB`}</p>
       </div>
-      <div className="text-xs px-2 py-3 flex items-center">
+      <div className="text-xs px-2 py-3 flex items-center justify-center">
         <p>{data.group}</p>
       </div>
       <div className="text-xs px-2 py-3 flex items-center">
