@@ -1,24 +1,24 @@
-'use client';
-import TBCReportTable from '@/components/tables/TBCReportTable';
-import ButtonBack from '@/components/buttons/ButtonBack';
-import ButtonOutlined from '@/components/buttons/ButtonOutlined';
-import { tokenIsValid } from '@/utils/auth';
-import Image from 'next/image';
-import { useRouter } from 'next/navigation';
-import React, { ChangeEvent, useEffect, useState } from 'react';
-import { getAllTBReport } from '@/utils/fetch';
-import { TBUserReport } from '@/type';
-import FilterDataPeserta from '@/components/FilterDataPeserta';
+"use client";
+import TBCReportTable from "@/components/tables/TBCReportTable";
+import ButtonBack from "@/components/buttons/ButtonBack";
+import ButtonOutlined from "@/components/buttons/ButtonOutlined";
+import { tokenIsValid } from "@/utils/auth";
+import Image from "next/image";
+import { useRouter } from "next/navigation";
+import React, { ChangeEvent, useEffect, useState } from "react";
+import { getAllTBReport, getTBCReports } from "@/utils/fetch";
+import { TBUserReport } from "@/type";
+import FilterDataPeserta from "@/components/FilterDataPeserta";
 
 function TBCReport() {
   const router = useRouter();
   const [render, setRender] = useState<boolean>(false);
   const [tBlist, setTBList] = useState<null | TBUserReport[]>(null);
-  const [search, setSearch] = useState<string>('');
+  const [search, setSearch] = useState<string>("");
 
   const [showFilterModal, setShowFilterModal] = useState<boolean>(false);
-  const [group, setGroup] = useState<string>('');
-  const [subGroup, setSubGroup] = useState<string>('');
+  const [group, setGroup] = useState<string>("");
+  const [subGroup, setSubGroup] = useState<string>("");
 
   const getTbReport = async () => {
     try {
@@ -30,12 +30,18 @@ function TBCReport() {
     }
   };
 
+  const downloadFile = () => {
+    getTBCReports(group, subGroup)
+      .then((res) => res.blob())
+      .then((resBlob) => window.open(URL.createObjectURL(resBlob), "_blank"));
+  };
+
   useEffect(() => {
     tokenIsValid().then((res) => {
       setRender(res);
 
       if (res == false) {
-        router.push('/signin');
+        router.push("/signin");
         return;
       }
 
@@ -48,17 +54,29 @@ function TBCReport() {
     return (
       <main className="flex flex-col gap-8">
         <div className="px-4">
-          <ButtonBack buttonText="Home" destPage="/" />
+          <ButtonBack
+            buttonText="Home"
+            destPage="/"
+          />
         </div>
 
         <div className="mx-5 flex flex-col gap-6">
           <div className="flex flex-col items-center gap-3">
-            <Image src="/laporan-tbc.svg" alt="" width={60} height={60} />
+            <Image
+              src="/laporan-tbc.svg"
+              alt=""
+              width={60}
+              height={60}
+            />
 
             <h1 className="font-bold text-2xl">Laporan Kasus TBC</h1>
           </div>
 
-          <ButtonOutlined icons="/download.svg" text="Unduh Riwayat Laporan" />
+          <ButtonOutlined
+            icons="/download.svg"
+            text="Unduh Riwayat Laporan"
+            onClick={downloadFile}
+          />
 
           <div className="border rounded">
             <header className="flex flex-row p-4 gap-4">
@@ -81,7 +99,12 @@ function TBCReport() {
               </div>
 
               <button onClick={() => setShowFilterModal(true)}>
-                <Image src="/funnel.svg" alt="" width={16} height={16} />
+                <Image
+                  src="/funnel.svg"
+                  alt=""
+                  width={16}
+                  height={16}
+                />
               </button>
             </header>
 

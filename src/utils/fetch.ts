@@ -401,6 +401,38 @@ const getDailyCheckupReports = (
   );
 };
 
+const getTBCReports = (group: string, subGroup: string) => {
+  let query = "";
+
+  if (group != "") {
+    query += `group=${group}`;
+  }
+
+  if (subGroup != "") {
+    if (query.includes("group")) {
+      query += `&subGroup=${subGroup}`;
+    } else {
+      query += `subGroup=${subGroup}`;
+    }
+  }
+
+  const token = JSON.parse(localStorage.getItem("token")!);
+
+  const options: RequestInit = {
+    method: "GET",
+    headers: {
+      Authorization: `Bearer ${(token as Token).token}`,
+    },
+  };
+
+  const queryParam = query != "" ? `?${query}` : "";
+
+  return fetch(
+    `${process.env.NEXT_PUBLIC_BACKEND_URL}${apiEndpoints.getTBCDownload}${queryParam}`,
+    options
+  );
+};
+
 export {
   getAllUser,
   getUserDetail,
@@ -420,4 +452,5 @@ export {
   getScreeningReports,
   getUserData,
   getDailyCheckupReports,
+  getTBCReports,
 };
