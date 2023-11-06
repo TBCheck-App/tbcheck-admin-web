@@ -33,3 +33,7 @@
 .grid-mwt-table-enforcement {
   grid-template-columns: 180px 1fr 1fr 1fr;
 }
+
+.grid-notification-table {
+  grid-template-columns: 100px 83px 52px 115px;
+}

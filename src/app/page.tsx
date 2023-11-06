@@ -41,7 +41,7 @@ export default function Home() {
             destPage="/daily-checkup"
           />
           <Button
-            imageSrc="response-time-log.svg"
+            imageSrc="/response-time-log.svg"
             buttonText="Response Time Log"
             destPage="/response-time-log"
           />
@@ -51,14 +51,19 @@ export default function Home() {
             destPage="/screening"
           />
           <Button
-            imageSrc="data-peserta.svg"
+            imageSrc="/data-peserta.svg"
             buttonText="Data Peserta"
             destPage="/data-peserta"
           />
           <Button
-            imageSrc="mwt.svg"
+            imageSrc="/mwt.svg"
             buttonText="Mask Wearing Tracker"
             destPage="/mask-wearing-tracker"
+          />
+          <Button
+            imageSrc="/send-notification.svg"
+            buttonText="Kirim Notifikasi"
+            destPage="/send-notification"
           />
         </div>
       </main>
