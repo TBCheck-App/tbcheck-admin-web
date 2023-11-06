@@ -12,7 +12,7 @@ const apiEndpoints = {
   getScreeningDetail: (id: string) => `/screening/${id}`,
   patchResetPassword: "/auth/reset",
   getAllTBReport: "/tb-report",
-  getAllNotification: "/notification/log",
+  getAllNotificationLog: "/notification/log",
   getDetailnotification: (id: string) => `/notification/log/${id}`,
   getAllMWTHistory: "/mask-tracker/history",
   getDetailMWTHistory: (id: string) => `/mask-tracker/history/${id}`,
@@ -23,6 +23,7 @@ const apiEndpoints = {
   getDailyCheckupDownload: (group: UserGroup, subGroup: number, date: Date) =>
     `/daily-checkup/download/${group}/${subGroup}/${date.toISOString()}`,
   getTBCDownload: `/tb-report/download`,
+  getAllNotificationSchedules: "/notification/schedules",
 };
 
 export default apiEndpoints;

@@ -242,7 +242,7 @@ const getAllNotificationLog = (page: number) => {
   };
 
   return fetch(
-    `${process.env.NEXT_PUBLIC_BACKEND_URL}${apiEndpoints.getAllNotification}?page=${page}`,
+    `${process.env.NEXT_PUBLIC_BACKEND_URL}${apiEndpoints.getAllNotificationLog}?page=${page}`,
     options
   );
 };
@@ -433,6 +433,22 @@ const getTBCReports = (group: string, subGroup: string) => {
   );
 };
 
+const getAllNotifications = () => {
+  const token = JSON.parse(localStorage.getItem("token")!);
+
+  const options: RequestInit = {
+    method: "GET",
+    headers: {
+      Authorization: `Bearer ${(token as Token).token}`,
+    },
+  };
+
+  return fetch(
+    `${process.env.NEXT_PUBLIC_BACKEND_URL}${apiEndpoints.getAllNotificationSchedules}`,
+    options
+  );
+};
+
 export {
   getAllUser,
   getUserDetail,
@@ -453,4 +469,5 @@ export {
   getUserData,
   getDailyCheckupReports,
   getTBCReports,
+  getAllNotifications,
 };

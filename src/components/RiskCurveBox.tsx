@@ -1,13 +1,18 @@
-import { Risk, ScreeningResult, TBReportAnswer } from '@/type';
-import React from 'react';
+import {
+  Risk,
+  ScreeningResult,
+  TBReportAnswer,
+  NotificationStatus,
+} from "@/type";
+import React from "react";
 
 interface Props {
-  risk: Risk | ScreeningResult | TBReportAnswer;
+  risk: Risk | ScreeningResult | TBReportAnswer | NotificationStatus;
   className?: string;
 }
 
 function RiskCurveBox({ risk, className }: Props) {
-  if (risk == 'HIGH_RISK') {
+  if (risk == "HIGH_RISK") {
     return (
       <p
         className={`py-1 w-[90%] bg-[#FCC0CF] text-[#6F182D] font-semibold text-center rounded-[100px] ${className}`}
@@ -15,7 +20,7 @@ function RiskCurveBox({ risk, className }: Props) {
         Berisiko Tinggi
       </p>
     );
-  } else if (risk == 'MEDIUM_RISK') {
+  } else if (risk == "MEDIUM_RISK") {
     return (
       <p
         className={`py-1 w-[90%] bg-[#FFF2B0] text-[#736000] font-semibold text-center rounded-[100px] ${className}`}
@@ -23,7 +28,7 @@ function RiskCurveBox({ risk, className }: Props) {
         Berisiko
       </p>
     );
-  } else if (risk == 'LOW_RISK') {
+  } else if (risk == "LOW_RISK") {
     return (
       <p
         className={`py-1 w-[90%] bg-[#CDEFEC] text-[#2B5B58] font-semibold text-center rounded-[100px] ${className}`}
@@ -31,7 +36,7 @@ function RiskCurveBox({ risk, className }: Props) {
         Berisiko Rendah
       </p>
     );
-  } else if (risk == 'NOT_SUSPECTED_TB') {
+  } else if (risk == "NOT_SUSPECTED_TB") {
     return (
       <p
         className={`py-1 w-[90%] bg-[#CDEFEC] text-[#2B5B58] font-semibold text-center rounded-[100px] ${className}`}
@@ -39,7 +44,7 @@ function RiskCurveBox({ risk, className }: Props) {
         Bukan Terduga TBC
       </p>
     );
-  } else if (risk == 'UNDERGOING_TREATMENT') {
+  } else if (risk == "UNDERGOING_TREATMENT") {
     return (
       <p
         className={`py-1 w-[90%] bg-[#FFF2B0] text-[#736000] font-semibold text-center rounded-[100px] ${className}`}
@@ -47,7 +52,7 @@ function RiskCurveBox({ risk, className }: Props) {
         Menjalani Pengobatan
       </p>
     );
-  } else if (risk == 'SUSPECTED_TB_RO') {
+  } else if (risk == "SUSPECTED_TB_RO") {
     return (
       <p
         className={`py-1 w-[90%] bg-[#FCC0CF] text-[#6F182D] font-semibold text-center rounded-[100px] ${className}`}
@@ -55,7 +60,7 @@ function RiskCurveBox({ risk, className }: Props) {
         Terduga TBC RO
       </p>
     );
-  } else if (risk == 'SUSPECTED_TB') {
+  } else if (risk == "SUSPECTED_TB") {
     return (
       <p
         className={`py-1 w-[90%] bg-[#FCC0CF] text-[#6F182D] font-semibold text-center rounded-[100px] ${className}`}
@@ -63,7 +68,7 @@ function RiskCurveBox({ risk, className }: Props) {
         Terduga TBC
       </p>
     );
-  } else if (risk == 'YES') {
+  } else if (risk == "YES") {
     return (
       <p
         className={`py-1 w-[90%] bg-[#FCC0CF] text-[#6F182D] font-semibold text-center rounded-[100px] ${className}`}
@@ -71,7 +76,7 @@ function RiskCurveBox({ risk, className }: Props) {
         Positif
       </p>
     );
-  } else if (risk == 'NO') {
+  } else if (risk == "NO") {
     return (
       <p
         className={`py-1 w-[90%] bg-[#FFF2B0] text-[#736000] font-semibold text-center rounded-[100px] ${className}`}
@@ -79,12 +84,36 @@ function RiskCurveBox({ risk, className }: Props) {
         Negatif
       </p>
     );
-  } else if (risk == 'UNKNOWN') {
+  } else if (risk == "UNKNOWN") {
     return (
       <p
         className={`py-1 w-[90%] bg-[#CDEFEC] text-[#2B5B58] font-semibold text-center rounded-[100px] ${className}`}
       >
         Tidak Tahu
+      </p>
+    );
+  } else if (risk == "SUCCESS") {
+    return (
+      <p
+        className={`py-1 w-[90%] bg-[#CDEFEC] text-[#2B5B58] font-semibold text-center rounded-[100px] ${className}`}
+      >
+        Terkirim
+      </p>
+    );
+  } else if (risk == "SCHEDULED") {
+    return (
+      <p
+        className={`py-1 w-[90%] bg-[#FFF2B0] text-[#736000] font-semibold text-center rounded-[100px] ${className}`}
+      >
+        Dijadwalkan
+      </p>
+    );
+  } else if (risk == "FAILED") {
+    return (
+      <p
+        className={`py-1 w-[90%] bg-[#FCC0CF] text-[#6F182D] font-semibold text-center rounded-[100px] ${className}`}
+      >
+        Gagal terkirim
       </p>
     );
   }

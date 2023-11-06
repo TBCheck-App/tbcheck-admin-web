@@ -1,16 +1,21 @@
 "use client";
 import ButtonBack from "@/components/buttons/ButtonBack";
 import { tokenIsValid } from "@/utils/auth";
-import { getAllUser } from "@/utils/fetch";
+import { getAllNotifications, getAllUser } from "@/utils/fetch";
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import ButtonOutlined from "@/components/buttons/ButtonOutlined";
 import { useRouter } from "next/navigation";
 import ButtonBlue from "@/components/buttons/ButtonBlue";
+import { NotificationSchedule } from "@/type";
+import NotificationScheduleTable from "@/components/tables/NotificationScheduleTable";
 
 const SendNotificationPage = () => {
   const [render, setRender] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [schedulesData, setSchedulesData] = useState<
+    NotificationSchedule[] | null
+  >(null);
 
   const router = useRouter();
 
@@ -20,6 +25,12 @@ const SendNotificationPage = () => {
       setIsLoading(false);
 
       if (res) {
+        getAllNotifications()
+          .then((res) => res.json())
+          .then((resJson) => {
+            console.log(resJson.schedules);
+            setSchedulesData(resJson.schedules);
+          });
       }
     });
   }, []);
@@ -103,6 +114,12 @@ const SendNotificationPage = () => {
                 <p>Status Notifikasi</p>
               </div>
             </div>
+
+            {schedulesData
+              ? schedulesData.map((data) => (
+                  <NotificationScheduleTable data={data} />
+                ))
+              : null}
           </div>
         </div>
       </main>

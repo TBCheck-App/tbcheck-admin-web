@@ -306,6 +306,16 @@ interface MWTAnswer {
 
 type UsingMaskAnswer = "YES" | "NO" | "WITH_ENFORCEMENT";
 
+type NotificationStatus = "SUCCESS" | "FAILED" | "SCHEDULED";
+
+interface NotificationSchedule {
+  id: string;
+  createdAt: string;
+  sentAt: string;
+  group: UserGroup;
+  status: NotificationStatus;
+}
+
 export type {
   DataPeserta,
   DetailPeserta,
@@ -330,4 +340,6 @@ export type {
   MWTHistoryLog,
   MWTHistoryLogDetail,
   UserGroup,
+  NotificationSchedule,
+  NotificationStatus,
 };
