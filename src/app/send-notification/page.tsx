@@ -65,6 +65,7 @@ const SendNotificationPage = () => {
                 icons="/plus.svg"
                 buttonText="Notifikasi Baru"
                 className="flex-1"
+                onClick={() => router.push("/send-notification/create")}
               />
             </div>
           </div>
