@@ -182,7 +182,6 @@ const getAllTBReport = (
   group: string,
   subGroup: string
 ): Promise<Response> => {
-  // TODO: NOT DONE(?)
   const token = JSON.parse(localStorage.getItem("token")!);
 
   const options: RequestInit = {
@@ -364,7 +363,17 @@ const getResponseTimeReports = () => {
   );
 };
 
-const getScreeningReports = () => {
+const getScreeningReports = (group: string, subGroup: string) => {
+  let query: string[] = [];
+
+  if (group != "") {
+    query.push(`group=${group}`);
+  }
+
+  if (subGroup != "") {
+    query.push(`subGroup=${subGroup}`);
+  }
+
   const token = JSON.parse(localStorage.getItem("token")!);
 
   const options: RequestInit = {
@@ -374,8 +383,10 @@ const getScreeningReports = () => {
     },
   };
 
+  const queryParam = query.length > 0 ? `?${query.join("&")}` : "";
+
   return fetch(
-    `${process.env.NEXT_PUBLIC_BACKEND_URL}${apiEndpoints.getScreeningDownload}`,
+    `${process.env.NEXT_PUBLIC_BACKEND_URL}${apiEndpoints.getScreeningDownload}${queryParam}`,
     options
   );
 };

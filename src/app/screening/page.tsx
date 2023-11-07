@@ -32,7 +32,7 @@ function Screening() {
   };
 
   const downloadFile = () => {
-    getScreeningReports()
+    getScreeningReports(group, subGroup)
       .then((res) => res.blob())
       .then((resBlob) => {
         const filename =
