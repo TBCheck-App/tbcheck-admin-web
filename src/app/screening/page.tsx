@@ -40,32 +40,9 @@ function Screening() {
   useEffect(() => {
     tokenIsValid().then((res) => {
       setRender(res);
-      getAllScreening(name)
+      getAllScreening(name, group, subGroup)
         .then((res) => res.json())
-        .then((resJson) => {
-          if (group != "" && subGroup != "") {
-            setDataScreening(
-              resJson.screenings.filter(
-                (screening: DataScreening) =>
-                  screening.group == group && screening.subGroup == subGroup
-              )
-            );
-          } else if (group != "" && subGroup == "") {
-            setDataScreening(
-              resJson.screenings.filter(
-                (screening: DataScreening) => screening.group == group
-              )
-            );
-          } else if (group == "" && subGroup != "") {
-            setDataScreening(
-              resJson.screenings.filter(
-                (screening: DataScreening) => screening.subGroup == subGroup
-              )
-            );
-          } else {
-            setDataScreening(resJson.screenings);
-          }
-        })
+        .then((resJson) => setDataScreening(resJson.screenings))
         .catch((error) =>
           alert(`There was a problem with the fetch operation: ${error}`)
         );

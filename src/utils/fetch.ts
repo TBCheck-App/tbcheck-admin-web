@@ -123,11 +123,23 @@ const getDetailDailyCheckup = (id: string): Promise<Response> => {
   );
 };
 
-const getAllScreening = (name: string): Promise<Response> => {
-  let query = "?";
+const getAllScreening = (
+  name: string,
+  group: string,
+  subGroup: string
+): Promise<Response> => {
+  let query: string[] = [];
 
   if (name != "") {
-    query += `name=${name}`;
+    query.push(`name=${name}`);
+  }
+
+  if (group != "") {
+    query.push(`group=${group}`);
+  }
+
+  if (subGroup != "") {
+    query.push(`subGroup=${subGroup}`);
   }
 
   const token = JSON.parse(localStorage.getItem("token")!);
@@ -139,8 +151,10 @@ const getAllScreening = (name: string): Promise<Response> => {
     },
   };
 
+  const queryParam = query.length > 0 ? `?${query.join("&")}` : "";
+
   return fetch(
-    `${process.env.NEXT_PUBLIC_BACKEND_URL}${apiEndpoints.getAllScreening}${query}`,
+    `${process.env.NEXT_PUBLIC_BACKEND_URL}${apiEndpoints.getAllScreening}${queryParam}`,
     options
   );
 };
