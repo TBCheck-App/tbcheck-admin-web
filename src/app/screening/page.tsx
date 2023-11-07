@@ -34,7 +34,14 @@ function Screening() {
   const downloadFile = () => {
     getScreeningReports()
       .then((res) => res.blob())
-      .then((resBlob) => window.open(URL.createObjectURL(resBlob), "_blank"));
+      .then((resBlob) => {
+        const filename =
+          `Screening${group != "" ? "_" + group : "_" + "All"}${
+            subGroup != "" ? "_" + subGroup : ""
+          }` + ".xlsx";
+        const file = new File([resBlob], filename);
+        window.open(URL.createObjectURL(file), "_blank");
+      });
   };
 
   useEffect(() => {
