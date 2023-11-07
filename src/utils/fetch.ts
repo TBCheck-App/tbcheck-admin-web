@@ -366,7 +366,17 @@ const getScreeningReports = () => {
   );
 };
 
-const getUserData = () => {
+const getUserData = (group: string, subGroup: string) => {
+  let query: string[] = [];
+
+  if (group != "") {
+    query.push(`group=${group}`);
+  }
+
+  if (subGroup != "") {
+    query.push(`subGroup=${subGroup}`);
+  }
+
   const token = JSON.parse(localStorage.getItem("token")!);
 
   const options: RequestInit = {
@@ -376,8 +386,10 @@ const getUserData = () => {
     },
   };
 
+  const queryParam = query.length > 0 ? `?${query.join("&")}` : "";
+
   return fetch(
-    `${process.env.NEXT_PUBLIC_BACKEND_URL}${apiEndpoints.getUserDownload}`,
+    `${process.env.NEXT_PUBLIC_BACKEND_URL}${apiEndpoints.getUserDownload}${queryParam}`,
     options
   );
 };

@@ -44,9 +44,16 @@ export default function DataPeserta() {
   };
 
   const downloadFile = () => {
-    getUserData()
+    getUserData(group, subGroup)
       .then((res) => res.blob())
-      .then((resBlob) => window.open(URL.createObjectURL(resBlob), "_blank"));
+      .then((resBlob) => {
+        const filename =
+          `Data_User${group != "" ? "_" + group : "_" + "All"}${
+            subGroup != "" ? "_" + subGroup : ""
+          }` + ".xlsx";
+        const file = new File([resBlob], filename);
+        window.open(URL.createObjectURL(file), "_blank");
+      });
   };
 
   useEffect(() => {
