@@ -29,7 +29,11 @@ const MaskWearingTrackerSubGroup = ({ params }: Props) => {
   const downloadFile = () => {
     getMWTReports(group, subGroup)
       .then((res) => res.blob())
-      .then((resBlob) => window.open(URL.createObjectURL(resBlob), "_blank"));
+      .then((resBlob) => {
+        const file = new File([resBlob], `MWT_History_${params.subgroup}.xlsx`);
+        return window.open(URL.createObjectURL(file), "_blank");
+        // return window.open(URL.createObjectURL(resBlob), "_blank");
+      });
   };
 
   useEffect(() => {
