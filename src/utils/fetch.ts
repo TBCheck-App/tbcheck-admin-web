@@ -78,12 +78,10 @@ const getAllDailyCheckup = (
   date: string,
   name: string
 ): Promise<Response> => {
-  let query = "&";
+  let query: string[] = [];
 
   if (name != "") {
-    query += `name=${name}`;
-  } else {
-    query = "";
+    query.push(`name=${name}`);
   }
 
   const token = JSON.parse(localStorage.getItem("token")!);
@@ -95,12 +93,14 @@ const getAllDailyCheckup = (
     },
   };
 
+  const queryParam = query.length > 0 ? `&${query.join("&")}` : "";
+
   return fetch(
     `${process.env.NEXT_PUBLIC_BACKEND_URL}${apiEndpoints.getAllDailyCheckup(
       group,
       subGroup,
       date
-    )}${query}`,
+    )}${queryParam}`,
     options
   );
 };
