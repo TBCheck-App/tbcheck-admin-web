@@ -6,6 +6,8 @@ import { tokenIsValid } from "@/utils/auth";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import React, { ChangeEvent, useEffect, useState } from "react";
+import ButtonOutlined from "@/components/buttons/ButtonOutlined";
+import { getAllDailyCheckupReports } from "@/utils/fetch";
 
 function DailyCheckUp() {
   const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -25,6 +27,16 @@ function DailyCheckUp() {
 
   const handleChangeSubGroup = (event: ChangeEvent<HTMLSelectElement>) => {
     setSubGroup(event.target.value);
+  };
+
+  const downloadFile = () => {
+    getAllDailyCheckupReports()
+      .then((res) => res.blob())
+      .then((resBlob) => {
+        const filename = `Daily Checkup_All`;
+        const file = new File([resBlob], filename);
+        window.open(URL.createObjectURL(file), "_blank");
+      });
   };
 
   useEffect(() => {
@@ -94,6 +106,12 @@ function DailyCheckUp() {
               <option value="2">2</option>
             </select>
           </div>
+
+          <ButtonOutlined
+            icons="/download.svg"
+            text="Unduh Data"
+            onClick={downloadFile}
+          />
 
           <ButtonBlue
             buttonText="Lihat History"

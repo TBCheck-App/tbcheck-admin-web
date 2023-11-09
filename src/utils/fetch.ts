@@ -347,7 +347,17 @@ const getMWTReports = (group: string, subGroup: string) => {
   );
 };
 
-const getResponseTimeReports = () => {
+const getResponseTimeReports = (group: string, subGroup: string) => {
+  let query: string[] = [];
+
+  if (group != "") {
+    query.push(`group=${group}`);
+  }
+
+  if (subGroup != "") {
+    query.push(`subGroup=${subGroup}`);
+  }
+
   const token = JSON.parse(localStorage.getItem("token")!);
 
   const options: RequestInit = {
@@ -357,8 +367,10 @@ const getResponseTimeReports = () => {
     },
   };
 
+  const queryParam = query.length > 0 ? `?${query.join("&")}` : "";
+
   return fetch(
-    `${process.env.NEXT_PUBLIC_BACKEND_URL}${apiEndpoints.getResponseTimeLogDownload}`,
+    `${process.env.NEXT_PUBLIC_BACKEND_URL}${apiEndpoints.getResponseTimeLogDownload}${queryParam}`,
     options
   );
 };
@@ -505,6 +517,22 @@ const getNotificationSchedulesReports = () => {
   );
 };
 
+const getAllDailyCheckupReports = () => {
+  const token = JSON.parse(localStorage.getItem("token")!);
+
+  const options: RequestInit = {
+    method: "GET",
+    headers: {
+      Authorization: `Bearer ${(token as Token).token}`,
+    },
+  };
+
+  return fetch(
+    `${process.env.NEXT_PUBLIC_BACKEND_URL}${apiEndpoints.getAllDailyCheckupDownload}`,
+    options
+  );
+};
+
 export {
   getAllUser,
   getUserDetail,
@@ -527,4 +555,5 @@ export {
   getTBCReports,
   getAllNotifications,
   getNotificationSchedulesReports,
+  getAllDailyCheckupReports,
 };
