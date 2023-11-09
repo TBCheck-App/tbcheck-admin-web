@@ -33,7 +33,7 @@ function DailyCheckUp() {
     getAllDailyCheckupReports()
       .then((res) => res.blob())
       .then((resBlob) => {
-        const filename = `Daily Checkup_All`;
+        const filename = `Daily Checkup_All.xlsx`;
         const file = new File([resBlob], filename);
         window.open(URL.createObjectURL(file), "_blank");
       });
