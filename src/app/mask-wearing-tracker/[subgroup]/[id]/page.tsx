@@ -108,7 +108,7 @@ const MaskWearingTrackerSubGroup = ({ params }: Props) => {
             className="mx-5 border rounded"
           >
             <header className="flex flex-row p-4 gap-4">
-              <div className="rounded-[32px] flex flex-row gap-1 border py-3 px-2 w-[286px]">
+              <div className="rounded-[32px] flex flex-row gap-1 border py-3 px-2 w-full">
                 <Image
                   src="/magnifying-glass.svg"
                   alt=""
@@ -121,15 +121,6 @@ const MaskWearingTrackerSubGroup = ({ params }: Props) => {
                   placeholder="Search"
                 />
               </div>
-
-              <button>
-                <Image
-                  src="/funnel.svg"
-                  alt=""
-                  width={16}
-                  height={16}
-                />
-              </button>
             </header>
 
             <div
