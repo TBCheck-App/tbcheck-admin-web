@@ -132,8 +132,11 @@ const SendNotificationPage = () => {
             </div>
 
             {schedulesData
-              ? schedulesData.map((data) => (
-                  <NotificationScheduleTable data={data} />
+              ? schedulesData.map((data, index) => (
+                  <NotificationScheduleTable
+                    data={data}
+                    key={index}
+                  />
                 ))
               : null}
           </div>
