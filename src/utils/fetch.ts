@@ -310,7 +310,13 @@ const getAllMWTHistory = (group: string, subGroup: string) => {
   );
 };
 
-const getDetailMWTHistory = (id: string) => {
+const getDetailMWTHistory = (id: string, name?: string) => {
+  let query: string[] = [];
+
+  if (name && name != "") {
+    query.push(`name=${name}`);
+  }
+
   const token = JSON.parse(localStorage.getItem("token")!);
 
   const options: RequestInit = {
@@ -320,10 +326,12 @@ const getDetailMWTHistory = (id: string) => {
     },
   };
 
+  const queryParam = query.length > 0 ? `?${query.join("&")}` : "";
+
   return fetch(
     `${process.env.NEXT_PUBLIC_BACKEND_URL}${apiEndpoints.getDetailMWTHistory(
       id
-    )}`,
+    )}${queryParam}`,
     options
   );
 };

@@ -20,9 +20,135 @@ interface Props {
 const MaskWearingTrackerSubGroup = ({ params }: Props) => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [render, setRender] = useState<boolean>(false);
+
+  const [name, setName] = useState<string>("");
+
   const router = useRouter();
 
   const [mwtLog, setMwtLog] = useState<MWTHistoryLogDetail | null>(null);
+
+  const handleChangeSearch = (event: ChangeEvent<HTMLInputElement>) => {
+    setName(event.target.value);
+  };
+
+  const showFilteredUser = () => {
+    if (!mwtLog) {
+      return null;
+    }
+
+    return mwtLog.answers
+      .filter((answer) => {
+        const lowerCaseName = answer.user.name.toLowerCase();
+        return lowerCaseName.includes(name);
+      })
+      .map((answer, index) => {
+        return (
+          <div
+            className={`border-t grid text-center ${
+              mwtLog.withEnforcement
+                ? "grid-mwt-table-enforcement"
+                : "grid-mwt-table-no-enforcement"
+            }`}
+            key={index}
+          >
+            <div className="flex flex-row gap-1 py-3 px-2 items-center">
+              <p className="text-xs font-semibold h-fit text-left">
+                {answer.user.name}
+              </p>
+            </div>
+
+            <div className="text-xs font-semibold px-2 py-3 flex justify-center items-center">
+              {answer.isUseMask == "YES" ? (
+                <div className="w-4 h-4 bg-[#5497F6] rounded-full flex justify-center items-center">
+                  <div className="w-[6px] h-[6px] bg-white rounded-full"></div>
+                </div>
+              ) : (
+                <div className="w-4 h-4 bg-[#D3DAE6] rounded-full"></div>
+              )}
+            </div>
+
+            {mwtLog.withEnforcement ? (
+              <div className="text-xs font-semibold px-2 py-3 flex justify-center items-center">
+                {answer.isUseMask == "WITH_ENFORCEMENT" ? (
+                  <div className="w-4 h-4 bg-[#5497F6] rounded-full flex justify-center items-center">
+                    <div className="w-[6px] h-[6px] bg-white rounded-full"></div>
+                  </div>
+                ) : (
+                  <div className="w-4 h-4 bg-[#D3DAE6] rounded-full"></div>
+                )}
+              </div>
+            ) : null}
+
+            <div className="text-xs font-semibold px-2 py-3 flex justify-center items-center">
+              {answer.isUseMask == "NO" ? (
+                <div className="w-4 h-4 bg-[#5497F6] rounded-full flex justify-center items-center">
+                  <div className="w-[6px] h-[6px] bg-white rounded-full"></div>
+                </div>
+              ) : (
+                <div className="w-4 h-4 bg-[#D3DAE6] rounded-full"></div>
+              )}
+            </div>
+          </div>
+        );
+      });
+  };
+
+  const showUnfilteredUser = () => {
+    if (!mwtLog) {
+      return null;
+    }
+
+    return mwtLog.answers.map((answer, index) => {
+      return (
+        <div
+          className={`border-t grid text-center ${
+            mwtLog.withEnforcement
+              ? "grid-mwt-table-enforcement"
+              : "grid-mwt-table-no-enforcement"
+          }`}
+          key={index}
+        >
+          <div className="flex flex-row gap-1 py-3 px-2 items-center">
+            <p className="text-xs font-semibold h-fit text-left">
+              {answer.user.name}
+            </p>
+          </div>
+
+          <div className="text-xs font-semibold px-2 py-3 flex justify-center items-center">
+            {answer.isUseMask == "YES" ? (
+              <div className="w-4 h-4 bg-[#5497F6] rounded-full flex justify-center items-center">
+                <div className="w-[6px] h-[6px] bg-white rounded-full"></div>
+              </div>
+            ) : (
+              <div className="w-4 h-4 bg-[#D3DAE6] rounded-full"></div>
+            )}
+          </div>
+
+          {mwtLog.withEnforcement ? (
+            <div className="text-xs font-semibold px-2 py-3 flex justify-center items-center">
+              {answer.isUseMask == "WITH_ENFORCEMENT" ? (
+                <div className="w-4 h-4 bg-[#5497F6] rounded-full flex justify-center items-center">
+                  <div className="w-[6px] h-[6px] bg-white rounded-full"></div>
+                </div>
+              ) : (
+                <div className="w-4 h-4 bg-[#D3DAE6] rounded-full"></div>
+              )}
+            </div>
+          ) : null}
+
+          <div className="text-xs font-semibold px-2 py-3 flex justify-center items-center">
+            {answer.isUseMask == "NO" ? (
+              <div className="w-4 h-4 bg-[#5497F6] rounded-full flex justify-center items-center">
+                <div className="w-[6px] h-[6px] bg-white rounded-full"></div>
+              </div>
+            ) : (
+              <div className="w-4 h-4 bg-[#D3DAE6] rounded-full"></div>
+            )}
+          </div>
+        </div>
+      );
+    });
+  };
 
   useEffect(() => {
     if (params.subgroup.length <= 2 && groupList.includes(params.subgroup)) {
@@ -119,6 +245,7 @@ const MaskWearingTrackerSubGroup = ({ params }: Props) => {
                   type="text"
                   className="focus:outline-none text-xs"
                   placeholder="Search"
+                  onChange={handleChangeSearch}
                 />
               </div>
             </header>
@@ -147,56 +274,7 @@ const MaskWearingTrackerSubGroup = ({ params }: Props) => {
               </div>
             </div>
 
-            {mwtLog.answers.map((answer, index) => {
-              return (
-                <div
-                  className={`border-t grid text-center ${
-                    mwtLog.withEnforcement
-                      ? "grid-mwt-table-enforcement"
-                      : "grid-mwt-table-no-enforcement"
-                  }`}
-                  key={index}
-                >
-                  <div className="flex flex-row gap-1 py-3 px-2 items-center">
-                    <p className="text-xs font-semibold h-fit text-left">
-                      {answer.user.name}
-                    </p>
-                  </div>
-
-                  <div className="text-xs font-semibold px-2 py-3 flex justify-center items-center">
-                    {answer.isUseMask == "YES" ? (
-                      <div className="w-4 h-4 bg-[#5497F6] rounded-full flex justify-center items-center">
-                        <div className="w-[6px] h-[6px] bg-white rounded-full"></div>
-                      </div>
-                    ) : (
-                      <div className="w-4 h-4 bg-[#D3DAE6] rounded-full"></div>
-                    )}
-                  </div>
-
-                  {mwtLog.withEnforcement ? (
-                    <div className="text-xs font-semibold px-2 py-3 flex justify-center items-center">
-                      {answer.isUseMask == "WITH_ENFORCEMENT" ? (
-                        <div className="w-4 h-4 bg-[#5497F6] rounded-full flex justify-center items-center">
-                          <div className="w-[6px] h-[6px] bg-white rounded-full"></div>
-                        </div>
-                      ) : (
-                        <div className="w-4 h-4 bg-[#D3DAE6] rounded-full"></div>
-                      )}
-                    </div>
-                  ) : null}
-
-                  <div className="text-xs font-semibold px-2 py-3 flex justify-center items-center">
-                    {answer.isUseMask == "NO" ? (
-                      <div className="w-4 h-4 bg-[#5497F6] rounded-full flex justify-center items-center">
-                        <div className="w-[6px] h-[6px] bg-white rounded-full"></div>
-                      </div>
-                    ) : (
-                      <div className="w-4 h-4 bg-[#D3DAE6] rounded-full"></div>
-                    )}
-                  </div>
-                </div>
-              );
-            })}
+            {name != "" ? showFilteredUser() : showUnfilteredUser()}
           </div>
         </main>
       );
