@@ -14,6 +14,7 @@ function DailyCheckUp() {
   const [render, setRender] = useState<boolean>(false);
   const [group, setGroup] = useState<string>("A");
   const [subGroup, setSubGroup] = useState<string>("1");
+  const [fileURL, setFileURL] = useState<string>("");
 
   const router = useRouter();
 
@@ -43,6 +44,10 @@ function DailyCheckUp() {
     tokenIsValid().then((res) => {
       setRender(res);
       setIsLoading(false);
+
+      getAllDailyCheckupReports()
+        .then((res) => res.blob())
+        .then((resBlob) => setFileURL(URL.createObjectURL(resBlob)));
     });
   }, []);
 
@@ -110,7 +115,8 @@ function DailyCheckUp() {
           <ButtonOutlined
             icons="/download.svg"
             text="Unduh Data"
-            onClick={downloadFile}
+            filename={`Daily Checkup_All.xlsx`}
+            fileURL={fileURL}
           />
 
           <ButtonBlue

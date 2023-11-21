@@ -20,6 +20,7 @@ function DailyCheckUpData({ params }: Props) {
   const [lowRisk, setLowRisk] = useState<number>(0);
   const [reports, setReports] = useState<DailyCheckupTableType[]>([]);
   const [name, setName] = useState<string>("");
+  const [fileURL, setFileURL] = useState<string>("");
 
   const [render, setRender] = useState<boolean>(false);
   const router = useRouter();
@@ -42,7 +43,10 @@ function DailyCheckUpData({ params }: Props) {
       })
       .then((resBlob) => {
         const filename = `Daily Checkup_${group}_${subGroup}.xlsx`;
-        const file = new File([resBlob], filename);
+        const file = new File([resBlob], filename, {
+          type: resBlob.type,
+        });
+        console.log(file.name);
         window.open(URL.createObjectURL(file), "_blank");
       });
   };
@@ -55,8 +59,8 @@ function DailyCheckUpData({ params }: Props) {
         if (res == false) {
           router.push("signin");
         } else {
-          const group = params.subgroup.split("")[0];
-          const subGroup = parseInt(params.subgroup.split("")[1]);
+          const group = params.subgroup.split("")[0] as UserGroup;
+          const subGroup = parseInt(params.subgroup.split("")[1]) as 1 | 2;
           const date = new Date(params.date);
 
           console.log(date.toISOString());
@@ -77,6 +81,13 @@ function DailyCheckUpData({ params }: Props) {
               setReports(resJson.reports);
             })
             .catch((err) => alert(err));
+
+          getDailyCheckupReports(group, subGroup, date)
+            .then((res) => {
+              console.log(res);
+              return res.blob();
+            })
+            .then((resBlob) => setFileURL(URL.createObjectURL(resBlob)));
         }
       });
     }
@@ -138,7 +149,8 @@ function DailyCheckUpData({ params }: Props) {
             <ButtonOutlined
               icons="/download.svg"
               text="Unduh Riwayat"
-              onClick={downloadFile}
+              filename={`Daily Checkup_${params.subgroup[0]}_${params.subgroup[1]}.xlsx`}
+              fileURL={fileURL}
             />
 
             <div className="border rounded">
