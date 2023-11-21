@@ -20,6 +20,8 @@ function Screening() {
     useState<boolean>(false);
   const [group, setGroup] = useState<string>("");
   const [subGroup, setSubGroup] = useState<string>("");
+  const [filename, setFilename] = useState<string>("");
+  const [fileURL, setFileURL] = useState<string>("");
 
   const router = useRouter();
 
@@ -45,6 +47,16 @@ function Screening() {
   };
 
   useEffect(() => {
+    console.log("filter changed");
+    setFilename(
+      `Screening${group != "" ? "_" + group : "_" + "All"}${
+        subGroup != "" ? "_" + subGroup : ""
+      }` + ".xlsx"
+    );
+    setFileURL("");
+  }, [group, subGroup]);
+
+  useEffect(() => {
     tokenIsValid().then((res) => {
       setRender(res);
       getAllScreening(name, group, subGroup)
@@ -53,6 +65,10 @@ function Screening() {
         .catch((error) =>
           alert(`There was a problem with the fetch operation: ${error}`)
         );
+
+      getScreeningReports(group, subGroup)
+        .then((res) => res.blob())
+        .then((resBlob) => setFileURL(URL.createObjectURL(resBlob)));
 
       if (res == false) {
         router.push("/signin");
@@ -84,7 +100,8 @@ function Screening() {
           <ButtonOutlined
             icons="/download.svg"
             text="Unduh Riwayat Laporan"
-            onClick={downloadFile}
+            filename={filename}
+            fileURL={fileURL}
           />
 
           <div

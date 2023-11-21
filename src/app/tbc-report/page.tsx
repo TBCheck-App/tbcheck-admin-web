@@ -19,6 +19,8 @@ function TBCReport() {
   const [showFilterModal, setShowFilterModal] = useState<boolean>(false);
   const [group, setGroup] = useState<string>("");
   const [subGroup, setSubGroup] = useState<string>("");
+  const [filename, setFilename] = useState<string>("");
+  const [fileURL, setFileURL] = useState<string>("");
 
   const getTbReport = async () => {
     try {
@@ -37,6 +39,16 @@ function TBCReport() {
   };
 
   useEffect(() => {
+    console.log("filter changed");
+    setFilename(
+      `Laporan TBC${group != "" ? "_" + group : "_" + "All"}${
+        subGroup != "" ? "_" + subGroup : ""
+      }` + ".xlsx"
+    );
+    setFileURL("");
+  }, [group, subGroup]);
+
+  useEffect(() => {
     tokenIsValid().then((res) => {
       setRender(res);
 
@@ -47,6 +59,10 @@ function TBCReport() {
 
       // PUT FETCH AFTER if (res == false)
       getTbReport();
+
+      getTBCReports(group, subGroup)
+        .then((res) => res.blob())
+        .then((resBlob) => setFileURL(URL.createObjectURL(resBlob)));
     });
   }, [group, subGroup, search]);
 
@@ -75,7 +91,8 @@ function TBCReport() {
           <ButtonOutlined
             icons="/download.svg"
             text="Unduh Riwayat Laporan"
-            onClick={downloadFile}
+            filename={filename}
+            fileURL={fileURL}
           />
 
           <div className="border rounded">

@@ -23,6 +23,7 @@ function ResponseTimeLog() {
   const [subGroup, setSubGroup] = useState<string>("");
   const [showFilterDataResponseTimeLog, setShowFilterDataResponseTimeLog] =
     useState<boolean>(false);
+  const [filename, setFilename] = useState<string>("");
   const [fileURL, setFileURL] = useState<string>("");
 
   const [page, setPage] = useState<number>(1);
@@ -55,6 +56,16 @@ function ResponseTimeLog() {
         window.open(URL.createObjectURL(file), "_blank");
       });
   };
+
+  useEffect(() => {
+    console.log("filter changed");
+    setFilename(
+      `Response Time Log${group != "" ? "_" + group : "_" + "All"}${
+        subGroup != "" ? "_" + subGroup : ""
+      }` + ".xlsx"
+    );
+    setFileURL("");
+  }, [group, subGroup]);
 
   useEffect(() => {
     tokenIsValid().then((res) => {
@@ -113,11 +124,7 @@ function ResponseTimeLog() {
           <ButtonOutlined
             icons="/download.svg"
             text="Unduh Data"
-            filename={
-              `Response Time Log${group != "" ? "_" + group : "_" + "All"}${
-                subGroup != "" ? "_" + subGroup : ""
-              }` + ".xlsx"
-            }
+            filename={filename}
             fileURL={fileURL}
           />
 

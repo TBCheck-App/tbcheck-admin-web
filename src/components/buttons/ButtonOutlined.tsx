@@ -63,7 +63,7 @@ function ButtonOutlined({
               height={20}
             />
           ) : null}
-          <p className="text-sm font-medium text-[#5497F6]">{text}</p>
+          <p className="text-sm font-medium text-[#5497F6]">Loading...</p>
         </a>
       );
     }

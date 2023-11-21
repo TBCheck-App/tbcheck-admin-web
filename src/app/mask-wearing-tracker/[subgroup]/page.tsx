@@ -22,6 +22,10 @@ const MaskWearingTrackerSubGroup = ({ params }: Props) => {
   const router = useRouter();
 
   const [mwtLogs, setMwtLogs] = useState<MWTHistoryLog[] | null>(null);
+  const [filename, setFilename] = useState<string>(
+    `MWT_History_${params.subgroup}.xlsx`
+  );
+  const [fileURL, setFileURL] = useState<string>("");
 
   const group = params.subgroup[0];
   const subGroup = params.subgroup[1];
@@ -46,6 +50,10 @@ const MaskWearingTrackerSubGroup = ({ params }: Props) => {
       getAllMWTHistory(group, subGroup)
         .then((res) => res.json())
         .then((resJson) => setMwtLogs(resJson.histories));
+
+      getMWTReports(group, subGroup)
+        .then((res) => res.blob())
+        .then((resBlob) => setFileURL(URL.createObjectURL(resBlob)));
     }
   }, []);
 
@@ -86,7 +94,8 @@ const MaskWearingTrackerSubGroup = ({ params }: Props) => {
               <ButtonOutlined
                 icons="/download.svg"
                 text="Unduh History"
-                onClick={downloadFile}
+                filename={filename}
+                fileURL={fileURL}
               />
             </div>
 

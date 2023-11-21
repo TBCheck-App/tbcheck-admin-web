@@ -13,7 +13,7 @@ import apiEndpoints from "@/config/apiEndpoints";
 import { getAllUser, getUserData } from "@/utils/fetch";
 import ButtonBlue from "@/components/buttons/ButtonBlue";
 
-export default function DataPeserta() {
+export default function DataPesertaPage() {
   const [showFilterDataPeserta, setShowFilterDataPeserta] =
     useState<boolean>(false);
   const [dataPeserta, setDataPeserta] = useState<DataPeserta[] | null>(null);
@@ -22,6 +22,8 @@ export default function DataPeserta() {
   const [name, setName] = useState<string>("");
   const [render, setRender] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [filename, setFilename] = useState<string>("");
+  const [fileURL, setFileURL] = useState<string>("");
 
   const [page, setPage] = useState<number>(1);
 
@@ -57,6 +59,16 @@ export default function DataPeserta() {
   };
 
   useEffect(() => {
+    console.log("filter changed");
+    setFilename(
+      `Data_User${group != "" ? "_" + group : "_" + "All"}${
+        subGroup != "" ? "_" + subGroup : ""
+      }` + ".xlsx"
+    );
+    setFileURL("");
+  }, [group, subGroup]);
+
+  useEffect(() => {
     tokenIsValid().then((res) => {
       setRender(res);
       setIsLoading(false);
@@ -68,6 +80,10 @@ export default function DataPeserta() {
             console.log(resJson.users.length);
             setDataPeserta(resJson.users);
           });
+
+        getUserData(group, subGroup)
+          .then((res) => res.blob())
+          .then((resBlob) => setFileURL(URL.createObjectURL(resBlob)));
       }
     });
   }, [group, subGroup, name, page]);
@@ -101,7 +117,8 @@ export default function DataPeserta() {
             <ButtonOutlined
               icons="/download.svg"
               text="Data Peserta"
-              onClick={downloadFile}
+              filename={filename}
+              fileURL={fileURL}
             />
           </div>
 

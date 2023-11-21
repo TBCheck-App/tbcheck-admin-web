@@ -20,6 +20,8 @@ const SendNotificationPage = () => {
   const [schedulesData, setSchedulesData] = useState<
     NotificationSchedule[] | null
   >(null);
+  const [filename, setFilename] = useState<string>(`Notification History.xlsx`);
+  const [fileURL, setFileURL] = useState<string>("");
 
   const router = useRouter();
 
@@ -45,6 +47,10 @@ const SendNotificationPage = () => {
             console.log(resJson.schedules);
             setSchedulesData(resJson.schedules);
           });
+
+        getNotificationSchedulesReports()
+          .then((res) => res.blob())
+          .then((resBlob) => setFileURL(URL.createObjectURL(resBlob)));
       }
     });
   }, []);
@@ -74,7 +80,8 @@ const SendNotificationPage = () => {
                 icons="/download.svg"
                 text="Unduh Riwayat"
                 className="px-4 flex-1"
-                onClick={downloadFile}
+                filename={filename}
+                fileURL={fileURL}
               />
               {/* <ButtonBlue
                 icons="/plus.svg"
