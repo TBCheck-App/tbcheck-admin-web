@@ -19,27 +19,54 @@ function ButtonOutlined({
   filename,
   fileURL,
 }: Props) {
-  if (filename && fileURL) {
-    return (
-      <a
-        className={twMerge(
-          "border border-[#5497F6] w-full flex flex-row justify-center gap-4 rounded-md py-3",
-          className
-        )}
-        href={fileURL}
-        download={filename}
-      >
-        {icons ? (
-          <Image
-            src={icons}
-            alt=""
-            width={20}
-            height={20}
-          />
-        ) : null}
-        <p className="text-sm font-medium text-[#5497F6]">{text}</p>
-      </a>
-    );
+  if (filename != null && fileURL != null) {
+    if (fileURL != "") {
+      return (
+        <a
+          className={twMerge(
+            "border border-[#5497F6] w-full flex flex-row justify-center gap-4 rounded-md py-3",
+            className
+          )}
+          href={fileURL}
+          download={filename}
+        >
+          {icons ? (
+            <Image
+              src={icons}
+              alt=""
+              width={20}
+              height={20}
+            />
+          ) : null}
+          <p className="text-sm font-medium text-[#5497F6]">{text}</p>
+        </a>
+      );
+    } else {
+      return (
+        <a
+          className={twMerge(
+            "border border-[#5497F6] w-full flex flex-row justify-center gap-4 rounded-md py-3",
+            className
+          )}
+          onClick={() =>
+            alert(
+              "Preparing download...please kindly wait 🙏. Try press again later."
+            )
+          }
+          download={filename}
+        >
+          {icons ? (
+            <Image
+              src={icons}
+              alt=""
+              width={20}
+              height={20}
+            />
+          ) : null}
+          <p className="text-sm font-medium text-[#5497F6]">{text}</p>
+        </a>
+      );
+    }
   } else {
     return (
       <button

@@ -23,6 +23,7 @@ function ResponseTimeLog() {
   const [subGroup, setSubGroup] = useState<string>("");
   const [showFilterDataResponseTimeLog, setShowFilterDataResponseTimeLog] =
     useState<boolean>(false);
+  const [fileURL, setFileURL] = useState<string>("");
 
   const [page, setPage] = useState<number>(1);
 
@@ -81,6 +82,10 @@ function ResponseTimeLog() {
 
           setNotificationLogs(logs);
         });
+
+      getResponseTimeReports(group, subGroup)
+        .then((res) => res.blob())
+        .then((resBlob) => setFileURL(URL.createObjectURL(resBlob)));
     });
   }, [name, group, subGroup, page]);
 
@@ -108,7 +113,12 @@ function ResponseTimeLog() {
           <ButtonOutlined
             icons="/download.svg"
             text="Unduh Data"
-            onClick={downloadFile}
+            filename={
+              `Response Time Log${group != "" ? "_" + group : "_" + "All"}${
+                subGroup != "" ? "_" + subGroup : ""
+              }` + ".xlsx"
+            }
+            fileURL={fileURL}
           />
 
           <div className="border rounded">
