@@ -1,6 +1,8 @@
+"use client";
 import "./globals.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import { usePathname } from "next/navigation";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -14,10 +16,16 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const pathname = usePathname();
+
   return (
     <html lang="en">
       <body
-        className={`${inter.className} border-8 rounded-xl w-[406px] mx-auto my-11 py-5`}
+        className={`${inter.className} ${
+          pathname === "/privacy"
+            ? ""
+            : "border-8 rounded-xl w-[406px] mx-auto my-11 py-5"
+        }`}
       >
         {children}
       </body>
