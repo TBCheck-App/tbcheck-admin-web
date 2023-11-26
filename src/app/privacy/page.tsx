@@ -1,11 +1,5 @@
 import React from "react";
 
-// h1 40px
-// h2 32px
-// h3 24px
-// h4 16px
-// h5
-// h6
 const PrivacyPolicyPage = () => {
   return (
     <main className="max-w-7xl mx-auto privacy-page">
