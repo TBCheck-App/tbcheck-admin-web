@@ -170,6 +170,7 @@ const PrivacyPolicyPage = () => {
           </li>
         </ul>
         <h2>Retention of Your Personal Data</h2>
+
         <p>
           The Company will retain Your Personal Data only for as long as is
           necessary for the purposes set out in this Privacy Policy. We will
@@ -184,6 +185,12 @@ const PrivacyPolicyPage = () => {
           time, except when this data is used to strengthen the security or to
           improve the functionality of Our Service, or We are legally obligated
           to retain this data for longer time periods.
+        </p>
+        <p>
+          However, You can delete your account through the following{" "}
+          <a href="/delete-account">link</a>. You will no longer access the
+          application by deleting your account, but historical personal and
+          usage data will remain in the application.
         </p>
         <h2>Transfer of Your Personal Data</h2>
         <p>

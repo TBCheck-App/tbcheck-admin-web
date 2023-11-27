@@ -74,3 +74,11 @@
 .privacy-page ul li {
   margin-left: 16px;
 }
+
+.privacy-page a {
+  color: #5497f6;
+}
+
+.privacy-page a:hover {
+  text-decoration: underline;
+}
