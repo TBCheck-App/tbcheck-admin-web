@@ -26,6 +26,11 @@ export default function RootLayout({
           name="description"
           content="Website for admin to manage TBCheck mobile app."
         />
+        <link
+          rel="shortcut icon"
+          href="favicon.png"
+          type="image/x-icon"
+        />
       </head>
       <body
         className={`${inter.className} ${
